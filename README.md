@@ -1,3 +1,3 @@
 # ControlWatch
 
-#App to manage movies and tv shows
+App to manage movies and tv shows
