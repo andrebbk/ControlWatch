@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1062
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlWatch", "ControlWatch\ControlWatch.csproj", "{70F56426-BD22-4274-83C7-72BD168BFD4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70F56426-BD22-4274-83C7-72BD168BFD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F56426-BD22-4274-83C7-72BD168BFD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F56426-BD22-4274-83C7-72BD168BFD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F56426-BD22-4274-83C7-72BD168BFD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E892F2B4-3386-468F-B355-E8121A7322BE}
+	EndGlobalSection
+EndGlobal
