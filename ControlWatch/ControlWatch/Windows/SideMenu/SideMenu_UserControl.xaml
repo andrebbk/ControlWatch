@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ControlWatch.Windows.SideMenu.SideMenu_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlWatch.Windows.SideMenu"
+             mc:Ignorable="d" 
+             Height="450" Width="253">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,24,0,0" TextWrapping="Wrap" Text="Menu" VerticalAlignment="Top" FontFamily="Yu Gothic" FontWeight="Bold" FontSize="20" Foreground="White" FontStyle="Italic"/>
+
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonHome" TextElement.FontSize="22px" Padding="15, 0, 0, 0" Margin="10,63,0,0" VerticalAlignment="Top" Width="233" Height="57" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonHome_Click">
+            <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Home" VerticalAlignment="Center" Margin="0,0,122,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+                <Image  Width="46" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,4" Source="/ControlWatch;component/Resources/Buttons/radarr.png"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonMovies" TextElement.FontSize="22px" Padding="15, 0, 0, 0" Margin="10,128,0,0" VerticalAlignment="Top" Width="233" Height="57" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonMovies_Click">
+            <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Movies" VerticalAlignment="Center" Margin="0,0,115,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+                <Image  Width="46" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,4" Source="/ControlWatch;component/Resources/Buttons/movie-icon-29.png"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonAddMovie" TextElement.FontSize="22px" Padding="15, 0, 0, 0" Margin="10,194,0,0" VerticalAlignment="Top" Width="233" Height="57" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonAddMovie_Click">
+            <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="New Movie" VerticalAlignment="Center" Margin="0,0,92,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+                <Image  Width="38" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,6,0,4" Source="/ControlWatch;component/Resources/Buttons/add-movie.png"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTvShow" TextElement.FontSize="22px" Padding="15, 0, 0, 0" Margin="10,260,0,0" VerticalAlignment="Top" Width="233" Height="57" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTvShow_Click">
+            <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Tv Shows" VerticalAlignment="Center" Margin="0,0,100,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+                <Image  Width="46" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,4" Source="/ControlWatch;component/Resources/Buttons/TV-Shows-icon.png"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonAddTvShow" TextElement.FontSize="22px" Padding="15, 0, 0, 0" Margin="10,326,0,0" VerticalAlignment="Top" Width="233" Height="57" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonAddTvShow_Click">
+            <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="New Tv Show" VerticalAlignment="Center" Margin="0,0,76,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+                <Image  Width="44" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,6,0,5" Source="/ControlWatch;component/Resources/Buttons/Navigation Icon_TV-06.png"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

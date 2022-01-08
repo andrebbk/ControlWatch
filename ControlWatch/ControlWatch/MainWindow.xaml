@@ -3,10 +3,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:ControlWatch"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Control Watch" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF292929">
+    <Window.Resources>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="278"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GridBackground">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="278"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GridBackground">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>       
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpen">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="OnCloseExecuted" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="Close"/>
+    </Window.InputBindings>
     <Grid>
+        <!-- SLIDE MENU -->
+        <Grid x:Name="GridBackground" Background="#55313131" Opacity="0" MouseDown="GridBackground_MouseDown"/>
+
+        <Button x:Name="ButtonOpen" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Width="41" Height="41" Padding="0" Margin="0,200,0,0" Click="ButtonOpen_Click">
+            <materialDesign:PackIcon Kind="Menu" Foreground="#FFFDFDFD" Height="31" Width="31"/>
+        </Button>
         
+        <Grid x:Name="GridMenu" Width="278" HorizontalAlignment="Left" Margin="-283,200,0,408" RenderTransformOrigin="0.5,0.5" Opacity="1" Background="#FF131313">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+
+            <materialDesign:Card Padding="32"  >
+                <materialDesign:Card.Background>
+                    <SolidColorBrush  Opacity="0"/>
+                </materialDesign:Card.Background>
+
+                <Controls:TransitioningContentControl x:Name="DrawableMenuContainer" Height="450" Width="253" Transition="Left" Margin="-30,-31,-29,-29" Padding="0, 0, 0, 0"/>
+
+            </materialDesign:Card>
+        </Grid>
+        <!--END  SLIDE MENU -->
     </Grid>
 </Window>
