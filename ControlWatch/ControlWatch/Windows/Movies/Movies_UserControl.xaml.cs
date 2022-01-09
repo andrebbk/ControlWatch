@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ControlWatch.Commons.Helpers;
+using ControlWatch.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,32 +26,34 @@ namespace ControlWatch.Windows.Movies
     {
         private MainWindow _mainWindow;
 
+        private MovieService moviesService;
+
         public Movies_UserControl(MainWindow mainWindow)
         {
             InitializeComponent();
             this._mainWindow = mainWindow;
+
+            this.moviesService = new MovieService();
+
+            LoadMovieList();
         }
 
         private void LoadMovieList()
         {
-            ListViewMovies.IsEnabled = false;
-
             new Thread(() =>
             {
-                var othersList = othersService.GetOthersPhotos(((pagNumber - 1) * IPP), IPP);
+                var moviesList = moviesService.GetMovies();              
 
-                var othersConfig = parameterizationService.GetParameterizationByKey(UtilsConstants.OthersRepositoryPath);
-
-                if (othersList != null && othersConfig != null)
+                if (moviesList != null)
                 {
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
                     ObservableCollection<ListMoviesItem> moviesToShow = new ObservableCollection<ListMoviesItem>();
 
-                    foreach (var item in othersList)
-                        moviesToShow.Add(new ListOthersItem()
+                    foreach (var item in moviesList)
+                        moviesToShow.Add(new ListMoviesItem()
                         {
-                            OtherId = item.Id,
-                            OtherFile = Utils.LoadImageToBitmapStreamImage(Utils.GetGlobalRepositoryDriveLetter() + ":" + othersConfig.ParamValue + "\\" + item.FileName)
+                            MovieId = item.MovieId,
+                            MovieCover = Utils.LoadImageToBitmapStreamImage(item.movieCover != null ? item.movieCover.CoverPath : @"X:/Repositorios/ControlWatch/ControlWatch/ControlWatch/Resources/MovieExample.jpg")
                         });
 
                     //BINDING
@@ -61,6 +65,8 @@ namespace ControlWatch.Windows.Movies
 
                 //NUMBER
                 //TextBlockOthersNumber.Dispatcher.BeginInvoke((Action)(() => TextBlockOthersNumber.Text = othersService.OthersFilesCount().ToString()));
+
+                //ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.IsEnabled = true));
             }).Start();
 
             Canvas.SetZIndex(ListViewMovies, 0);
@@ -88,6 +94,26 @@ namespace ControlWatch.Windows.Movies
         }
 
         private void DeleteMovie_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Pag_Left_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Pag_First_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Pag_Last_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Pag_Right_Click(object sender, RoutedEventArgs e)
         {
 
         }

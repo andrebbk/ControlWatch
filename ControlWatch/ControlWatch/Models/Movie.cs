@@ -23,5 +23,8 @@ namespace ControlWatch.Models
         public DateTime CreateDate { get; set; }
 
         public bool Deleted { get; set; }
+
+
+        public MovieCover movieCover { get; set; }
     }
 }

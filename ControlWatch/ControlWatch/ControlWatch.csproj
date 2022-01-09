@@ -101,6 +101,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commons\Enums\MenuOptionsTypeValues.cs" />
+    <Compile Include="Commons\Helpers\Utils.cs" />
+    <Compile Include="Commons\Services\IMovieService.cs" />
+    <Compile Include="Services\MovieService.cs" />
     <Compile Include="Windows\Dashboard\Dashboard_UserControl.xaml.cs">
       <DependentUpon>Dashboard_UserControl.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,25 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Buttons\Navigation Icon_TV-06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MovieExample.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Arrows\flecha_deerecha_L.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Arrows\flecha_deerecha_R.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Arrows\pngfuel_L.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Arrows\pngfuel_R.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

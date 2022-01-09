@@ -46,7 +46,7 @@
         <Controls:TransitioningContentControl x:Name="MainContainer" Height="1049" Width="1871" Transition="Right"  HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="41,0,0,0"/>
 
         <!-- SLIDE MENU -->
-        <Grid x:Name="GridBackground" Background="#55313131" Opacity="0" MouseDown="GridBackground_MouseDown"/>
+        <Grid x:Name="GridBackground" Background="#55313131" Opacity="0" MouseDown="GridBackground_MouseDown" Panel.ZIndex="-2"/>
 
         <Button x:Name="ButtonOpen" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Width="41" Height="41" Padding="0" Margin="0,200,0,0" Click="ButtonOpen_Click">
             <materialDesign:PackIcon Kind="Menu" Foreground="#FFFDFDFD" Height="31" Width="31"/>

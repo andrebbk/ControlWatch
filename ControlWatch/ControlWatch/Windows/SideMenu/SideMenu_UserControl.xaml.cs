@@ -33,11 +33,13 @@ namespace ControlWatch.Windows.SideMenu
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.SetMainContent(MenuOptionsTypeValues.Dashboard);
+            _mainWindow.CloseSideDrawableMenu();
         }
 
         private void ButtonMovies_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.SetMainContent(MenuOptionsTypeValues.Movies);
+            _mainWindow.CloseSideDrawableMenu();
         }
 
         private void ButtonAddMovie_Click(object sender, RoutedEventArgs e)

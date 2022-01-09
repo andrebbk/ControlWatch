@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              Height="1049" Width="1871">
     <Grid>
-        <!--LIST VIEW OTHERS-->
-        <ListView x:Name="ListViewMovies" HorizontalAlignment="Left" Height="865" Margin="10,174,0,0" VerticalAlignment="Top" Width="1851" 
+        <!--LIST VIEW MOVIES-->
+        <ListView x:Name="ListViewMovies" HorizontalAlignment="Left" Height="825" Margin="11,153,0,0" VerticalAlignment="Top" Width="1851" 
                   Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                  MouseDoubleClick="ListViewMovies_MouseDoubleClick" SelectionMode="Single" SelectionChanged="ListViewMovies_SelectionChanged">
+                  MouseDoubleClick="ListViewMovies_MouseDoubleClick" SelectionMode="Extended" SelectionChanged="ListViewMovies_SelectionChanged" SelectedIndex="0">
             <!--context  Menu-->
             <ListView.ContextMenu>
                 <ContextMenu Name="ZoneIformationList"  Background="#FF373638" TextElement.Foreground="White">
@@ -22,16 +22,41 @@
             <!--View-->
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Margin="50" />
+                    <WrapPanel Margin="30" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" Margin="20, 0, 20, 0">
-                        <Image Width="200" Height="230" Stretch="Uniform" Source="{Binding MovieCover}"/>
+                    <StackPanel Orientation="Vertical" Margin="15, 0, 15, 0">
+                        <Image Width="230" Height="260" Stretch="Uniform" Source="{Binding MovieCover}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <!--Pagination Controls-->
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_Left" TextElement.FontSize="22px" Padding="10, 5, 5, 5" Margin="92,983,0,0" VerticalAlignment="Top" Width="35" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_Left_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="23" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/flecha_deerecha_L.png" Margin="1,14,0,13"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_First" TextElement.FontSize="22px" Padding="0, 5, 5, 5" Margin="130,983,0,0" VerticalAlignment="Top" Width="34" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_First_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="19" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/pngfuel_L.png" Margin="8,16,0,14"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_Last" TextElement.FontSize="22px" Padding="0, 5, 5, 5" Margin="173,983,0,0" VerticalAlignment="Top" Width="34" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_Last_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="19" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/pngfuel_R.png" Margin="11 ,16,0,14"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_Right" TextElement.FontSize="22px" Padding="10, 5, 5, 5" Margin="212,983,0,0" VerticalAlignment="Top" Width="35" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_Right_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="23" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/flecha_deerecha_R.png" Margin="2,14,0,13"/>
+            </StackPanel>
+        </Button>
+
+        <TextBlock x:Name="TextBlock_PaginationText" HorizontalAlignment="Left" Foreground="#DD171717" Margin="258,1002,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127"/>
+        <!--Pagination Controls-->
     </Grid>
 </UserControl>

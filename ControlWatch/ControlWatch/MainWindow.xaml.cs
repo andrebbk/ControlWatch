@@ -29,14 +29,21 @@ namespace ControlWatch
         private MenuOptionsTypeValues activeMenuOption;
 
         public MainWindow()
-        {            
+        {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowState = WindowState.Maximized;
+
             InitializeComponent();
+
+            //Mostrar a barra de tarefas do windows
+            this.MaxHeight = SystemParameters.WorkArea.Height + 14;
+
             LoadMainWindow();
         }
 
         private void LoadMainWindow()
         {
-            IsDrawableOpen = true;
+            IsDrawableOpen = false;
             this.DrawableMenuContainer.Content = new SideMenu_UserControl(this);
 
             //Init content
@@ -49,6 +56,7 @@ namespace ControlWatch
         {
             IsDrawableOpen = true;
             ButtonOpen.Visibility = Visibility.Hidden;
+            Canvas.SetZIndex(this.GridBackground, 0);
         }
 
         //Click on background
@@ -62,6 +70,8 @@ namespace ControlWatch
                 IsDrawableOpen = false;
 
                 ButtonOpen.Visibility = Visibility.Visible;
+
+                Canvas.SetZIndex(this.GridBackground, -2);
             }
         }
 
@@ -115,6 +125,18 @@ namespace ControlWatch
                 default:
                     break;
             }
+        }
+
+        public void CloseSideDrawableMenu()
+        {
+            Storyboard sb = this.FindResource("CloseMenu") as Storyboard;
+            sb.Begin();
+
+            IsDrawableOpen = false;
+
+            ButtonOpen.Visibility = Visibility.Visible;
+
+            Canvas.SetZIndex(this.GridBackground, -2);
         }
     }
 }
