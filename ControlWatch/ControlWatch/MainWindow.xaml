@@ -28,7 +28,7 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
-        </Storyboard>       
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpen">
@@ -42,13 +42,16 @@
         <KeyBinding Key="Esc" Command="Close"/>
     </Window.InputBindings>
     <Grid>
+        <!--Main Container-->
+        <Controls:TransitioningContentControl x:Name="MainContainer" Height="1049" Width="1871" Transition="Right"  HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="41,0,0,0"/>
+
         <!-- SLIDE MENU -->
         <Grid x:Name="GridBackground" Background="#55313131" Opacity="0" MouseDown="GridBackground_MouseDown"/>
 
         <Button x:Name="ButtonOpen" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Width="41" Height="41" Padding="0" Margin="0,200,0,0" Click="ButtonOpen_Click">
             <materialDesign:PackIcon Kind="Menu" Foreground="#FFFDFDFD" Height="31" Width="31"/>
         </Button>
-        
+
         <Grid x:Name="GridMenu" Width="278" HorizontalAlignment="Left" Margin="-283,200,0,408" RenderTransformOrigin="0.5,0.5" Opacity="1" Background="#FF131313">
             <Grid.RenderTransform>
                 <TransformGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlWatch.Commons.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,12 +32,12 @@ namespace ControlWatch.Windows.SideMenu
         //Buttons
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.SetMainContent(MenuOptionsTypeValues.Dashboard);
         }
 
         private void ButtonMovies_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.SetMainContent(MenuOptionsTypeValues.Movies);
         }
 
         private void ButtonAddMovie_Click(object sender, RoutedEventArgs e)

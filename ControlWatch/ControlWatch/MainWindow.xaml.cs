@@ -1,4 +1,7 @@
-﻿using ControlWatch.Windows.SideMenu;
+﻿using ControlWatch.Commons.Enums;
+using ControlWatch.Windows.Dashboard;
+using ControlWatch.Windows.Movies;
+using ControlWatch.Windows.SideMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +26,7 @@ namespace ControlWatch
     public partial class MainWindow : Window
     {
         private bool IsDrawableOpen;
+        private MenuOptionsTypeValues activeMenuOption;
 
         public MainWindow()
         {            
@@ -34,6 +38,10 @@ namespace ControlWatch
         {
             IsDrawableOpen = true;
             this.DrawableMenuContainer.Content = new SideMenu_UserControl(this);
+
+            //Init content
+            this.MainContainer.Content = new Dashboard_UserControl(this);
+            activeMenuOption = MenuOptionsTypeValues.Dashboard;
         }
 
         //Open Drawable Menu
@@ -61,6 +69,52 @@ namespace ControlWatch
         private void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             this.Close();
+        }
+
+
+        //Public Acess
+        public void SetMainContent(MenuOptionsTypeValues menuOption)
+        {
+            switch (menuOption)
+            {
+                case MenuOptionsTypeValues.Dashboard:
+                    if(activeMenuOption != MenuOptionsTypeValues.Dashboard)
+                    {
+                        this.MainContainer.Content = new Dashboard_UserControl(this);
+                        activeMenuOption = MenuOptionsTypeValues.Dashboard;
+                    }                    
+                    break;
+                case MenuOptionsTypeValues.Movies:
+                    if (activeMenuOption != MenuOptionsTypeValues.Movies)
+                    {
+                        this.MainContainer.Content = new Movies_UserControl(this);
+                        activeMenuOption = MenuOptionsTypeValues.Movies;
+                    }                        
+                    break;
+                case MenuOptionsTypeValues.NewMovie:
+                    if (activeMenuOption != MenuOptionsTypeValues.NewMovie)
+                    {
+                        //this.MainContainer.Content = new Movies_UserControl(this);
+                        activeMenuOption = MenuOptionsTypeValues.NewMovie;
+                    }
+                    break;
+                case MenuOptionsTypeValues.TvShows:
+                    if (activeMenuOption != MenuOptionsTypeValues.TvShows)
+                    {
+                        //this.MainContainer.Content = new Movies_UserControl(this);
+                        activeMenuOption = MenuOptionsTypeValues.TvShows;
+                    }
+                    break;
+                case MenuOptionsTypeValues.NewTvShow:
+                    if (activeMenuOption != MenuOptionsTypeValues.NewTvShow)
+                    {
+                        //this.MainContainer.Content = new Movies_UserControl(this);
+                        activeMenuOption = MenuOptionsTypeValues.NewTvShow;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

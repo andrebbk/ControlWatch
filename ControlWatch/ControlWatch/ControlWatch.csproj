@@ -100,6 +100,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commons\Enums\MenuOptionsTypeValues.cs" />
+    <Compile Include="Windows\Dashboard\Dashboard_UserControl.xaml.cs">
+      <DependentUpon>Dashboard_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Movies\Movies_UserControl.xaml.cs">
+      <DependentUpon>Movies_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SideMenu\SideMenu_UserControl.xaml.cs">
       <DependentUpon>SideMenu_UserControl.xaml</DependentUpon>
     </Compile>
@@ -119,6 +126,14 @@
     <Page Include="Resources\Buttons\ButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Dashboard\Dashboard_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Movies\Movies_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SideMenu\SideMenu_UserControl.xaml">
       <SubType>Designer</SubType>
