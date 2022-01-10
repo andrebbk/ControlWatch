@@ -92,6 +92,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="ToastNotifications, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.2.5.1\lib\net40\ToastNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="ToastNotifications.Messages, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.Messages.2.5.1\lib\net40\ToastNotifications.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -102,8 +108,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commons\Enums\MenuOptionsTypeValues.cs" />
+    <Compile Include="Commons\Helpers\NotificationHelper.cs" />
     <Compile Include="Commons\Helpers\Utils.cs" />
     <Compile Include="Commons\Services\IMovieService.cs" />
+    <Compile Include="Notifications\CustomInput\CustomCommandExtensions.cs" />
+    <Compile Include="Notifications\CustomInput\CustomInputDisplayPart.xaml.cs">
+      <DependentUpon>CustomInputDisplayPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\CustomInput\CustomInputNotification.cs" />
+    <Compile Include="Notifications\CustomMessage\CustomDisplayPart.xaml.cs">
+      <DependentUpon>CustomDisplayPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\CustomMessage\CustomMessageExtensions.cs" />
+    <Compile Include="Notifications\CustomMessage\CustomNotification.cs" />
+    <Compile Include="Notifications\Utilities\RelayCommand.cs" />
     <Compile Include="Services\MovieService.cs" />
     <Compile Include="Windows\Dashboard\Dashboard_UserControl.xaml.cs">
       <DependentUpon>Dashboard_UserControl.xaml</DependentUpon>
@@ -130,6 +148,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Notifications\CustomInput\CustomInputDisplayPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Notifications\CustomMessage\CustomDisplayPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Buttons\ButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

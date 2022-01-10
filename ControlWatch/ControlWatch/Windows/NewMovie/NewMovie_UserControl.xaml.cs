@@ -1,4 +1,5 @@
 ﻿using ControlWatch.Commons.Helpers;
+using ControlWatch.Notifications.CustomMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,29 @@ namespace ControlWatch.Windows.NewMovie
 
         private void ButtonSaveMovie_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateModel())
+            {
 
+            }
+        }
+
+        private bool ValidateModel()
+        {
+            bool isValid = true;
+
+
+            if (String.IsNullOrWhiteSpace(TextBox_MovieTitle.Text))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie title is required!");
+                isValid = false;
+            }
+            else if (String.IsNullOrWhiteSpace(TextBox_MovieCoverFileName.Text))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie cover is required!");
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }
