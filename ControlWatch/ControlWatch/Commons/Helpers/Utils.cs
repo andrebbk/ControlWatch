@@ -30,5 +30,17 @@ namespace ControlWatch.Commons.Helpers
                 return thumb;
             }
         }
+
+        //load image to bitmap without lock file and no decode resolution
+        public static BitmapImage LoadImageToBitmapImageNoDecodeChange(string fileName)
+        {
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(fileName);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            bitmap.Freeze();
+            return bitmap;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ControlWatch.Commons.Enums;
 using ControlWatch.Windows.Dashboard;
 using ControlWatch.Windows.Movies;
+using ControlWatch.Windows.NewMovie;
 using ControlWatch.Windows.SideMenu;
 using System;
 using System.Collections.Generic;
@@ -104,7 +105,7 @@ namespace ControlWatch
                 case MenuOptionsTypeValues.NewMovie:
                     if (activeMenuOption != MenuOptionsTypeValues.NewMovie)
                     {
-                        //this.MainContainer.Content = new Movies_UserControl(this);
+                        this.MainContainer.Content = new NewMovie_UserControl(this);
                         activeMenuOption = MenuOptionsTypeValues.NewMovie;
                     }
                     break;

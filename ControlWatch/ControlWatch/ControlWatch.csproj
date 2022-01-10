@@ -82,6 +82,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,6 +111,9 @@
     <Compile Include="Windows\Movies\Movies_UserControl.xaml.cs">
       <DependentUpon>Movies_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\NewMovie\NewMovie_UserControl.xaml.cs">
+      <DependentUpon>NewMovie_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SideMenu\SideMenu_UserControl.xaml.cs">
       <DependentUpon>SideMenu_UserControl.xaml</DependentUpon>
     </Compile>
@@ -135,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Movies\Movies_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NewMovie\NewMovie_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +219,9 @@
     <Resource Include="Resources\Arrows\pngfuel_R.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\AluminumGreyImages.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

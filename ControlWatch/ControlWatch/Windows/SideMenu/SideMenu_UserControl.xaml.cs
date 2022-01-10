@@ -44,7 +44,8 @@ namespace ControlWatch.Windows.SideMenu
 
         private void ButtonAddMovie_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.SetMainContent(MenuOptionsTypeValues.NewMovie);
+            _mainWindow.CloseSideDrawableMenu();
         }
 
         private void ButtonTvShow_Click(object sender, RoutedEventArgs e)
