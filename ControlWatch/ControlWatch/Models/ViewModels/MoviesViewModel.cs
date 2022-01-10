@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ControlWatch.Models
+namespace ControlWatch.Models.ViewModels
 {
-    public class Movie
+    public class MoviesViewModel
     {
-        [Key]
         public int MovieId { get; set; }
 
         public string MovieTitle { get; set; }
@@ -23,5 +21,8 @@ namespace ControlWatch.Models
         public DateTime CreateDate { get; set; }
 
         public bool Deleted { get; set; }
+
+
+        public MovieCover movieCover { get; set; }
     }
 }

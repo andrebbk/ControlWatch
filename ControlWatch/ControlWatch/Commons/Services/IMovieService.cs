@@ -1,4 +1,6 @@
-﻿using ControlWatch.Models;
+﻿using ControlWatch.Commons.Enums;
+using ControlWatch.Models;
+using ControlWatch.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,10 @@ namespace ControlWatch.Commons.Services
 {
     public interface IMovieService
     {
-        List<Movie> GetMovies();
+        List<MoviesViewModel> GetMovies();
+
+        bool MovieAlreadyExists(string movieTitle, int movieYear);
+
+        OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover);
     }
 }

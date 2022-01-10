@@ -1,5 +1,7 @@
-﻿using ControlWatch.Commons.Helpers;
+﻿using ControlWatch.Commons.Enums;
+using ControlWatch.Commons.Helpers;
 using ControlWatch.Notifications.CustomMessage;
+using ControlWatch.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +27,17 @@ namespace ControlWatch.Windows.NewMovie
     public partial class NewMovie_UserControl : System.Windows.Controls.UserControl
     {
         private MainWindow _mainWindow;
+        private MovieService movieService;
 
         private string LoadedMNovieCoverPath = "empty";
+        private int NewMovieYear = 0;
 
         public NewMovie_UserControl(MainWindow mainWindow)
         {
             InitializeComponent();
 
             _mainWindow = mainWindow;
+            movieService = new MovieService();
 
             LoadNewMovie();
         }
@@ -85,14 +90,25 @@ namespace ControlWatch.Windows.NewMovie
         {
             if (ValidateModel())
             {
+                var createMovieResult = movieService.CreateMovie(
+                    TextBox_MovieTitle.Text.Trim(),
+                    NewMovieYear,
+                    CheckBoxIsFavorite.IsChecked.Value,
+                    LoadedMNovieCoverPath);
 
+                if (createMovieResult == OutputTypeValues.Ok)
+                {
+                    ClearForm();
+                    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie saved successfully!");
+                }
+                else
+                    NotifyError(createMovieResult);
             }
         }
 
         private bool ValidateModel()
         {
             bool isValid = true;
-
 
             if (String.IsNullOrWhiteSpace(TextBox_MovieTitle.Text))
             {
@@ -104,8 +120,60 @@ namespace ControlWatch.Windows.NewMovie
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie cover is required!");
                 isValid = false;
             }
+            else if(!int.TryParse(ComboBoxYears.SelectedValue.ToString(), out NewMovieYear))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
+                isValid = false;
+            }
+            else if(NewMovieYear < 1980)
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
+                isValid = false;
+            }
 
             return isValid;
+        }
+
+        private void ClearForm()
+        {
+            //Title
+            TextBox_MovieTitle.Clear();        
+            
+            //Year
+            ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
+
+            //IsFavorite
+            CheckBoxIsFavorite.IsChecked = false;
+
+            //Cover
+            MovieCover.Source = null;
+            TextBox_MovieCoverFileName.Clear();
+            LoadedMNovieCoverPath = "empty";
+        }
+
+        private void NotifyError(OutputTypeValues result)
+        {
+            string msg = null;
+
+            switch (result)
+            {
+                case OutputTypeValues.AlreadyExists:
+                    msg = "Movie already exists!";
+                    break;
+                case OutputTypeValues.DataError:
+                    msg = "Movie data is invalid!";
+                    break;
+                case OutputTypeValues.SavingCoverError:
+                    msg = "An error has occurred saving cover!";
+                    break;
+                case OutputTypeValues.Error:
+                default:
+                    msg = "An error has occurred saving movie!";
+                    break;
+            }
+
+            if(!String.IsNullOrEmpty(msg))
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", msg);
         }
     }
 }

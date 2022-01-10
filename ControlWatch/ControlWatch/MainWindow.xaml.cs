@@ -1,4 +1,5 @@
 ﻿using ControlWatch.Commons.Enums;
+using ControlWatch.Commons.Helpers;
 using ControlWatch.Windows.Dashboard;
 using ControlWatch.Windows.Movies;
 using ControlWatch.Windows.NewMovie;
@@ -40,6 +41,8 @@ namespace ControlWatch
             this.MaxHeight = SystemParameters.WorkArea.Height + 14;
 
             LoadMainWindow();
+
+            Utils.GetControlWatchMoviesFolder();
         }
 
         private void LoadMainWindow()
