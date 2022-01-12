@@ -1,4 +1,5 @@
 ﻿using ControlWatch.Commons.Helpers;
+using ControlWatch.Models.ViewModels;
 using ControlWatch.Services;
 using System;
 using System.Collections.Generic;
@@ -47,14 +48,16 @@ namespace ControlWatch.Windows.Movies
                 if (moviesList != null)
                 {
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
-                    ObservableCollection<ListMoviesItem> moviesToShow = new ObservableCollection<ListMoviesItem>();
+                    ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();
 
                     foreach (var item in moviesList)
-                        moviesToShow.Add(new ListMoviesItem()
-                        {
-                            MovieId = item.MovieId,
-                            MovieCover = Utils.LoadImageToBitmapStreamImage(item.movieCover != null ? item.movieCover.CoverPath : @"X:/Repositorios/ControlWatch/ControlWatch/ControlWatch/Resources/MovieExample.jpg")
-                        });
+                    {
+                        //load imagem
+                        if(!String.IsNullOrEmpty(item.MovieCoverPath))
+                            item.MovieCover = Utils.LoadImageToBitmapStreamImage(item.MovieCoverPath);
+
+                        moviesToShow.Add(item);
+                    }                    
 
                     //BINDING
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = moviesToShow));
@@ -117,11 +120,5 @@ namespace ControlWatch.Windows.Movies
         {
 
         }
-    }
-
-    internal class ListMoviesItem
-    {
-        public int MovieId { get; set; }
-        public BitmapImage MovieCover { get; set; }
     }
 }

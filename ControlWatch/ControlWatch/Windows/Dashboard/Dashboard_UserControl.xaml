@@ -8,10 +8,10 @@
              Height="1049" Width="1871">
     <Grid>
         <Label Content="Control Watch" HorizontalAlignment="Left" Margin="785,56,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="36" RenderTransformOrigin="0.512,-0.893"/>
-        <Label Content="Movies: 45" HorizontalAlignment="Left" Margin="327,254,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
-        <Label Content="Tv Shows: 0" HorizontalAlignment="Left" Margin="327,658,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
-        <Label Content="Views: 46" HorizontalAlignment="Left" Margin="1213,254,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
-        <Label Content="Views: 0" HorizontalAlignment="Left" Margin="1213,658,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
+        <Label Name="LabelMoviesCount"  Content="Movies:" HorizontalAlignment="Left" Margin="327,254,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
+        <Label Name="LabelTvShowsCount" Content="Tv Shows:" HorizontalAlignment="Left" Margin="327,658,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
+        <Label Name="LabelMoviesViewsCount" Content="Views:" HorizontalAlignment="Left" Margin="1213,254,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
+        <Label Name="LabelTvShowsViewsCount" Content="Views:" HorizontalAlignment="Left" Margin="1213,658,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="60" RenderTransformOrigin="0.512,-0.893"/>
         <Label Content="Welcome to your movies &amp; tv shows watch list management app" HorizontalAlignment="Left" Margin="618,117,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" RenderTransformOrigin="0.512,-0.893"/>
 
     </Grid>

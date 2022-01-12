@@ -141,6 +141,8 @@
     <Compile Include="Commons\Helpers\NotificationHelper.cs" />
     <Compile Include="Commons\Helpers\Utils.cs" />
     <Compile Include="Commons\Services\IMovieService.cs" />
+    <Compile Include="Commons\Services\IStatsService.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
     <Compile Include="Notifications\CustomInput\CustomCommandExtensions.cs" />
     <Compile Include="Notifications\CustomInput\CustomInputDisplayPart.xaml.cs">
@@ -154,6 +156,7 @@
     <Compile Include="Notifications\CustomMessage\CustomNotification.cs" />
     <Compile Include="Notifications\Utilities\RelayCommand.cs" />
     <Compile Include="Services\MovieService.cs" />
+    <Compile Include="Services\StatsService.cs" />
     <Compile Include="Windows\Dashboard\Dashboard_UserControl.xaml.cs">
       <DependentUpon>Dashboard_UserControl.xaml</DependentUpon>
     </Compile>

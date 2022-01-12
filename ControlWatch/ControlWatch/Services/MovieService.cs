@@ -15,7 +15,7 @@ namespace ControlWatch.Services
 {
     public class MovieService : IMovieService
     {
-        public List<MoviesViewModel> GetMovies()
+        public IEnumerable<MoviesViewModel> GetMovies()
         {
             Console.WriteLine("MovieService.GetMovies: ENTER");
             List<MoviesViewModel> output = new List<MoviesViewModel>();
@@ -24,31 +24,23 @@ namespace ControlWatch.Services
             {
                 using (var db = new NorthwindContext())
                 {
-                    //non-lambda, query-syntax LINQ
-                    /*var query = (from o in db.OtherPhotos
-                                 where o.IsActive == true
-                                 orderby o.ViewsCount ascending, o.Id ascending
-                                 select new
+                    var query = (from m in db.Movies
+                                 join c in db.MovieCovers on m.MovieId equals c.MovieId
+                                 where !m.Deleted
+                                 orderby m.MovieYear descending, m.MovieTitle ascending
+                                 select new 
                                  {
-                                     o.Id,
-                                     o.FileName,
-                                     o.ViewsCount
-                                 }).Skip(skp).Take(tk).ToList(); */
+                                     m.MovieId,
+                                     c.CoverPath
+                                 });
 
-                    //var query = 
-
-                    //if (query.Any())
-                    //{
-                    //    List<OtherPhoto> output = new List<OtherPhoto>();
-
-                    //    foreach (var item in query)
-                    //        output.Add(new OtherPhoto() { Id = item.Id, FileName = item.FileName });
-
-                    //    return output;
-                    //}
-                    for(int i = 1; i<201; i++)
+                    if (query.Any())
                     {
-                        output.Add(new MoviesViewModel() { MovieId = i });
+                        output = query.Select(m => new MoviesViewModel
+                        {
+                            MovieId = m.MovieId,
+                            MovieCoverPath = m.CoverPath
+                        }).ToList();
                     }
                 }
             }
