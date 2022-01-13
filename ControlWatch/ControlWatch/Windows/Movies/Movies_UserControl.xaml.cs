@@ -26,8 +26,11 @@ namespace ControlWatch.Windows.Movies
     public partial class Movies_UserControl : UserControl
     {
         private MainWindow _mainWindow;
-
         private MovieService moviesService;
+
+        private string searchTitle = null;
+        private int? searchYear = null;
+        private bool searchFavorite = false;
 
         public Movies_UserControl(MainWindow mainWindow)
         {
@@ -43,7 +46,7 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
-                var moviesList = moviesService.GetMovies();              
+                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite);              
 
                 if (moviesList != null)
                 {
@@ -64,15 +67,58 @@ namespace ControlWatch.Windows.Movies
 
                     //RESTART SCROLLBAR
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));
+
+                    //load filter
+                    LoadMoviesFilter();
                 }
-
-                //NUMBER
-                //TextBlockOthersNumber.Dispatcher.BeginInvoke((Action)(() => TextBlockOthersNumber.Text = othersService.OthersFilesCount().ToString()));
-
-                //ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.IsEnabled = true));
             }).Start();
+        }
 
-            Canvas.SetZIndex(ListViewMovies, 0);
+        private void LoadMoviesFilter()
+        {            
+            List<string> yearsList = new List<string>();
+            yearsList.Add("");
+
+            var currentYear = DateTime.Now.Year;
+            for (int y = currentYear; y > 1979; y--)
+                yearsList.Add(y.ToString());
+
+            if (yearsList != null && yearsList.Any())
+            {
+                ComboBoxYears.Dispatcher.BeginInvoke((Action)(() => ComboBoxYears.ItemsSource = yearsList));
+
+                ComboBoxYears.Dispatcher.BeginInvoke((Action)(() => ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0)));
+            }
+        }
+
+        private void ReloadMoviesList()
+        {
+            new Thread(() =>
+            {
+                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite);
+
+                if (moviesList != null)
+                {
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
+                    ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();
+
+                    foreach (var item in moviesList)
+                    {
+                        //load imagem
+                        if (!String.IsNullOrEmpty(item.MovieCoverPath))
+                            item.MovieCover = Utils.LoadImageToBitmapStreamImage(item.MovieCoverPath);
+
+                        moviesToShow.Add(item);
+                    }
+
+                    //BINDING
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = moviesToShow));
+
+                    //RESTART SCROLLBAR
+                    if(moviesToShow.Any())
+                        ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));
+                }
+            }).Start();
         }
 
         //Event Actions
@@ -119,6 +165,74 @@ namespace ControlWatch.Windows.Movies
         private void Button_Pag_Right_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ButtonSearchMovies_Click(object sender, RoutedEventArgs e)
+        {
+            //Load filters
+            searchTitle = TextBoxSearchTerm.Text;
+            searchYear = null;
+            searchFavorite = CheckBoxIsFavorite.IsChecked.Value;
+
+            if (ComboBoxYears.SelectedValue != null)
+            {
+                int outYear = 0;
+                if (int.TryParse(ComboBoxYears.SelectedValue.ToString(), out outYear))
+                {
+                    searchYear = outYear;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite)
+            {     
+                ReloadMoviesList();
+            }                
+        }
+
+        private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            //Clear filters
+            if(!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite)
+            {
+                TextBoxSearchTerm.Clear();
+                ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
+                CheckBoxIsFavorite.IsChecked = false;
+
+                searchTitle = null;
+                searchYear = null;
+                searchFavorite = false;
+
+                ReloadMoviesList();
+            }            
+        }
+
+        private void ButtonClearSearchYears_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboBoxYears.SelectedValue != null)
+            {
+                if (ComboBoxYears.Items.IndexOf(ComboBoxYears.SelectedValue.ToString()) != 0)
+                {
+                    ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
+                    ButtonClearSearchYears.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+        private void ComboBoxYears_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(ComboBoxYears.SelectedValue != null)
+            {
+                if (ComboBoxYears.Items.IndexOf(ComboBoxYears.SelectedValue.ToString()) != 0)
+                {
+                    ButtonClearSearchYears.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    //Clear combobox filter
+                    ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
+                    ButtonClearSearchYears.Visibility = Visibility.Hidden;
+                }
+            }            
         }
     }
 }

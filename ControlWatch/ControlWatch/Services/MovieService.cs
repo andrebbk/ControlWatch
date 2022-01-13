@@ -15,7 +15,7 @@ namespace ControlWatch.Services
 {
     public class MovieService : IMovieService
     {
-        public IEnumerable<MoviesViewModel> GetMovies()
+        public IEnumerable<MoviesViewModel> GetMovies(string searchTitle, int? searchYear, bool searchFavorite)
         {
             Console.WriteLine("MovieService.GetMovies: ENTER");
             List<MoviesViewModel> output = new List<MoviesViewModel>();
@@ -31,8 +31,25 @@ namespace ControlWatch.Services
                                  select new 
                                  {
                                      m.MovieId,
+                                     m.MovieTitle,
+                                     m.MovieYear,
+                                     m.IsFavorite,
                                      c.CoverPath
                                  });
+
+                    //Apply filters
+                    if (!String.IsNullOrEmpty(searchTitle))
+                    {
+                        query = query.Where(m => m.MovieTitle.ToLower().Contains(searchTitle.ToLower().Trim()));
+                    }
+                    if (searchYear.HasValue && searchYear.Value > 1979)
+                    {
+                        query = query.Where(m => m.MovieYear == searchYear.Value);
+                    }
+                    if (searchFavorite)
+                    {
+                        query = query.Where(m => m.IsFavorite);
+                    }
 
                     if (query.Any())
                     {
