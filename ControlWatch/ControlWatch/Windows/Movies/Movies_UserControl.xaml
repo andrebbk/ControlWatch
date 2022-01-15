@@ -47,11 +47,11 @@
         <!--LIST VIEW MOVIES-->
         <ListView x:Name="ListViewMovies" HorizontalAlignment="Left" Height="825" Margin="11,153,0,0" VerticalAlignment="Top" Width="1851" 
                   Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" 
-                  MouseDoubleClick="ListViewMovies_MouseDoubleClick" SelectionMode="Extended" SelectionChanged="ListViewMovies_SelectionChanged" SelectedIndex="0">
+                  MouseDoubleClick="ListViewMovies_MouseDoubleClick" SelectionMode="Extended" SelectedIndex="0">
             <!--context  Menu-->
             <ListView.ContextMenu>
                 <ContextMenu Name="ZoneIformationList"  Background="#FF373638" TextElement.Foreground="White">
-                    <MenuItem Header="Open" Name="OpenMovie" Click="OpenMovie_Click"/>
+                    <MenuItem Header="Movie Info" Name="OpenMovie" Click="OpenMovie_Click"/>
                     <MenuItem Header="Add Visualization" Name="AddView" Click="AddView_Click"/>
                     <MenuItem Header="Delete" Name="DeleteMovie" Click="DeleteMovie_Click"/>
                 </ContextMenu>

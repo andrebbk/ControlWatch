@@ -71,8 +71,60 @@ namespace ControlWatch.Services
             return output;
         }
 
+        public MovieInfoViewModel GetMovieById(int movieId)
+        {
+            Console.WriteLine("MovieService.GetMovieById: ENTER");
+            MovieInfoViewModel output = null;
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var query = (from m in db.Movies
+                                 join c in db.MovieCovers on m.MovieId equals c.MovieId
+                                 where !m.Deleted && !c.Deleted
+                                 && m.MovieId == movieId
+                                 select new
+                                 {
+                                     m.MovieId,
+                                     m.MovieTitle,
+                                     m.MovieYear,
+                                     m.NrViews,
+                                     m.IsFavorite,
+                                     m.CreateDate,
+                                     c.CoverName,
+                                     c.CoverPath
+                                 });                    
+
+                    if (query != null && query.Any())
+                    {
+                        output = query.Select(m => new MovieInfoViewModel
+                        {
+                            MovieId = m.MovieId,
+                            MovieTitle = m.MovieTitle,
+                            MovieYear = m.MovieYear,
+                            NrViews = m.NrViews,
+                            IsFavorite = m.IsFavorite,
+                            CreateDate = m.CreateDate,
+                            CoverName = m.CoverName,
+                            CoverPath = m.CoverPath
+                        }).FirstOrDefault();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(String.Format("Error getting movie with id {0} -> ", movieId.ToString()) + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("MovieService.GetMovieById: EXIT");
+            return output;
+        }
+
         public bool MovieAlreadyExists(string movieTitle, int movieYear)
         {
+            Console.WriteLine("MovieService.MovieAlreadyExists: ENTER");
             if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980)
                 return true;
 
@@ -94,6 +146,7 @@ namespace ControlWatch.Services
 
         public OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover)
         {
+            Console.WriteLine("MovieService.CreateMovie: ENTER");
             if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || String.IsNullOrWhiteSpace(movieCover))
                 return OutputTypeValues.DataError;
 
@@ -142,6 +195,7 @@ namespace ControlWatch.Services
 
         public OutputTypeValues DeleteMovieById(int movieId)
         {
+            Console.WriteLine("MovieService.DeleteMovieById: ENTER");
             try
             {
                 using (var db = new NorthwindContext())
@@ -184,6 +238,7 @@ namespace ControlWatch.Services
 
         public OutputTypeValues AddMovieViewById(int movieId)
         {
+            Console.WriteLine("MovieService.AddMovieViewById: ENTER");
             try
             {
                 using (var db = new NorthwindContext())
@@ -212,6 +267,7 @@ namespace ControlWatch.Services
 
         public string GetMovieTitleById(int movieId)
         {
+            Console.WriteLine("MovieService.GetMovieTitleById: ENTER");
             string output = null;
             try
             {
@@ -230,6 +286,7 @@ namespace ControlWatch.Services
                 Console.WriteLine(ex.Message);
             }
 
+            Console.WriteLine("MovieService.GetMovieTitleById: END");
             return output;
         }
 
@@ -237,6 +294,8 @@ namespace ControlWatch.Services
         //Hidden methods
         private Tuple<string, string> SaveNewMovieCover(string newName, string filePath)
         {
+            Console.WriteLine("MovieService.SaveNewMovieCover: ENTER");
+
             try
             {   //Verify existence and get directory
                 string coversFolder = Utils.GetControlWatchMoviesFolder();
@@ -256,6 +315,7 @@ namespace ControlWatch.Services
                     if (!String.IsNullOrEmpty(newCoverPath))
                         File.Move(filePath, newCoverPath);
 
+                    Console.WriteLine("MovieService.SaveNewMovieCover: EXIT");
                     return Tuple.Create(newCoverPath, newFileName);
                 }                
             }
@@ -265,11 +325,13 @@ namespace ControlWatch.Services
                 return null;
             }
 
+            Console.WriteLine("MovieService.SaveNewMovieCover: EXIT");
             return null;
         }
 
         private OutputTypeValues CreateCover(int movieId, string movieCover, string movieCoverPath, NorthwindContext db)
         {
+            Console.WriteLine("MovieService.SaveNewMovieCover: ENTER");
             if (movieId < 0 || String.IsNullOrWhiteSpace(movieCover))
                 return OutputTypeValues.DataError;
 

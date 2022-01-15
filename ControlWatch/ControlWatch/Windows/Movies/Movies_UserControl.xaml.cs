@@ -127,17 +127,18 @@ namespace ControlWatch.Windows.Movies
         //Event Actions
         private void ListViewMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-        }
-
-        private void ListViewMovies_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            if (ListViewMovies.SelectedItem != null)
+            {
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId);
+            }
         }
 
         private void OpenMovie_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ListViewMovies.SelectedItem != null)
+            {
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId);
+            }
         }
 
         private void AddView_Click(object sender, RoutedEventArgs e)

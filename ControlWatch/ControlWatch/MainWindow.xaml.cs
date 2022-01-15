@@ -50,8 +50,12 @@ namespace ControlWatch
             this.DrawableMenuContainer.Content = new SideMenu_UserControl(this);
 
             //Init content
-            this.MainContainer.Content = new Dashboard_UserControl(this);
-            activeMenuOption = MenuOptionsTypeValues.Dashboard;
+            //this.MainContainer.Content = new Dashboard_UserControl(this);
+            //activeMenuOption = MenuOptionsTypeValues.Dashboard;
+
+            //Only for testing - REMOVE THIS NEXT LINES
+            this.MainContainer.Content = new MovieInfo_UserControl(this, 3);
+            activeMenuOption = MenuOptionsTypeValues.MovieInfo;
         }
 
         //Open Drawable Menu
@@ -86,7 +90,7 @@ namespace ControlWatch
 
 
         //Public Acess
-        public void SetMainContent(MenuOptionsTypeValues menuOption)
+        public void SetMainContent(MenuOptionsTypeValues menuOption, int? movieId = null)
         {
             switch (menuOption)
             {
@@ -123,6 +127,13 @@ namespace ControlWatch
                     {
                         //this.MainContainer.Content = new Movies_UserControl(this);
                         activeMenuOption = MenuOptionsTypeValues.NewTvShow;
+                    }
+                    break;
+                case MenuOptionsTypeValues.MovieInfo:
+                    if (activeMenuOption != MenuOptionsTypeValues.MovieInfo)
+                    {
+                        this.MainContainer.Content = new MovieInfo_UserControl(this, movieId);
+                        activeMenuOption = MenuOptionsTypeValues.MovieInfo;
                     }
                     break;
                 default:

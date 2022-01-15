@@ -13,6 +13,8 @@ namespace ControlWatch.Commons.Services
     {
         IEnumerable<MoviesViewModel> GetMovies(string searchTitle, int? searchYear, bool searchFavorite);
 
+        MovieInfoViewModel GetMovieById(int movieId);
+
         bool MovieAlreadyExists(string movieTitle, int movieYear);
 
         OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover);
