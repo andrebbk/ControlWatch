@@ -11,7 +11,7 @@ namespace ControlWatch.Commons.Services
 {
     public interface IMovieService
     {
-        IEnumerable<MoviesViewModel> GetMovies(string searchTitle, int? searchYear, bool searchFavorite);
+        IEnumerable<MoviesViewModel> GetMovies(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating);
 
         MovieInfoViewModel GetMovieById(int movieId);
 

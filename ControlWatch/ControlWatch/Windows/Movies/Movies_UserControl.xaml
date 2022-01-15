@@ -25,20 +25,29 @@
                 <TextBox Name="TextBoxSearchTerm" HorizontalAlignment="Left" Height="33" Margin="117,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" FontSize="18"/>
 
                 <!--Movie Year-->
-                <TextBlock VerticalAlignment="Top" Text="YEAR" TextWrapping="Wrap" Margin="598,28,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="77"/>
-                <ComboBox Name="ComboBoxYears" Margin="680,20,753,28" HorizontalContentAlignment="Center"  Foreground="#FF373638" FontSize="20" RenderTransformOrigin="0.5,0.5" SelectionChanged="ComboBoxYears_SelectionChanged"/>
-                <Button Name="ButtonClearSearchYears" Style="{DynamicResource MaterialDesignRaisedButton}" TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="789,20,0,0" VerticalAlignment="Top" Width="11" Height="10" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearchYears_Click" RenderTransformOrigin="2.154,1.958" Visibility="Hidden">
+                <TextBlock VerticalAlignment="Top" Text="YEAR" TextWrapping="Wrap" Margin="523,29,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="77"/>
+                <ComboBox Name="ComboBoxYears" Margin="605,21,828,27" HorizontalContentAlignment="Center"  Foreground="#FF373638" FontSize="20" RenderTransformOrigin="0.5,0.5" SelectionChanged="ComboBoxYears_SelectionChanged"/>
+                <Button Name="ButtonClearSearchYears" Style="{DynamicResource MaterialDesignRaisedButton}" TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="714,20,0,0" VerticalAlignment="Top" Width="11" Height="10" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearchYears_Click" RenderTransformOrigin="2.154,1.958" Visibility="Hidden">
                     <Button.Background>
                         <ImageBrush ImageSource="/ControlWatch;component/Resources/Buttons/closeSmall.png" Stretch="UniformToFill" TileMode="Tile"/>
                     </Button.Background>
                 </Button>
-                
+
                 <!--Movie Favorite-->
-                <TextBlock VerticalAlignment="Top" Text="FAVORITES" TextWrapping="Wrap" Margin="931,28,0,-23" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="140"/>
-                <CheckBox x:Name="CheckBoxIsFavorite" Content="" HorizontalAlignment="Left" Margin="1079,28,0,0" VerticalAlignment="Top" Height="27" Width="32" FontSize="18" Foreground="White"/>
+                <TextBlock VerticalAlignment="Top" Text="FAVORITES" TextWrapping="Wrap" Margin="776,28,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="140"/>
+                <CheckBox x:Name="CheckBoxIsFavorite" Content="" HorizontalAlignment="Left" Margin="924,28,0,0" VerticalAlignment="Top" Height="27" Width="32" FontSize="18" Foreground="White"/>
 
                 <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSearchMovies" Content="Search"  TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="1261,20,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonSearchMovies_Click"/>
                 <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonClearSearch" Content="Clear"  TextElement.FontSize="20px" Padding="42, 0, 0, 5" Margin="1396,20,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearch_Click"/>
+                
+                <TextBlock VerticalAlignment="Top" Text="RATING" TextWrapping="Wrap" Margin="988,28,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="94"/>
+                <ComboBox x:Name="ComboBoxRatings" Margin="1094,22,407,26" HorizontalContentAlignment="Center"  Foreground="#FF373638" FontSize="20" RenderTransformOrigin="0.5,0.5" SelectionChanged="ComboBoxRatings_SelectionChanged"/>
+                
+                <Button x:Name="ButtonClearSearchRatings" Style="{DynamicResource MaterialDesignRaisedButton}" TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="1135,22,0,0" VerticalAlignment="Top" Width="11" Height="10" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearchRatings_Click" RenderTransformOrigin="2.154,1.958" Visibility="Hidden">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/ControlWatch;component/Resources/Buttons/closeSmall.png" Stretch="UniformToFill" TileMode="Tile"/>
+                    </Button.Background>
+                </Button>
             </Grid>
 
         </materialDesign:Card>

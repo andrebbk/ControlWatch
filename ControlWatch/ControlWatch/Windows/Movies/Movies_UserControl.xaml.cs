@@ -34,6 +34,7 @@ namespace ControlWatch.Windows.Movies
         private string searchTitle = null;
         private int? searchYear = null;
         private bool searchFavorite = false;
+        private int? searchRating = null;
 
         public Movies_UserControl(MainWindow mainWindow)
         {
@@ -49,7 +50,7 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
-                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite);              
+                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite, searchRating);              
 
                 if (moviesList != null && moviesList.Any())
                 {
@@ -79,6 +80,7 @@ namespace ControlWatch.Windows.Movies
 
         private void LoadMoviesFilter()
         {            
+            //Movie year filter
             List<string> yearsList = new List<string>();
             yearsList.Add("");
 
@@ -92,13 +94,27 @@ namespace ControlWatch.Windows.Movies
 
                 ComboBoxYears.Dispatcher.BeginInvoke((Action)(() => ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0)));
             }
+
+            //Movie rating filter
+            List<string> ratingList = new List<string>();
+            ratingList.Add("");
+
+            for (int y = 1; y < 11; y++)
+                ratingList.Add(y.ToString());
+
+            if (ratingList != null && ratingList.Any())
+            {
+                ComboBoxRatings.Dispatcher.BeginInvoke((Action)(() => ComboBoxRatings.ItemsSource = ratingList));
+
+                ComboBoxRatings.Dispatcher.BeginInvoke((Action)(() => ComboBoxRatings.SelectedItem = ComboBoxRatings.Items.GetItemAt(0)));
+            }
         }
 
         private void ReloadMoviesList()
         {
             new Thread(() =>
             {
-                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite);
+                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite, searchRating);
 
                 if (moviesList != null)
                 {
@@ -209,6 +225,7 @@ namespace ControlWatch.Windows.Movies
             searchTitle = TextBoxSearchTerm.Text;
             searchYear = null;
             searchFavorite = CheckBoxIsFavorite.IsChecked.Value;
+            searchRating = null;
 
             if (ComboBoxYears.SelectedValue != null)
             {
@@ -219,7 +236,16 @@ namespace ControlWatch.Windows.Movies
                 }
             }
 
-            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite)
+            if (ComboBoxRatings.SelectedValue != null)
+            {
+                int outRating = 0;
+                if (int.TryParse(ComboBoxRatings.SelectedValue.ToString(), out outRating))
+                {
+                    searchRating = outRating;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null)
             {     
                 ReloadMoviesList();
             }                
@@ -231,10 +257,12 @@ namespace ControlWatch.Windows.Movies
             TextBoxSearchTerm.Clear();
             ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
             CheckBoxIsFavorite.IsChecked = false;
+            ComboBoxRatings.SelectedItem = ComboBoxRatings.Items.GetItemAt(0);
 
             searchTitle = null;
             searchYear = null;
             searchFavorite = false;
+            searchRating = null;
 
             ReloadMoviesList();
         }
@@ -266,6 +294,35 @@ namespace ControlWatch.Windows.Movies
                     ButtonClearSearchYears.Visibility = Visibility.Hidden;
                 }
             }            
+        }
+
+        private void ComboBoxRatings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBoxRatings.SelectedValue != null)
+            {
+                if (ComboBoxRatings.Items.IndexOf(ComboBoxRatings.SelectedValue.ToString()) != 0)
+                {
+                    ButtonClearSearchRatings.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    //Clear combobox filter
+                    ComboBoxRatings.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
+                    ButtonClearSearchRatings.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+        private void ButtonClearSearchRatings_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboBoxRatings.SelectedValue != null)
+            {
+                if (ComboBoxRatings.Items.IndexOf(ComboBoxRatings.SelectedValue.ToString()) != 0)
+                {
+                    ComboBoxRatings.SelectedItem = ComboBoxRatings.Items.GetItemAt(0);
+                    ButtonClearSearchRatings.Visibility = Visibility.Hidden;
+                }
+            }
         }
     }
 }
