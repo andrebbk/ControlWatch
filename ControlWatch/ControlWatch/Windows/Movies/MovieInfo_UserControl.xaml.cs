@@ -85,8 +85,12 @@ namespace ControlWatch.Windows.Movies
                         ComboBoxViews.Dispatcher.BeginInvoke((Action)(() => ComboBoxViews.SelectedItem = movieInfo.NrViews.ToString()));
                     }
 
-                    //CreateDate
+                    //Create date
                     LabelMovieAdded.Dispatcher.BeginInvoke((Action)(() => LabelMovieAdded.Content = movieInfo.CreateDate.ToString()));
+
+                    //Rating movie
+                    double ratingValue = (double)movieInfo.MovieRating / (double)10;
+                    RatingMovie.Dispatcher.BeginInvoke((Action)(() => RatingMovie.Value = ratingValue));
                 }
 
             }).Start();
@@ -99,6 +103,11 @@ namespace ControlWatch.Windows.Movies
         }
 
         private void ButtonLoadPic_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ButtonEditMovie_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -1,12 +1,15 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ControlWatch.Windows.Movies"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ControlWatch.Windows.Movies.MovieInfo_UserControl"
-             mc:Ignorable="d" 
-             Height="1049" Width="1871">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:ControlWatch.Windows.Movies"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        x:Class="ControlWatch.Windows.Movies.MovieInfo_UserControl"
+        mc:Ignorable="d" 
+        Height="1049" Width="1871">
     <UserControl.Resources>
         <Style TargetType="{x:Type ComboBoxItem}" x:Key="ItemStyle">
             <Setter Property="Background" Value="#FF494949" />
@@ -67,5 +70,20 @@
         <TextBlock VerticalAlignment="Top" Text="Movie Added:" TextWrapping="Wrap" Margin="211,830,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <Label Name="LabelMovieAdded" Content="" HorizontalAlignment="Left" Margin="216,864,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
 
+        <TextBlock VerticalAlignment="Top" Text="Movie Rating:" TextWrapping="Wrap" Margin="491,352,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <System_Windows_Controls:Rating x:Name="RatingMovie"  VerticalAlignment="Top" Height="24" Margin="0,398,1169,0" Width="202" HorizontalAlignment="Right" Background="{x:Null}" Foreground="#FFE6C809" IsEnabled="false">
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>            
+        </System_Windows_Controls:Rating>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonEditMovie" Content="Edit Movie"  TextElement.FontSize="20px" Padding="116, 0, 0, 5" Margin="608,842,0,0" VerticalAlignment="Top" Width="336" Height="50" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonEditMovie_Click"/>
     </Grid>
 </UserControl>

@@ -19,6 +19,8 @@ namespace ControlWatch.Models.ViewModels
 
         public bool IsFavorite { get; set; }
 
+        public int MovieRating { get; set; }
+
         public DateTime CreateDate { get; set; }
 
 

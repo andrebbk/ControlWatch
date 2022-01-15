@@ -91,6 +91,7 @@ namespace ControlWatch.Services
                                      m.MovieYear,
                                      m.NrViews,
                                      m.IsFavorite,
+                                     m.MovieRating,
                                      m.CreateDate,
                                      c.CoverName,
                                      c.CoverPath
@@ -105,6 +106,7 @@ namespace ControlWatch.Services
                             MovieYear = m.MovieYear,
                             NrViews = m.NrViews,
                             IsFavorite = m.IsFavorite,
+                            MovieRating = m.MovieRating,
                             CreateDate = m.CreateDate,
                             CoverName = m.CoverName,
                             CoverPath = m.CoverPath
@@ -144,7 +146,7 @@ namespace ControlWatch.Services
             }
         }
 
-        public OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover)
+        public OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue)
         {
             Console.WriteLine("MovieService.CreateMovie: ENTER");
             if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || String.IsNullOrWhiteSpace(movieCover))
@@ -168,6 +170,7 @@ namespace ControlWatch.Services
                         MovieYear = movieYear,
                         NrViews = 1,
                         IsFavorite = isFavorite,
+                        MovieRating = ratingValue,
                         CreateDate = DateTime.UtcNow,
                         Deleted = false,
                     };

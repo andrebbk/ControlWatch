@@ -81,11 +81,14 @@ namespace ControlWatch.Windows.Movies
         {
             if (ValidateModel())
             {
+                int ratingValue = Convert.ToInt16((double)RatingMovie.Value * 10);
+
                 var createMovieResult = movieService.CreateMovie(
                     TextBox_MovieTitle.Text.Trim(),
                     NewMovieYear,
                     CheckBoxIsFavorite.IsChecked.Value,
-                    LoadedMNovieCoverPath);
+                    LoadedMNovieCoverPath,
+                    ratingValue);
 
                 if (createMovieResult == OutputTypeValues.Ok)
                 {
@@ -140,6 +143,9 @@ namespace ControlWatch.Windows.Movies
             MovieCover.Source = null;
             TextBox_MovieCoverFileName.Clear();
             LoadedMNovieCoverPath = "empty";
+
+            //Rating 
+            RatingMovie.Value = 0;
         }
 
         private void NotifyError(OutputTypeValues result)

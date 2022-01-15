@@ -20,6 +20,8 @@ namespace ControlWatch.Models
 
         public bool IsFavorite { get; set; }
 
+        public int MovieRating { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public bool Deleted { get; set; }

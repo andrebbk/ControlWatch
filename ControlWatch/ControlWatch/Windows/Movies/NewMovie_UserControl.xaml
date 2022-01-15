@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ControlWatch.Windows.Movies"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              Height="1049" Width="1871">
     <UserControl.Resources>
@@ -58,6 +59,19 @@
         <TextBlock VerticalAlignment="Top" Text="Movie Year:" TextWrapping="Wrap" Margin="256,369,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
 
         <ComboBox Name="ComboBoxYears" Margin="256,403,1466,606" HorizontalContentAlignment="Center"  Foreground="WhiteSmoke" Background="{x:Null}" FontSize="20" ItemContainerStyle="{StaticResource ItemStyle}"/>
+        <TextBlock VerticalAlignment="Top" Text="Movie Rating:" TextWrapping="Wrap" Margin="514,369,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <System_Windows_Controls:Rating x:Name="RatingMovie"  VerticalAlignment="Top" Height="24" Margin="0,407,1138,0" Width="202" HorizontalAlignment="Right" Background="{x:Null}" Foreground="#FFE6C809">
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+            <System_Windows_Controls:RatingItem Content=""/>
+        </System_Windows_Controls:Rating>
 
     </Grid>
 </UserControl>
