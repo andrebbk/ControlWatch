@@ -155,6 +155,9 @@
     <Compile Include="Notifications\CustomMessage\CustomMessageExtensions.cs" />
     <Compile Include="Notifications\CustomMessage\CustomNotification.cs" />
     <Compile Include="Notifications\Utilities\RelayCommand.cs" />
+    <Compile Include="Popup\ConfirmWindow.xaml.cs">
+      <DependentUpon>ConfirmWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\MovieService.cs" />
     <Compile Include="Services\StatsService.cs" />
     <Compile Include="Windows\Dashboard\Dashboard_UserControl.xaml.cs">
@@ -189,6 +192,10 @@
     <Page Include="Notifications\CustomMessage\CustomDisplayPart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Popup\ConfirmWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Buttons\ButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -247,7 +254,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\moviesIcon.ico" />
+    <None Include="Resources\moviesIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Buttons\movie-icon-29.png" />
@@ -300,6 +309,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Buttons\closeSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\closewhite.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\checkwhite.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -140,6 +140,99 @@ namespace ControlWatch.Services
             }
         }
 
+        public OutputTypeValues DeleteMovieById(int movieId)
+        {
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var movie = db.Movies.Where(m => m.MovieId == movieId && !m.Deleted).FirstOrDefault();
+                    if (movie != null)
+                    {
+                        //Delete cover
+                        var movieCover = db.MovieCovers.Where(c => c.MovieId == movieId && !c.Deleted).FirstOrDefault();
+                        if(movieCover != null)
+                        {
+                            if (!String.IsNullOrEmpty(movieCover.CoverPath))
+                            {
+                                if (File.Exists(movieCover.CoverPath))
+                                    File.Delete(movieCover.CoverPath);
+
+                                movieCover.Deleted = true;
+                                db.SaveChanges();
+                            }
+                        }
+
+                        //Delete Movie
+                        movie.Deleted = true;
+                        db.SaveChanges();
+
+                        return OutputTypeValues.Ok;
+                    }
+                }
+
+                return OutputTypeValues.Error;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting movie -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+
+                return OutputTypeValues.Error;
+            }
+        }
+
+        public OutputTypeValues AddMovieViewById(int movieId)
+        {
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var movie = db.Movies.Where(m => m.MovieId == movieId && !m.Deleted).FirstOrDefault();
+                    if (movie != null)
+                    {     
+                        //update visualizations Movie
+                        movie.NrViews = movie.NrViews + 1;
+                        db.SaveChanges();
+
+                        return OutputTypeValues.Ok;
+                    }
+                }
+
+                return OutputTypeValues.Error;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating movie views -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+
+                return OutputTypeValues.Error;
+            }
+        }
+
+        public string GetMovieTitleById(int movieId)
+        {
+            string output = null;
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var movie = db.Movies.Where(m => m.MovieId == movieId && !m.Deleted).FirstOrDefault();
+                    if (movie != null)
+                    {
+                        output = movie.MovieTitle;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error at MovieService.GetMovieTitleById -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            return output;
+        }
+
 
         //Hidden methods
         private Tuple<string, string> SaveNewMovieCover(string newName, string filePath)

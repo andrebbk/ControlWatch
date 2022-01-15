@@ -1,5 +1,8 @@
-﻿using ControlWatch.Commons.Helpers;
+﻿using ControlWatch.Commons.Enums;
+using ControlWatch.Commons.Helpers;
 using ControlWatch.Models.ViewModels;
+using ControlWatch.Notifications.CustomMessage;
+using ControlWatch.Popup;
 using ControlWatch.Services;
 using System;
 using System.Collections.Generic;
@@ -139,12 +142,44 @@ namespace ControlWatch.Windows.Movies
 
         private void AddView_Click(object sender, RoutedEventArgs e)
         {
+            if (ListViewMovies.SelectedItem != null)
+            {
+                int movieId = ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId;
+                string movieTitle = moviesService.GetMovieTitleById(movieId);
 
+                ConfirmWindow _popupConfirm = new ConfirmWindow("Are you sure you want to add a view to " + (!String.IsNullOrEmpty(movieTitle) ? movieTitle : "this movie") + "?");
+
+                if (_popupConfirm.ShowDialog() == true)
+                {
+                    if (moviesService.AddMovieViewById(movieId) == OutputTypeValues.Ok)
+                    {
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully added movie view with id " + movieId.ToString() + "!");
+                    }
+                    else
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying adding movie view with id " + movieId.ToString() + "!");
+                }
+
+            }
         }
 
         private void DeleteMovie_Click(object sender, RoutedEventArgs e)
         {
+            if (ListViewMovies.SelectedItem != null)
+            {
+                ConfirmWindow _popupConfirm = new ConfirmWindow("Are you sure you want to delete this movie?");
 
+                if (_popupConfirm.ShowDialog() == true)
+                {
+                    if (moviesService.DeleteMovieById(((MoviesViewModel)ListViewMovies.SelectedItem).MovieId) == OutputTypeValues.Ok)
+                    {
+                        ReloadMoviesList();
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully deleted movie with id " + ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId.ToString() + "!");
+                    }
+                    else
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying delete movie with id " + ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId.ToString() + "!");
+                }
+
+            }
         }
 
         private void Button_Pag_Left_Click(object sender, RoutedEventArgs e)
@@ -192,18 +227,15 @@ namespace ControlWatch.Windows.Movies
         private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
         {
             //Clear filters
-            if(!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite)
-            {
-                TextBoxSearchTerm.Clear();
-                ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
-                CheckBoxIsFavorite.IsChecked = false;
+            TextBoxSearchTerm.Clear();
+            ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
+            CheckBoxIsFavorite.IsChecked = false;
 
-                searchTitle = null;
-                searchYear = null;
-                searchFavorite = false;
+            searchTitle = null;
+            searchYear = null;
+            searchFavorite = false;
 
-                ReloadMoviesList();
-            }            
+            ReloadMoviesList();
         }
 
         private void ButtonClearSearchYears_Click(object sender, RoutedEventArgs e)

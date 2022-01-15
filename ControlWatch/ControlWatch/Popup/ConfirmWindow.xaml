@@ -1,0 +1,30 @@
+﻿<Window x:Class="ControlWatch.Popup.ConfirmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControlWatch.Popup"
+        mc:Ignorable="d"
+        Title="Control Watch" Height="265.167" Width="470.834" Icon="pack://siteoforigin:,,,/Resources/moviesIcon.ico"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" Background="#FF373638" KeyDown="Window_KeyDown">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="72" VerticalAlignment="Top" Width="81" Source="pack://siteoforigin:,,,/Resources/moviesIcon.ico" Margin="0,10,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="86,31,0,0" TextWrapping="Wrap" Text="Control Watch" VerticalAlignment="Top" Height="34" Width="166" FontSize="24" Foreground="White" FontWeight="Bold"/>
+
+        <TextBlock x:Name="TextBlockMsg"  HorizontalAlignment="Center" Margin="47,94,33,0" TextWrapping="Wrap" Text="Tem a certeza que pretende continuar?" VerticalAlignment="Top" Height="96" Width="391" TextElement.FontSize="22" Foreground="#FFFFFBFB"/>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonYes" TextElement.FontSize="22px" Padding="36, 0, 0, 0" Margin="60,195,0,0" VerticalAlignment="Top" Width="133" Height="54" Background="#FF454446" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="ButtonYes_Click">
+            <StackPanel Orientation="Horizontal" Width="61" Height="44" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="24" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,13,0,10" Source="/ControlWatch;component/Resources/Buttons/checkwhite.png"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonNo" TextElement.FontSize="22px" Padding="33, 0, 20, 0" Margin="287,195,0,0" VerticalAlignment="Top" Width="133" Height="54" Background="#FF454446" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Click="ButtonNo_Click">
+            <StackPanel Orientation="Horizontal" Width="35" Height="44" HorizontalAlignment="Right">
+                <Image  Width="23" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,12,0,10" Source="/ControlWatch;component/Resources/Buttons/closewhite.png"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>
