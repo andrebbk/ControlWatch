@@ -166,7 +166,7 @@
     <Compile Include="Windows\Movies\Movies_UserControl.xaml.cs">
       <DependentUpon>Movies_UserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\NewMovie\NewMovie_UserControl.xaml.cs">
+    <Compile Include="Windows\Movies\NewMovie_UserControl.xaml.cs">
       <DependentUpon>NewMovie_UserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SideMenu\SideMenu_UserControl.xaml.cs">
@@ -209,7 +209,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\NewMovie\NewMovie_UserControl.xaml">
+    <Page Include="Windows\Movies\NewMovie_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

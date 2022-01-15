@@ -51,7 +51,7 @@ namespace ControlWatch.Windows.Movies
             {
                 var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite);              
 
-                if (moviesList != null)
+                if (moviesList != null && moviesList.Any())
                 {
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
                     ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();

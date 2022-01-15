@@ -2,7 +2,6 @@
 using ControlWatch.Commons.Helpers;
 using ControlWatch.Windows.Dashboard;
 using ControlWatch.Windows.Movies;
-using ControlWatch.Windows.NewMovie;
 using ControlWatch.Windows.SideMenu;
 using System;
 using System.Collections.Generic;
