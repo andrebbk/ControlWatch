@@ -54,8 +54,8 @@ namespace ControlWatch
             //activeMenuOption = MenuOptionsTypeValues.Dashboard;
 
             //Only for testing - REMOVE THIS NEXT LINES
-            this.MainContainer.Content = new MovieInfo_UserControl(this, 3);
-            activeMenuOption = MenuOptionsTypeValues.MovieInfo;
+            //this.MainContainer.Content = new MovieInfo_UserControl(this, 3);
+            //activeMenuOption = MenuOptionsTypeValues.MovieInfo;
         }
 
         //Open Drawable Menu
@@ -68,7 +68,7 @@ namespace ControlWatch
 
         //Click on background
         private void GridBackground_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+        {            
             if (IsDrawableOpen)
             {
                 Storyboard sb = this.FindResource("CloseMenu") as Storyboard;

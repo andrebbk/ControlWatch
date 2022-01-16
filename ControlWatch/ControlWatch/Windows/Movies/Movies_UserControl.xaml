@@ -22,7 +22,7 @@
             <Grid Margin="-30,-29,-31,-32">
                 <!--Movie Title-->
                 <TextBlock VerticalAlignment="Top" Text="TITLE" TextWrapping="Wrap" Margin="30,28,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="82"/>
-                <TextBox Name="TextBoxSearchTerm" HorizontalAlignment="Left" Height="33" Margin="117,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" FontSize="18"/>
+                <TextBox Name="TextBoxSearchTerm" HorizontalAlignment="Left" Height="33" Margin="117,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" FontSize="18" KeyDown="TextBoxSearchTerm_KeyDown"/>
 
                 <!--Movie Year-->
                 <TextBlock VerticalAlignment="Top" Text="YEAR" TextWrapping="Wrap" Margin="523,29,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="77"/>

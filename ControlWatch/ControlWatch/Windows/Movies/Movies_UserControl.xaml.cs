@@ -140,6 +140,38 @@ namespace ControlWatch.Windows.Movies
             }).Start();
         }
 
+        private void SearchMoviesList()
+        {
+            //Load filters
+            searchTitle = TextBoxSearchTerm.Text;
+            searchYear = null;
+            searchFavorite = CheckBoxIsFavorite.IsChecked.Value;
+            searchRating = null;
+
+            if (ComboBoxYears.SelectedValue != null)
+            {
+                int outYear = 0;
+                if (int.TryParse(ComboBoxYears.SelectedValue.ToString(), out outYear))
+                {
+                    searchYear = outYear;
+                }
+            }
+
+            if (ComboBoxRatings.SelectedValue != null)
+            {
+                int outRating = 0;
+                if (int.TryParse(ComboBoxRatings.SelectedValue.ToString(), out outRating))
+                {
+                    searchRating = outRating;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null)
+            {
+                ReloadMoviesList();
+            }
+        }
+
         //Event Actions
         private void ListViewMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -221,34 +253,7 @@ namespace ControlWatch.Windows.Movies
 
         private void ButtonSearchMovies_Click(object sender, RoutedEventArgs e)
         {
-            //Load filters
-            searchTitle = TextBoxSearchTerm.Text;
-            searchYear = null;
-            searchFavorite = CheckBoxIsFavorite.IsChecked.Value;
-            searchRating = null;
-
-            if (ComboBoxYears.SelectedValue != null)
-            {
-                int outYear = 0;
-                if (int.TryParse(ComboBoxYears.SelectedValue.ToString(), out outYear))
-                {
-                    searchYear = outYear;
-                }
-            }
-
-            if (ComboBoxRatings.SelectedValue != null)
-            {
-                int outRating = 0;
-                if (int.TryParse(ComboBoxRatings.SelectedValue.ToString(), out outRating))
-                {
-                    searchRating = outRating;
-                }
-            }
-
-            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null)
-            {     
-                ReloadMoviesList();
-            }                
+            SearchMoviesList();
         }
 
         private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
@@ -322,6 +327,14 @@ namespace ControlWatch.Windows.Movies
                     ComboBoxRatings.SelectedItem = ComboBoxRatings.Items.GetItemAt(0);
                     ButtonClearSearchRatings.Visibility = Visibility.Hidden;
                 }
+            }
+        }     
+
+        private void TextBoxSearchTerm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SearchMoviesList();
             }
         }
     }
