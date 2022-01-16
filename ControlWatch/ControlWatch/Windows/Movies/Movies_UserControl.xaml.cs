@@ -36,6 +36,11 @@ namespace ControlWatch.Windows.Movies
         private bool searchFavorite = false;
         private int? searchRating = null;
 
+        //Pagination
+        private int pagNumber = 1;
+        private int pagLastNumber = 1;
+        private int IPP = 200;
+
         public Movies_UserControl(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -50,10 +55,13 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
-                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite, searchRating);              
+                var moviesList = moviesService.GetMovies(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);              
 
                 if (moviesList != null && moviesList.Any())
                 {
+                    int? nMovies = moviesService.GetMoviesCount(searchTitle, searchYear, searchFavorite, searchRating);
+                    LoadPaginationForPage(nMovies.HasValue ? nMovies.Value : moviesList.Count());
+
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
                     ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();
 
@@ -114,10 +122,13 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
-                var moviesList = moviesService.GetMovies(searchTitle, searchYear, searchFavorite, searchRating);
+                var moviesList = moviesService.GetMovies(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);
 
                 if (moviesList != null)
                 {
+                    int? nMovies = moviesService.GetMoviesCount(searchTitle, searchYear, searchFavorite, searchRating);
+                    LoadPaginationForPage(nMovies.HasValue ? nMovies.Value : moviesList.Count());
+
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
                     ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();
 
@@ -229,27 +240,7 @@ namespace ControlWatch.Windows.Movies
                 }
 
             }
-        }
-
-        private void Button_Pag_Left_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Pag_First_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Pag_Last_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Pag_Right_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }        
 
         private void ButtonSearchMovies_Click(object sender, RoutedEventArgs e)
         {
@@ -335,6 +326,54 @@ namespace ControlWatch.Windows.Movies
             if (e.Key == Key.Enter)
             {
                 SearchMoviesList();
+            }
+        }
+
+
+        //Pagination
+        private void LoadPaginationForPage(int totalItems)
+        {       
+            //Total de páginas
+            pagLastNumber = totalItems / IPP;
+            if (totalItems % IPP != 0)
+                pagLastNumber += 1;
+
+            if (pagLastNumber == 0) pagLastNumber = 1;
+        }
+
+        private void Button_Pag_Left_Click(object sender, RoutedEventArgs e)
+        {
+            if ((pagNumber - 1) >= 1)
+            {
+                pagNumber -= 1;
+                ReloadMoviesList();
+            }
+        }
+
+        private void Button_Pag_First_Click(object sender, RoutedEventArgs e)
+        {
+            if (pagNumber != 1)
+            {
+                pagNumber = 1;
+                ReloadMoviesList();
+            }
+        }
+
+        private void Button_Pag_Last_Click(object sender, RoutedEventArgs e)
+        {
+            if (pagNumber != pagLastNumber)
+            {
+                pagNumber = pagLastNumber;
+                ReloadMoviesList();
+            }
+        }
+
+        private void Button_Pag_Right_Click(object sender, RoutedEventArgs e)
+        {
+            if ((pagNumber + 1) <= pagLastNumber)
+            {
+                pagNumber += 1;
+                ReloadMoviesList();
             }
         }
     }

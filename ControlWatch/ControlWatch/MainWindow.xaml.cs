@@ -50,8 +50,8 @@ namespace ControlWatch
             this.DrawableMenuContainer.Content = new SideMenu_UserControl(this);
 
             //Init content
-            //this.MainContainer.Content = new Dashboard_UserControl(this);
-            //activeMenuOption = MenuOptionsTypeValues.Dashboard;
+            this.MainContainer.Content = new Dashboard_UserControl(this);
+            activeMenuOption = MenuOptionsTypeValues.Dashboard;
 
             //Only for testing - REMOVE THIS NEXT LINES
             //this.MainContainer.Content = new MovieInfo_UserControl(this, 3);

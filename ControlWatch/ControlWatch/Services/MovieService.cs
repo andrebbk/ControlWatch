@@ -15,7 +15,7 @@ namespace ControlWatch.Services
 {
     public class MovieService : IMovieService
     {
-        public IEnumerable<MoviesViewModel> GetMovies(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
+        public IEnumerable<MoviesViewModel> GetMovies(int skp, int tk, string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
         {
             Console.WriteLine("MovieService.GetMovies: ENTER");
             List<MoviesViewModel> output = new List<MoviesViewModel>();
@@ -36,7 +36,9 @@ namespace ControlWatch.Services
                                      m.IsFavorite,
                                      m.MovieRating,
                                      c.CoverPath
-                                 });
+                                 })
+                                 .Skip(skp)
+                                 .Take(tk);
 
                     //Apply filters
                     if (!String.IsNullOrEmpty(searchTitle))
@@ -361,6 +363,57 @@ namespace ControlWatch.Services
 
                 return OutputTypeValues.Error;
             }
+        }
+
+        public int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
+        {
+            Console.WriteLine("MovieService.GetMoviesCount: ENTER");
+            List<MoviesViewModel> output = new List<MoviesViewModel>();
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var query = (from m in db.Movies
+                                 where !m.Deleted
+                                 select new
+                                 {
+                                     m.MovieTitle,
+                                     m.MovieYear,
+                                     m.IsFavorite,
+                                     m.MovieRating
+                                 });
+
+                    //Apply filters
+                    if (!String.IsNullOrEmpty(searchTitle))
+                    {
+                        query = query.Where(m => m.MovieTitle.ToLower().Contains(searchTitle.ToLower().Trim()));
+                    }
+                    if (searchYear.HasValue && searchYear.Value > 1979)
+                    {
+                        query = query.Where(m => m.MovieYear == searchYear.Value);
+                    }
+                    if (searchFavorite)
+                    {
+                        query = query.Where(m => m.IsFavorite);
+                    }
+                    if (searchRating.HasValue)
+                    {
+                        query = query.Where(m => m.MovieRating == searchRating.Value);
+                    }
+
+                    Console.WriteLine("MovieService.GetMoviesCount: EXIT");
+                    return query.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting movies count -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("MovieService.GetMoviesCount: EXIT");
+            return null;
         }
 
 
