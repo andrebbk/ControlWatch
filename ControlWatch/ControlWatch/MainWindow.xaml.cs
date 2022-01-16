@@ -46,6 +46,8 @@ namespace ControlWatch
 
         private void LoadMainWindow()
         {
+            (new InitSamplesTesting()).InsertSamplesToDB();
+
             IsDrawableOpen = false;
             this.DrawableMenuContainer.Content = new SideMenu_UserControl(this);
 

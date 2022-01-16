@@ -152,6 +152,7 @@
     <Compile Include="Commons\Helpers\Utils.cs" />
     <Compile Include="Commons\Services\IMovieService.cs" />
     <Compile Include="Commons\Services\IStatsService.cs" />
+    <Compile Include="InitSamplesTesting.cs" />
     <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Models\ViewModels\MovieInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />

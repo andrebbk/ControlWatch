@@ -78,11 +78,12 @@ namespace ControlWatch.Windows.Movies
                     ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = moviesToShow));
 
                     //RESTART SCROLLBAR
-                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));
-
-                    //load filter
-                    LoadMoviesFilter();
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));                    
                 }
+
+                //load filter
+                LoadMoviesFilter();
+
             }).Start();
         }
 
