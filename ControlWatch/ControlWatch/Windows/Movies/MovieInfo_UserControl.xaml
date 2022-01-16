@@ -51,7 +51,7 @@
         <CheckBox x:Name="CheckBoxIsFavorite" Content="Is Favorite" HorizontalAlignment="Left" Margin="205,500,0,0" VerticalAlignment="Top" Height="48" Width="114" FontSize="18" Foreground="White" IsEnabled="false"/>
         <TextBlock VerticalAlignment="Top" Text="Favorites:" TextWrapping="Wrap" Margin="201,471,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
 
-        <Image x:Name="ButtonLoadPic" HorizontalAlignment="Left" Height="40" Margin="357,694,0,0" VerticalAlignment="Top" Width="44" Source="/ControlWatch;component/Resources/Buttons/AluminumGreyImages.png" MouseDown="ButtonLoadPic_MouseDown"/>
+        <Image x:Name="ButtonLoadPic" HorizontalAlignment="Left" Height="40" Margin="357,694,0,0" VerticalAlignment="Top" Width="44" Source="/ControlWatch;component/Resources/Buttons/AluminumGreyImages.png" Visibility="Hidden" MouseDown="ButtonLoadPic_MouseDown"/>
         <TextBlock VerticalAlignment="Top" Text="Movie Cover:" TextWrapping="Wrap" Margin="207,704,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="WhiteSmoke"/>
         <TextBox Margin="213,742,855,257" x:Name="TextBox_MovieCoverFileName" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFF7F7" SelectionBrush="Red" CaretBrush="White" FontSize="30" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="{x:Null}" IsEnabled="false">
             <TextBox.RenderTransform>
@@ -81,9 +81,23 @@
             <System_Windows_Controls:RatingItem Content=""/>
             <System_Windows_Controls:RatingItem Content=""/>
             <System_Windows_Controls:RatingItem Content=""/>
-            <System_Windows_Controls:RatingItem Content=""/>            
+            <System_Windows_Controls:RatingItem Content=""/>
         </System_Windows_Controls:Rating>
 
-        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonEditMovie" Content="Edit Movie"  TextElement.FontSize="20px" Padding="116, 0, 0, 5" Margin="608,842,0,0" VerticalAlignment="Top" Width="336" Height="50" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonEditMovie_Click"/>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveMovie" Content="Edit Movie"  TextElement.FontSize="20px" Padding="130, 0, 0, 5" Margin="646,830,0,0" VerticalAlignment="Top" Width="366" Height="70" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Visibility="Hidden" Click="ButtonSaveMovie_Click"/>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonEditMode" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1483,894,0,0" VerticalAlignment="Top" Width="105" Height="94" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonEditMode_Click">
+            <StackPanel Orientation="Vertical" Width="104" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Name="ButtonEditModeImage" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="25,12,38,11" Source="/ControlWatch;component/Resources/Buttons/Pencil.png" Height="35"/>
+                <TextBlock Name="ButtonEditModeText" Text="Edit Movie" VerticalAlignment="Center" Margin="10,0,27,0" FontWeight="Normal" FontSize="14" />
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonDeleteMovie" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1608,894,0,0" VerticalAlignment="Top" Width="105" Height="94" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonDeleteMovie_Click">
+            <StackPanel Orientation="Vertical" Width="104" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="25,12,36,11" Source="/ControlWatch;component/Resources/Buttons/trashcan.jpg" Height="35"/>
+                <TextBlock Text="Delete Movie" VerticalAlignment="Center" Margin="4,0,10,0" FontWeight="Normal" FontSize="14" />
+            </StackPanel>
+        </Button>
+
     </Grid>
 </UserControl>

@@ -66,6 +66,12 @@ namespace ControlWatch.Commons.Helpers
             return bitmap;
         }
 
+        //load image to bitmap from resources
+        public static BitmapImage LoadImageToBitmapFromResources(string filepath)
+        {
+            return new BitmapImage(new Uri(@filepath, UriKind.Relative));       
+        }
+
         //Clear string content
         public static string ClearFormatForString(string textString)
         {

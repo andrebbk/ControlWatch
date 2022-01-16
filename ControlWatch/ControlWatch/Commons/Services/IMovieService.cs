@@ -15,7 +15,7 @@ namespace ControlWatch.Commons.Services
 
         MovieInfoViewModel GetMovieById(int movieId);
 
-        bool MovieAlreadyExists(string movieTitle, int movieYear);
+        bool MovieAlreadyExists(string movieTitle, int movieYear, int? movieId = null);
 
         OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue);
 
@@ -24,5 +24,7 @@ namespace ControlWatch.Commons.Services
         OutputTypeValues AddMovieViewById(int movieId);
 
         string GetMovieTitleById(int movieId);
+
+        OutputTypeValues EditMovie(int movieId, string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, int movieViews);
     }
 }

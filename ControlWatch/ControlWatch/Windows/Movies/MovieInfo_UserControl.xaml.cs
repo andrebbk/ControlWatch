@@ -1,5 +1,7 @@
 ﻿using ControlWatch.Commons.Enums;
 using ControlWatch.Commons.Helpers;
+using ControlWatch.Notifications.CustomMessage;
+using ControlWatch.Popup;
 using ControlWatch.Services;
 using System;
 using System.Collections.Generic;
@@ -27,14 +29,20 @@ namespace ControlWatch.Windows.Movies
         private MainWindow _mainWindow;
         private MovieService moviesService;
 
+        private int LoadedMovieId;
+        private OperationTypeValues currentMode;
+        private string LoadedMNovieCoverPath = null;
+        private int NewMovieYear = 0, NewMovieViews = 0;
+
         public MovieInfo_UserControl(MainWindow mainWindow, int? movieId)
         {
             InitializeComponent();
 
-            _mainWindow = mainWindow;
+            _mainWindow = mainWindow;            
             moviesService = new MovieService();
+            currentMode = OperationTypeValues.Info;
 
-            if(movieId.HasValue && movieId.Value > 0)
+            if (movieId.HasValue && movieId.Value > 0)
                 LoadMovieInfo(movieId.Value);
         }
 
@@ -42,6 +50,14 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
+                if(currentMode == OperationTypeValues.Edit) ResetInfoMode();
+
+                //load param
+                LoadedMovieId = movieId;
+                currentMode = OperationTypeValues.Info;
+                LoadedMNovieCoverPath = null;
+                NewMovieYear = NewMovieViews = 0;
+
                 var movieInfo = moviesService.GetMovieById(movieId);
                 if (movieInfo != null)
                 {
@@ -96,6 +112,64 @@ namespace ControlWatch.Windows.Movies
             }).Start();
         }
 
+        private bool ValidateModel()
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrWhiteSpace(TextBox_MovieTitle.Text))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie title is required!");
+                isValid = false;
+            }
+            //else if (String.IsNullOrWhiteSpace(TextBox_MovieCoverFileName.Text))
+            //{
+            //    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie cover is required!");
+            //    isValid = false;
+            //}
+            else if (!int.TryParse(ComboBoxYears.SelectedValue.ToString(), out NewMovieYear))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
+                isValid = false;
+            }
+            else if (NewMovieYear < 1980)
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
+                isValid = false;
+            }
+            else if (!int.TryParse(ComboBoxViews.SelectedValue.ToString(), out NewMovieViews))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie views value is invalid!");
+                isValid = false;
+            }
+            else if (NewMovieViews < 1)
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie views value is invalid!");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private void ResetInfoMode()
+        {
+            currentMode = OperationTypeValues.Info;
+            TextBox_MovieTitle.Dispatcher.BeginInvoke((Action)(() => TextBox_MovieTitle.Text = "Edit Movie"));
+            ButtonEditModeImage.Dispatcher.BeginInvoke((Action)(() => 
+                ButtonEditModeImage.Source = Utils.LoadImageToBitmapFromResources("/ControlWatch;component/Resources/Buttons/Pencil.png"))
+            );
+
+            //Controls
+            ButtonSaveMovie.Dispatcher.BeginInvoke((Action)(() => ButtonSaveMovie.Visibility = Visibility.Hidden));
+            ButtonLoadPic.Dispatcher.BeginInvoke((Action)(() => ButtonLoadPic.Visibility = Visibility.Hidden));
+
+            TextBox_MovieTitle.Dispatcher.BeginInvoke((Action)(() => TextBox_MovieTitle.IsEnabled = false));
+            ComboBoxYears.Dispatcher.BeginInvoke((Action)(() => ComboBoxYears.IsEnabled = false));
+            RatingMovie.Dispatcher.BeginInvoke((Action)(() => RatingMovie.IsEnabled = false));
+            CheckBoxIsFavorite.Dispatcher.BeginInvoke((Action)(() => CheckBoxIsFavorite.IsEnabled = false));
+            ComboBoxViews.Dispatcher.BeginInvoke((Action)(() => ComboBoxViews.IsEnabled = false));
+        }
+
+
         //Buttons
         private void ButtonGoBack_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -104,12 +178,131 @@ namespace ControlWatch.Windows.Movies
 
         private void ButtonLoadPic_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            System.Windows.Forms.OpenFileDialog of = new System.Windows.Forms.OpenFileDialog();
+            of.Title = "Select movie cover";
+            of.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
 
+            if (of.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                LoadedMNovieCoverPath = of.FileName;
+                TextBox_MovieCoverFileName.Text = of.FileName.Split('\\')[of.FileName.Split('\\').Count() - 1];
+
+                MovieCover.Source = Utils.LoadImageToBitmapImageNoDecodeChange(of.FileName);
+            }
+            else
+            {
+                MovieCover.Source = null;
+                LoadedMNovieCoverPath = null;
+                TextBox_MovieCoverFileName.Clear();
+            }
         }
 
-        private void ButtonEditMovie_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveMovie_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateModel())
+            {
+                int ratingValue = Convert.ToInt16((double)RatingMovie.Value * 10);
 
+                var editMovieResult = moviesService.EditMovie(LoadedMovieId,
+                    TextBox_MovieTitle.Text.Trim(),
+                    NewMovieYear,
+                    CheckBoxIsFavorite.IsChecked.Value,
+                    LoadedMNovieCoverPath,
+                    ratingValue,
+                    NewMovieViews);
+
+                if (editMovieResult == OutputTypeValues.Ok)
+                {
+                    LoadMovieInfo(LoadedMovieId);
+                    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie edited successfully!");
+                }
+                else
+                    NotifyError(editMovieResult);
+            }
+        }
+
+        private void ButtonEditMode_Click(object sender, RoutedEventArgs e)
+        {
+            if(currentMode == OperationTypeValues.Info)
+            {
+                ButtonEditModeText.Text = "Info Movie";
+                ButtonEditModeImage.Source = Utils.LoadImageToBitmapFromResources("/ControlWatch;component/Resources/Buttons/search-silver-icon.png");                
+                currentMode = OperationTypeValues.Edit;
+
+                //Controls
+                ButtonSaveMovie.Visibility = Visibility.Visible;
+                ButtonLoadPic.Visibility = Visibility.Visible;
+
+                TextBox_MovieTitle.IsEnabled = true;
+                ComboBoxYears.IsEnabled = true;
+                RatingMovie.IsEnabled = true;
+                CheckBoxIsFavorite.IsEnabled = true;
+                ComboBoxViews.IsEnabled = true;
+            }
+            else
+            {
+                ButtonEditModeText.Text = "Edit Movie";
+                ButtonEditModeImage.Source = Utils.LoadImageToBitmapFromResources("/ControlWatch;component/Resources/Buttons/Pencil.png");
+                currentMode = OperationTypeValues.Info;
+
+                //Controls
+                ButtonSaveMovie.Visibility = Visibility.Hidden;
+                ButtonLoadPic.Visibility = Visibility.Hidden;
+
+                TextBox_MovieTitle.IsEnabled = false;
+                ComboBoxYears.IsEnabled = false;
+                RatingMovie.IsEnabled = false;
+                CheckBoxIsFavorite.IsEnabled = false;
+                ComboBoxViews.IsEnabled = false;
+            }
+        }
+
+        private void ButtonDeleteMovie_Click(object sender, RoutedEventArgs e)
+        {
+            string movieTitle = !String.IsNullOrEmpty(TextBox_MovieTitle.Text) ? TextBox_MovieTitle.Text : "this movie";
+            ConfirmWindow popupConfirm = new ConfirmWindow("Are you sure you want to delete " + movieTitle  + "?");
+
+            if (popupConfirm.ShowDialog() == true)
+            {
+                if (moviesService.DeleteMovieById(LoadedMovieId) == OutputTypeValues.Ok)
+                {
+                    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully deleted movie with id " + LoadedMovieId.ToString() + "!");
+                    _mainWindow.SetMainContent(MenuOptionsTypeValues.Movies);
+                }
+                else
+                    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying delete movie with id " + LoadedMovieId.ToString() + "!");
+            }
+        }
+
+        private void NotifyError(OutputTypeValues result)
+        {
+            string msg = null;
+
+            switch (result)
+            {
+                case OutputTypeValues.AlreadyExists:
+                    msg = "Movie already exists!";
+                    break;
+                case OutputTypeValues.DataError:
+                    msg = "Movie data is invalid!";
+                    break;
+                case OutputTypeValues.SavingCoverError:
+                    msg = "An error has occurred saving cover!";
+                    break;
+                case OutputTypeValues.MovieNotFound:
+                    msg = "Movie not found!";
+                    break;
+                case OutputTypeValues.MovieCoverNotFound:
+                    msg = "Movie cover not found!";
+                    break;
+                case OutputTypeValues.Error:
+                default:
+                    msg = "An error has occurred saving movie!";
+                    break;
+            }
+
+            if (!String.IsNullOrEmpty(msg))
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", msg);
         }
     }
 }

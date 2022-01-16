@@ -129,7 +129,7 @@ namespace ControlWatch.Services
             return output;
         }
 
-        public bool MovieAlreadyExists(string movieTitle, int movieYear)
+        public bool MovieAlreadyExists(string movieTitle, int movieYear, int? movieId = null)
         {
             Console.WriteLine("MovieService.MovieAlreadyExists: ENTER");
             if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980)
@@ -139,7 +139,10 @@ namespace ControlWatch.Services
             {
                 using (var db = new NorthwindContext())
                 {
-                    return db.Movies.Any(m => m.MovieTitle == movieTitle && m.MovieYear == movieYear && !m.Deleted);
+                    if(movieId.HasValue)
+                        return db.Movies.Any(m => m.MovieId != movieId.Value && m.MovieTitle == movieTitle && m.MovieYear == movieYear && !m.Deleted);
+                    else
+                        return db.Movies.Any(m => m.MovieTitle == movieTitle && m.MovieYear == movieYear && !m.Deleted);
                 }
             }
             catch (Exception ex)
@@ -158,15 +161,15 @@ namespace ControlWatch.Services
                 return OutputTypeValues.DataError;
 
             if(MovieAlreadyExists(movieTitle, movieYear))
-                return OutputTypeValues.AlreadyExists;
-
-            //save cover first, if it runs successfully, then save data to db
-            var newCoverPath = SaveNewMovieCover(movieTitle, movieCover);
-            if(String.IsNullOrWhiteSpace(newCoverPath.Item1))
-                return OutputTypeValues.SavingCoverError;
+                return OutputTypeValues.AlreadyExists;            
 
             try
             {
+                //save cover first, if it runs successfully, then save data to db
+                var newCoverPath = SaveNewMovieCover(movieTitle, movieCover);
+                if (String.IsNullOrWhiteSpace(newCoverPath.Item1))
+                    return OutputTypeValues.SavingCoverError;
+
                 using (var db = new NorthwindContext())
                 {
                     Movie movie = new Movie()
@@ -229,10 +232,12 @@ namespace ControlWatch.Services
                         movie.Deleted = true;
                         db.SaveChanges();
 
+                        Console.WriteLine("MovieService.DeleteMovieById: EXIT");
                         return OutputTypeValues.Ok;
                     }
                 }
 
+                Console.WriteLine("MovieService.DeleteMovieById: EXIT");
                 return OutputTypeValues.Error;
             }
             catch (Exception ex)
@@ -296,6 +301,66 @@ namespace ControlWatch.Services
 
             Console.WriteLine("MovieService.GetMovieTitleById: END");
             return output;
+        }
+
+        public OutputTypeValues EditMovie(int movieId, string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, int movieViews)
+        {
+            Console.WriteLine("MovieService.EditMovie: ENTER");
+            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || movieViews < 1)
+                return OutputTypeValues.DataError;
+
+            if (MovieAlreadyExists(movieTitle, movieYear, movieId))
+                return OutputTypeValues.AlreadyExists;                  
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var movie = db.Movies.Where(m => m.MovieId == movieId && !m.Deleted).FirstOrDefault();
+                    if(movie != null)
+                    {
+                        //edit cover first, if it runs successfully, then save data to db
+                        Tuple<string, string> newCoverPath = null;
+                        if (!String.IsNullOrEmpty(movieCover))
+                        {
+                            newCoverPath = SaveNewMovieCover(movieTitle, movieCover);
+                            if (newCoverPath is null || (newCoverPath != null && String.IsNullOrWhiteSpace(newCoverPath.Item1)))
+                                return OutputTypeValues.SavingCoverError;
+                        }
+
+                        //Update movie
+                        movie.MovieTitle = movieTitle;
+                        movie.MovieYear = movieYear;
+                        movie.NrViews = movieViews;
+                        movie.IsFavorite = isFavorite;
+                        movie.MovieRating = ratingValue;
+                        db.SaveChanges();
+
+                        //Save new cover
+                        if(newCoverPath != null)
+                        {
+                            var coverResult = EditCover(movie.MovieId, newCoverPath.Item2, newCoverPath.Item1, db);
+
+                            if (coverResult == OutputTypeValues.Ok)
+                                return OutputTypeValues.Ok;
+                            else
+                                return coverResult;
+                        }
+
+                        return OutputTypeValues.Ok;
+
+                    }
+
+                    return OutputTypeValues.MovieNotFound;                   
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error editing new movie -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+
+                return OutputTypeValues.Error;
+            }
         }
 
 
@@ -365,6 +430,41 @@ namespace ControlWatch.Services
             catch (Exception ex)
             {
                 Console.WriteLine("Error creating new movie cover -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+
+                return OutputTypeValues.Error;
+            }
+        }
+
+        private OutputTypeValues EditCover(int movieId, string movieCover, string movieCoverPath, NorthwindContext db)
+        {
+            Console.WriteLine("MovieService.EditCover: ENTER");
+            if (movieId < 0 || String.IsNullOrWhiteSpace(movieCover))
+                return OutputTypeValues.DataError;
+
+            try
+            {
+                var existingCover = db.MovieCovers.Where(c => c.MovieId == movieId && !c.Deleted).FirstOrDefault();
+                if(existingCover != null)
+                {
+                    //Remove old cover
+                    if (!String.IsNullOrEmpty(existingCover.CoverPath) && File.Exists(existingCover.CoverPath))
+                        File.Delete(existingCover.CoverPath);
+
+                    //Update movie cover
+                    existingCover.CoverName = movieCover;
+                    existingCover.CoverPath = movieCoverPath;
+                    db.SaveChanges();
+
+                    Console.WriteLine("MovieService.EditCover: EXIT");
+                    return OutputTypeValues.Ok;
+                }
+
+                return OutputTypeValues.MovieCoverNotFound;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error editing movie cover -> " + ex.ToString());
                 Console.WriteLine(ex.Message);
 
                 return OutputTypeValues.Error;

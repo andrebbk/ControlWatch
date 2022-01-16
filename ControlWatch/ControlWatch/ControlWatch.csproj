@@ -146,6 +146,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commons\Enums\MenuOptionsTypeValues.cs" />
+    <Compile Include="Commons\Enums\OperationTypeValues.cs" />
     <Compile Include="Commons\Enums\OutputTypeValues.cs" />
     <Compile Include="Commons\Helpers\NotificationHelper.cs" />
     <Compile Include="Commons\Helpers\Utils.cs" />
@@ -341,6 +342,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Buttons\gobackicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\Pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\trashcan.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\search-silver-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

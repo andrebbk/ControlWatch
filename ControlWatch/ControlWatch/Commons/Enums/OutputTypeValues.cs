@@ -13,6 +13,8 @@ namespace ControlWatch.Commons.Enums
         DataError,
         SavingCoverError,
         AlreadyExistsCover,
+        MovieNotFound,
+        MovieCoverNotFound,
         Error
     }
 }
