@@ -81,7 +81,9 @@ namespace ControlWatch.Windows.Movies
         {
             if (ValidateModel())
             {
-                int ratingValue = Convert.ToInt16((double)RatingMovie.Value * 10);
+                UtilsOperations.StartLoadingAnimation();
+
+                int ratingValue = RatingMovie.Value.HasValue ? Convert.ToInt16((double)RatingMovie.Value * 10) : 0;
 
                 var createMovieResult = movieService.CreateMovie(
                     TextBox_MovieTitle.Text.Trim(),
@@ -93,11 +95,17 @@ namespace ControlWatch.Windows.Movies
                 if (createMovieResult == OutputTypeValues.Ok)
                 {
                     ClearForm();
+                    UtilsOperations.StopLoadingAnimation();
                     NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie saved successfully!");
                 }
                 else
+                {
+                    UtilsOperations.StopLoadingAnimation();
                     NotifyError(createMovieResult);
+                }              
+                                
             }
+
         }
 
         private bool ValidateModel()

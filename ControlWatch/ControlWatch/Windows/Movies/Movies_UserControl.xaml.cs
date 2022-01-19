@@ -55,6 +55,8 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
+                UtilsOperations.StartLoadingAnimation();
+
                 var moviesList = moviesService.GetMovies(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);              
 
                 if (moviesList != null && moviesList.Any())
@@ -83,6 +85,8 @@ namespace ControlWatch.Windows.Movies
 
                 //load filter
                 LoadMoviesFilter();
+
+                UtilsOperations.StopLoadingAnimation();
 
             }).Start();
         }
@@ -123,6 +127,8 @@ namespace ControlWatch.Windows.Movies
         {
             new Thread(() =>
             {
+                UtilsOperations.StartLoadingAnimation();
+
                 var moviesList = moviesService.GetMovies(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);
 
                 if (moviesList != null)
@@ -149,6 +155,8 @@ namespace ControlWatch.Windows.Movies
                     if(moviesToShow.Any())
                         ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));
                 }
+
+                UtilsOperations.StopLoadingAnimation();
             }).Start();
         }
 

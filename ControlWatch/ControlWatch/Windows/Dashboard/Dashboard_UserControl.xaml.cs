@@ -1,4 +1,5 @@
-﻿using ControlWatch.Services;
+﻿using ControlWatch.Commons.Helpers;
+using ControlWatch.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,8 @@ namespace ControlWatch.Windows.Dashboard
         {
             new Thread(() =>
             {
+                UtilsOperations.StartLoadingAnimation();
+
                 var statsData = statsService.GetStats();
 
                 if (statsData != null)
@@ -56,8 +59,10 @@ namespace ControlWatch.Windows.Dashboard
                         LabelTvShowsCount.Dispatcher.BeginInvoke((Action)(() => LabelTvShowsCount.Content = "Tv Shows: " + statsData.TvShowsCount));
                         LabelTvShowsViewsCount.Dispatcher.BeginInvoke((Action)(() => LabelTvShowsViewsCount.Content = "Views: " + statsData.TvShowsViewsCount));
                     }
-
                 }
+
+                UtilsOperations.StopLoadingAnimation();
+
             }).Start();
         }
     }
