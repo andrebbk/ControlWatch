@@ -40,6 +40,18 @@ namespace ControlWatch.Commons.Helpers
 
                 loadingWindow.Dispatcher.BeginInvoke((Action)(() => loadingWindow.Close()));
 
+                //Check for other windows opened
+                Application.Current.Dispatcher.Invoke(
+                    new Action(() => {
+                        foreach (Window window in Application.Current.Windows)
+                        {
+                            if(window.GetType() == typeof(LoadingWindow) || window.GetType() == typeof(ConfirmWindow))
+                            {
+                                window.Close();
+                            }
+                        }
+                    }));                
+
             }).Start();
         }
     }
