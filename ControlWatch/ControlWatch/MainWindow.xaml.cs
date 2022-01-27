@@ -42,10 +42,8 @@ namespace ControlWatch
             activeMenuOption = MenuOptionsTypeValues.Dashboard;
 
             //Only for testing - REMOVE THIS NEXT LINES
-            //this.MainContainer.Content = new MovieInfo_UserControl(this, 3);
-            //activeMenuOption = MenuOptionsTypeValues.MovieInfo;
-            this.MainContainer.Content = new NewTvShow_UserControl(this);
-            activeMenuOption = MenuOptionsTypeValues.NewTvShow;
+            this.MainContainer.Content = new TvShows_UserControl(this);
+            activeMenuOption = MenuOptionsTypeValues.TvShows;
 
         }
 
@@ -109,7 +107,7 @@ namespace ControlWatch
                 case MenuOptionsTypeValues.TvShows:
                     if (activeMenuOption != MenuOptionsTypeValues.TvShows)
                     {
-                        //this.MainContainer.Content = new Movies_UserControl(this);
+                        this.MainContainer.Content = new TvShows_UserControl(this);
                         activeMenuOption = MenuOptionsTypeValues.TvShows;
                     }
                     break;

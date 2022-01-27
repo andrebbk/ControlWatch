@@ -13,6 +13,7 @@ namespace ControlWatch.Commons.Enums
         NewMovie,
         TvShows,
         NewTvShow,
-        MovieInfo
+        MovieInfo,
+        TvShowInfo
     }
 }

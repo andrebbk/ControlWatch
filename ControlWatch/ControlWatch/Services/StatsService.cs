@@ -22,11 +22,11 @@ namespace ControlWatch.Services
                 {
                     //Movies
                     output.moviesCount = db.Movies.Where(m => !m.Deleted).Count();
-                    output.moviesViewsCount = db.Movies.Where(m => !m.Deleted).Sum(m => m.NrViews);
+                    output.moviesViewsCount = output.moviesCount > 0 ? db.Movies.Where(m => !m.Deleted).Sum(m => m.NrViews) : 0;
 
                     //TvShows
                     output.tvShowsCount = db.TvShows.Where(t => !t.Deleted).Count();
-                    output.tvShowsViewsCount = db.TvShows.Where(t => !t.Deleted).Sum(t => (t.NrViews * t.TvShowEpisodes));
+                    output.tvShowsViewsCount = output.tvShowsCount > 0 ? db.TvShows.Where(t => !t.Deleted).Sum(t => (t.NrViews * t.TvShowEpisodes)) : 0;
                 }
             }
             catch (Exception ex)

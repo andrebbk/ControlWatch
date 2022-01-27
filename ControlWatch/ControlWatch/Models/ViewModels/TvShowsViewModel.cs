@@ -11,7 +11,7 @@ namespace ControlWatch.Models.ViewModels
     {
         public int TvShowId { get; set; }
 
-        public BitmapImage MovieCover { get; set; }
+        public BitmapImage TvShowCover { get; set; }
 
         public string TvShowCoverPath { get; set; }
     }
