@@ -13,5 +13,9 @@ namespace ControlWatch.Data
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<MovieCover> MovieCovers { get; set; }
+
+        public DbSet<TvShow> TvShows { get; set; }
+
+        public DbSet<TvShowCover> TvShowCovers { get; set; }
     }
 }

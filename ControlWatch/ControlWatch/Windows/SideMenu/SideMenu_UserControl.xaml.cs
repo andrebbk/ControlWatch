@@ -55,7 +55,8 @@ namespace ControlWatch.Windows.SideMenu
 
         private void ButtonAddTvShow_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.SetMainContent(MenuOptionsTypeValues.NewTvShow);
+            _mainWindow.CloseSideDrawableMenu();
         }
     }
 }

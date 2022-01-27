@@ -4,6 +4,7 @@ using ControlWatch.Popup;
 using ControlWatch.Windows.Dashboard;
 using ControlWatch.Windows.Movies;
 using ControlWatch.Windows.SideMenu;
+using ControlWatch.Windows.TvShows;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -112,7 +113,7 @@ namespace ControlWatch
                 case MenuOptionsTypeValues.NewTvShow:
                     if (activeMenuOption != MenuOptionsTypeValues.NewTvShow)
                     {
-                        //this.MainContainer.Content = new Movies_UserControl(this);
+                        this.MainContainer.Content = new NewTvShow_UserControl(this);
                         activeMenuOption = MenuOptionsTypeValues.NewTvShow;
                     }
                     break;

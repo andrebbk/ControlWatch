@@ -260,8 +260,8 @@ namespace ControlWatch.Services
                 {
                     var movie = db.Movies.Where(m => m.MovieId == movieId && !m.Deleted).FirstOrDefault();
                     if (movie != null)
-                    {     
-                        //update visualizations Movie
+                    {
+                        //update Movie visualizations
                         movie.NrViews = movie.NrViews + 1;
                         db.SaveChanges();
 
@@ -358,7 +358,7 @@ namespace ControlWatch.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error editing new movie -> " + ex.ToString());
+                Console.WriteLine("Error editing movie -> " + ex.ToString());
                 Console.WriteLine(ex.Message);
 
                 return OutputTypeValues.Error;
@@ -368,7 +368,6 @@ namespace ControlWatch.Services
         public int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
         {
             Console.WriteLine("MovieService.GetMoviesCount: ENTER");
-            List<MoviesViewModel> output = new List<MoviesViewModel>();
 
             try
             {
@@ -457,7 +456,7 @@ namespace ControlWatch.Services
 
         private OutputTypeValues CreateCover(int movieId, string movieCover, string movieCoverPath, NorthwindContext db)
         {
-            Console.WriteLine("MovieService.SaveNewMovieCover: ENTER");
+            Console.WriteLine("MovieService.CreateCover: ENTER");
             if (movieId < 0 || String.IsNullOrWhiteSpace(movieCover))
                 return OutputTypeValues.DataError;
 

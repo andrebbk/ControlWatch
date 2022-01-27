@@ -25,8 +25,8 @@ namespace ControlWatch.Services
                     output.moviesViewsCount = db.Movies.Where(m => !m.Deleted).Sum(m => m.NrViews);
 
                     //TvShows
-                    output.tvShowsCount = 0; //db.Movies.Where(m => !m.Deleted).Count();
-                    output.tvShowsViewsCount = 0;//db.Movies.Where(m => !m.Deleted).Sum(m => m.NrViews);
+                    output.tvShowsCount = db.TvShows.Where(t => !t.Deleted).Count();
+                    output.tvShowsViewsCount = db.TvShows.Where(t => !t.Deleted).Sum(t => (t.NrViews * t.TvShowEpisodes));
                 }
             }
             catch (Exception ex)

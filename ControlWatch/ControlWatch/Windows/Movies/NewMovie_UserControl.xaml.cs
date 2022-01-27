@@ -20,7 +20,7 @@ namespace ControlWatch.Windows.Movies
         private MainWindow _mainWindow;
         private MovieService movieService;
 
-        private string LoadedMNovieCoverPath = "empty";
+        private string LoadedMovieCoverPath = "empty";
         private int NewMovieYear = 0;
 
         public NewMovie_UserControl(MainWindow mainWindow)
@@ -64,7 +64,7 @@ namespace ControlWatch.Windows.Movies
 
             if (of.ShowDialog() == DialogResult.OK)
             {
-                LoadedMNovieCoverPath = of.FileName;
+                LoadedMovieCoverPath = of.FileName;
                 TextBox_MovieCoverFileName.Text = of.FileName.Split('\\')[of.FileName.Split('\\').Count() - 1];
 
                 MovieCover.Source = Utils.LoadImageToBitmapImageNoDecodeChange(of.FileName);
@@ -72,7 +72,7 @@ namespace ControlWatch.Windows.Movies
             else
             {
                 MovieCover.Source = null;
-                LoadedMNovieCoverPath = "empty";
+                LoadedMovieCoverPath = "empty";
                 TextBox_MovieCoverFileName.Clear();
             }
         }
@@ -89,7 +89,7 @@ namespace ControlWatch.Windows.Movies
                     TextBox_MovieTitle.Text.Trim(),
                     NewMovieYear,
                     CheckBoxIsFavorite.IsChecked.Value,
-                    LoadedMNovieCoverPath,
+                    LoadedMovieCoverPath,
                     ratingValue);
 
                 if (createMovieResult == OutputTypeValues.Ok)
@@ -150,7 +150,7 @@ namespace ControlWatch.Windows.Movies
             //Cover
             MovieCover.Source = null;
             TextBox_MovieCoverFileName.Clear();
-            LoadedMNovieCoverPath = "empty";
+            LoadedMovieCoverPath = "empty";
 
             //Rating 
             RatingMovie.Value = 0;

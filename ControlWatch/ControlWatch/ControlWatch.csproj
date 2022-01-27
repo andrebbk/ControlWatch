@@ -180,10 +180,15 @@
     <Compile Include="Commons\Helpers\UtilsOperations.cs" />
     <Compile Include="Commons\Services\IMovieService.cs" />
     <Compile Include="Commons\Services\IStatsService.cs" />
+    <Compile Include="Commons\Services\ITvShowService.cs" />
     <Compile Include="InitSamplesTesting.cs" />
+    <Compile Include="Models\TvShow.cs" />
+    <Compile Include="Models\TvShowCover.cs" />
     <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Models\ViewModels\MovieInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
+    <Compile Include="Models\ViewModels\TvShowInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\TvShowsViewModel.cs" />
     <Compile Include="Notifications\CustomInput\CustomCommandExtensions.cs" />
     <Compile Include="Notifications\CustomInput\CustomInputDisplayPart.xaml.cs">
       <DependentUpon>CustomInputDisplayPart.xaml</DependentUpon>
@@ -203,6 +208,7 @@
     </Compile>
     <Compile Include="Services\MovieService.cs" />
     <Compile Include="Services\StatsService.cs" />
+    <Compile Include="Services\TvShowService.cs" />
     <Compile Include="Windows\Dashboard\Dashboard_UserControl.xaml.cs">
       <DependentUpon>Dashboard_UserControl.xaml</DependentUpon>
     </Compile>
@@ -217,6 +223,9 @@
     </Compile>
     <Compile Include="Windows\SideMenu\SideMenu_UserControl.xaml.cs">
       <DependentUpon>SideMenu_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TvShows\NewTvShow_UserControl.xaml.cs">
+      <DependentUpon>NewTvShow_UserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SideMenu\SideMenu_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TvShows\NewTvShow_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,6 +33,26 @@ namespace ControlWatch.Commons.Helpers
             return output;
         }
 
+        //get folder directory for tvshow's cover
+        public static string GetControlWatchTvShowsFolder()
+        {
+            string output = null;
+
+            var exePath = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
+
+            if (!String.IsNullOrEmpty(exePath.ToString()))
+            {
+                string coversFolder = exePath.ToString() + "\\Covers\\TvShows\\";
+
+                if (!Directory.Exists(coversFolder))
+                    Directory.CreateDirectory(coversFolder);
+
+                output = coversFolder;
+            }
+
+            return output;
+        }
+
         //load image to bitmap without lock file (seek ini stream with 0)
         public static BitmapImage LoadImageToBitmapStreamImage(string fileName)
         {

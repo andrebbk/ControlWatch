@@ -15,6 +15,8 @@ namespace ControlWatch.Commons.Enums
         AlreadyExistsCover,
         MovieNotFound,
         MovieCoverNotFound,
+        TvShowNotFound,
+        TvShowCoverNotFound,
         Error
     }
 }
