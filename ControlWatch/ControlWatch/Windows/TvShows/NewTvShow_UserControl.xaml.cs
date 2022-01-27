@@ -82,6 +82,52 @@ namespace ControlWatch.Windows.TvShows
 
             //Rating 
             RatingTvShow.Value = 0;
+
+            //Seasons
+            UpDownSeasons.Text = "0";
+            UpDownSeasons.Value = 0;
+
+            //Episodes
+            UpDownEpisodes.Text = "0";
+            UpDownEpisodes.Value = 0;
+        }
+
+        private bool ValidateModel()
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrWhiteSpace(TextBox_TvShowTitle.Text))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow title is required!");
+                isValid = false;
+            }
+            else if (String.IsNullOrWhiteSpace(TextBox_TvShowCoverFileName.Text))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow cover is required!");
+                isValid = false;
+            }
+            else if (!int.TryParse(ComboBoxYears.SelectedValue.ToString(), out NewTvShowYear))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow year is invalid!");
+                isValid = false;
+            }
+            else if (NewTvShowYear < 1980)
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow year is invalid!");
+                isValid = false;
+            }
+            else if(!UpDownSeasons.Value.HasValue || (UpDownSeasons.Value.HasValue && (UpDownSeasons.Value.Value < 0 || UpDownSeasons.Value.Value > 200)))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow seasons is invalid!");
+                isValid = false;
+            }
+            else if (!UpDownEpisodes.Value.HasValue || (UpDownEpisodes.Value.HasValue && (UpDownEpisodes.Value.Value < 0 || UpDownEpisodes.Value.Value > 500)))
+            {
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow episodes is invalid!");
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         private void NotifyError(OutputTypeValues result)
@@ -134,7 +180,32 @@ namespace ControlWatch.Windows.TvShows
 
         private void ButtonSaveTvShow_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateModel())
+            {
+                UtilsOperations.StartLoadingAnimation();
 
+                int ratingValue = RatingTvShow.Value.HasValue ? Convert.ToInt16((double)RatingTvShow.Value * 10) : 0;
+                int nSeasons = unchecked((int)UpDownSeasons.Value.Value);
+                int nEpisodes = unchecked((int)UpDownEpisodes.Value.Value);
+
+                var createMovieResult = tvShowService.CreateTvShow(TextBox_TvShowTitle.Text.Trim(), NewTvShowYear, nSeasons,
+                    nEpisodes,
+                    CheckBoxIsFavorite.IsChecked.Value,
+                    LoadedTvShowCoverPath,
+                    ratingValue);
+
+                if (createMovieResult == OutputTypeValues.Ok)
+                {
+                    ClearForm();
+                    UtilsOperations.StopLoadingAnimation();
+                    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow saved successfully!");
+                }
+                else
+                {
+                    UtilsOperations.StopLoadingAnimation();
+                    NotifyError(createMovieResult);
+                }
+            }
         }
     }
 }

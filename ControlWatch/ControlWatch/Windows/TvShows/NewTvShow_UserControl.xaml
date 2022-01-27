@@ -89,7 +89,7 @@
 
         <!--Seasons-->
         <TextBlock VerticalAlignment="Top" Text="Episodes:" TextWrapping="Wrap" Margin="646,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
-        <xctk:UIntegerUpDown x:Name="UpDownEpisodes" Minimum="0" Maximum="200" VerticalAlignment="Center" FontSize="20" Text="0" HorizontalAlignment="Stretch" Margin="648,509,1138,505" Background="{x:Null}" BorderBrush="{x:Null}" 
+        <xctk:UIntegerUpDown x:Name="UpDownEpisodes" Minimum="0" Maximum="500" VerticalAlignment="Center" FontSize="20" Text="0" HorizontalAlignment="Stretch" Margin="648,509,1138,505" Background="{x:Null}" BorderBrush="{x:Null}" 
             Height="35" Foreground="White" AllowTextInput="False"/>
         
         <!--Buttons-->
