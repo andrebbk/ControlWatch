@@ -44,6 +44,9 @@ namespace ControlWatch
             //Only for testing - REMOVE THIS NEXT LINES
             //this.MainContainer.Content = new MovieInfo_UserControl(this, 3);
             //activeMenuOption = MenuOptionsTypeValues.MovieInfo;
+            this.MainContainer.Content = new NewTvShow_UserControl(this);
+            activeMenuOption = MenuOptionsTypeValues.NewTvShow;
+
         }
 
         //Open Drawable Menu

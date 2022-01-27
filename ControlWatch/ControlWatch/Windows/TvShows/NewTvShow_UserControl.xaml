@@ -7,6 +7,7 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              Height="1049" Width="1871">
     <UserControl.Resources>
@@ -15,6 +16,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
+        <!--Control Title-->
         <TextBlock TextElement.FontSize="55px" TextElement.FontWeight="Bold" Margin="142,42,866,938" Foreground="#DDFFFBFB" Text="New TvShow"/>
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="4" Margin="112,116,0,0" VerticalAlignment="Top" Width="1432" Background="#FFF5F0F0" RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
@@ -27,7 +29,7 @@
             </Border.RenderTransform>
         </Border>
 
-
+        <!--TvShow Title-->
         <TextBlock VerticalAlignment="Top" Text="TvShow Title:" TextWrapping="Wrap" Margin="253,259,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <TextBox Margin="254,287,1039,722" x:Name="TextBox_TvShowTitle" Height="40" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFFCFC" SelectionBrush="Red" CaretBrush="#FF2A292C" FontSize="20" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="{x:Null}">
             <TextBox.RenderTransform>
@@ -39,10 +41,15 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <CheckBox x:Name="CheckBoxIsFavorite" Content="Is Favorite" HorizontalAlignment="Left" Margin="278,503,0,0" VerticalAlignment="Top" Height="48" Width="114" FontSize="18" Foreground="White"/>
+
+        <!--Favorites-->
+        <CheckBox x:Name="CheckBoxIsFavorite" Content="Is Favorite" HorizontalAlignment="Left" Margin="275,504,0,0" VerticalAlignment="Top" Height="48" Width="114" FontSize="18" Foreground="White"/>
         <TextBlock VerticalAlignment="Top" Text="Favorites:" TextWrapping="Wrap" Margin="256,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
-        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveTvShow" Content="Save" TextElement.FontSize="20px" Padding="146, 0, 0, 5" Margin="253,702,0,0" VerticalAlignment="Top" Width="336" Height="50" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonSaveTvShow_Click"/>
+        
+        <!--TvShow Cover Preview-->
         <Image x:Name="TvShowCover" HorizontalAlignment="Left" Height="627" Margin="961,210,0,0" VerticalAlignment="Top" Width="554"/>
+
+        <!--TvShow Cover-->
         <Image x:Name="ButtonLoadPic" HorizontalAlignment="Left" Height="40" Margin="416,573,0,0" VerticalAlignment="Top" Width="44" Source="/ControlWatch;component/Resources/Buttons/AluminumGreyImages.png" MouseDown="ButtonLoadPic_MouseDown"/>
         <TextBlock VerticalAlignment="Top" Text="TvShow Cover:" TextWrapping="Wrap" Margin="260,584,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="WhiteSmoke"/>
         <TextBox Margin="261,622,1040,387" x:Name="TextBox_TvShowCoverFileName" Height="40" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFF7F7" SelectionBrush="Red" CaretBrush="White" FontSize="20" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="{x:Null}" IsReadOnly="True">
@@ -56,9 +63,11 @@
             </TextBox.RenderTransform>
         </TextBox>
 
+        <!--TvShow Year-->
         <TextBlock VerticalAlignment="Top" Text="TvShow Year:" TextWrapping="Wrap" Margin="256,369,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <ComboBox Name="ComboBoxYears" Margin="256,403,1466,606" HorizontalContentAlignment="Center"  Foreground="WhiteSmoke" Background="{x:Null}" FontSize="20" ItemContainerStyle="{StaticResource ItemStyle}"/>
-        
+
+        <!--Rating-->
         <TextBlock VerticalAlignment="Top" Text="TvShow Rating:" TextWrapping="Wrap" Margin="514,369,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <System_Windows_Controls:Rating x:Name="RatingTvShow"  VerticalAlignment="Top" Height="24" Margin="0,407,1138,0" Width="202" HorizontalAlignment="Right" Background="{x:Null}" Foreground="#FFE6C809">
             <System_Windows_Controls:RatingItem Content=""/>
@@ -72,5 +81,20 @@
             <System_Windows_Controls:RatingItem Content=""/>
             <System_Windows_Controls:RatingItem Content=""/>
         </System_Windows_Controls:Rating>
+        
+        <!--Seasons-->
+        <TextBlock VerticalAlignment="Top" Text="Seasons:" TextWrapping="Wrap" Margin="457,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <xctk:UIntegerUpDown Name="UpDownSeasons" Minimum="0" Maximum="200" VerticalAlignment="Center" FontSize="20" Text="0" HorizontalAlignment="Stretch" Margin="452,509,1334,505" Background="{x:Null}" BorderBrush="{x:Null}" 
+                             Height="35" Foreground="White" AllowTextInput="False"/>
+
+        <!--Seasons-->
+        <TextBlock VerticalAlignment="Top" Text="Episodes:" TextWrapping="Wrap" Margin="646,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <xctk:UIntegerUpDown x:Name="UpDownEpisodes" Minimum="0" Maximum="200" VerticalAlignment="Center" FontSize="20" Text="0" HorizontalAlignment="Stretch" Margin="648,509,1138,505" Background="{x:Null}" BorderBrush="{x:Null}" 
+            Height="35" Foreground="White" AllowTextInput="False"/>
+        
+        <!--Buttons-->
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveTvShow" Content="Save" TextElement.FontSize="20px" Padding="146, 0, 0, 5" Margin="253,702,0,0" VerticalAlignment="Top" Width="336" Height="50" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonSaveTvShow_Click"/>
+        
+        
     </Grid>
 </UserControl>
