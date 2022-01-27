@@ -42,7 +42,7 @@ namespace ControlWatch
             activeMenuOption = MenuOptionsTypeValues.Dashboard;
 
             //Only for testing - REMOVE THIS NEXT LINES
-            this.MainContainer.Content = new TvShowInfo_UserControl(this, 0);
+            this.MainContainer.Content = new TvShowInfo_UserControl(this, 1);
             activeMenuOption = MenuOptionsTypeValues.TvShowInfo;
 
         }

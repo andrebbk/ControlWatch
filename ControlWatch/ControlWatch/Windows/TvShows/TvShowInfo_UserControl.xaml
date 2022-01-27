@@ -99,6 +99,12 @@
                 <TextBlock Text="Delete Tv Show" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Margin="9,0,0,0" />
             </StackPanel>
         </Button>
+        <TextBlock VerticalAlignment="Top" Text="Seasons:" TextWrapping="Wrap" Margin="457,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <xctk:UIntegerUpDown x:Name="UpDownSeasons" Minimum="0" Maximum="200" VerticalAlignment="Center" FontSize="20" Text="" HorizontalAlignment="Stretch" Margin="452,509,1334,505" Background="{x:Null}" BorderBrush="{x:Null}" 
+            Height="35" Foreground="White" AllowTextInput="False" IsEnabled="false"/>
+        <TextBlock VerticalAlignment="Top" Text="Episodes:" TextWrapping="Wrap" Margin="646,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <xctk:UIntegerUpDown x:Name="UpDownEpisodes" Minimum="0" Maximum="500" VerticalAlignment="Center" FontSize="20" Text="" HorizontalAlignment="Stretch" Margin="648,509,1138,505" Background="{x:Null}" BorderBrush="{x:Null}" 
+            Height="35" Foreground="White" AllowTextInput="False" IsEnabled="false"/>
 
     </Grid>
 </UserControl>

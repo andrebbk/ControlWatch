@@ -31,7 +31,7 @@ namespace ControlWatch.Windows.Movies
 
         private int LoadedMovieId;
         private OperationTypeValues currentMode;
-        private string LoadedMNovieCoverPath = null;
+        private string LoadedMovieCoverPath = null;
         private int NewMovieYear = 0, NewMovieViews = 0;
 
         public MovieInfo_UserControl(MainWindow mainWindow, int? movieId)
@@ -55,7 +55,7 @@ namespace ControlWatch.Windows.Movies
                 //load param
                 LoadedMovieId = movieId;
                 currentMode = OperationTypeValues.Info;
-                LoadedMNovieCoverPath = null;
+                LoadedMovieCoverPath = null;
                 NewMovieYear = NewMovieViews = 0;
 
                 var movieInfo = moviesService.GetMovieById(movieId);
@@ -169,6 +169,37 @@ namespace ControlWatch.Windows.Movies
             ComboBoxViews.Dispatcher.BeginInvoke((Action)(() => ComboBoxViews.IsEnabled = false));
         }
 
+        private void NotifyError(OutputTypeValues result)
+        {
+            string msg = null;
+
+            switch (result)
+            {
+                case OutputTypeValues.AlreadyExists:
+                    msg = "Movie already exists!";
+                    break;
+                case OutputTypeValues.DataError:
+                    msg = "Movie data is invalid!";
+                    break;
+                case OutputTypeValues.SavingCoverError:
+                    msg = "An error has occurred saving cover!";
+                    break;
+                case OutputTypeValues.MovieNotFound:
+                    msg = "Movie not found!";
+                    break;
+                case OutputTypeValues.MovieCoverNotFound:
+                    msg = "Movie cover not found!";
+                    break;
+                case OutputTypeValues.Error:
+                default:
+                    msg = "An error has occurred saving movie!";
+                    break;
+            }
+
+            if (!String.IsNullOrEmpty(msg))
+                NotificationHelper.notifier.ShowCustomMessage("Control Watch", msg);
+        }
+
 
         //Buttons
         private void ButtonGoBack_MouseDown(object sender, MouseButtonEventArgs e)
@@ -184,7 +215,7 @@ namespace ControlWatch.Windows.Movies
 
             if (of.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                LoadedMNovieCoverPath = of.FileName;
+                LoadedMovieCoverPath = of.FileName;
                 TextBox_MovieCoverFileName.Text = of.FileName.Split('\\')[of.FileName.Split('\\').Count() - 1];
 
                 MovieCover.Source = Utils.LoadImageToBitmapImageNoDecodeChange(of.FileName);
@@ -192,7 +223,7 @@ namespace ControlWatch.Windows.Movies
             else
             {
                 MovieCover.Source = null;
-                LoadedMNovieCoverPath = null;
+                LoadedMovieCoverPath = null;
                 TextBox_MovieCoverFileName.Clear();
             }
         }
@@ -209,7 +240,7 @@ namespace ControlWatch.Windows.Movies
                     TextBox_MovieTitle.Text.Trim(),
                     NewMovieYear,
                     CheckBoxIsFavorite.IsChecked.Value,
-                    LoadedMNovieCoverPath,
+                    LoadedMovieCoverPath,
                     ratingValue,
                     NewMovieViews);
 
@@ -279,37 +310,6 @@ namespace ControlWatch.Windows.Movies
                 else
                     NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying delete movie with id " + LoadedMovieId.ToString() + "!");
             }
-        }
-
-        private void NotifyError(OutputTypeValues result)
-        {
-            string msg = null;
-
-            switch (result)
-            {
-                case OutputTypeValues.AlreadyExists:
-                    msg = "Movie already exists!";
-                    break;
-                case OutputTypeValues.DataError:
-                    msg = "Movie data is invalid!";
-                    break;
-                case OutputTypeValues.SavingCoverError:
-                    msg = "An error has occurred saving cover!";
-                    break;
-                case OutputTypeValues.MovieNotFound:
-                    msg = "Movie not found!";
-                    break;
-                case OutputTypeValues.MovieCoverNotFound:
-                    msg = "Movie cover not found!";
-                    break;
-                case OutputTypeValues.Error:
-                default:
-                    msg = "An error has occurred saving movie!";
-                    break;
-            }
-
-            if (!String.IsNullOrEmpty(msg))
-                NotificationHelper.notifier.ShowCustomMessage("Control Watch", msg);
         }
     }
 }
