@@ -242,6 +242,9 @@
     <Compile Include="Windows\TvShows\NewTvShow_UserControl.xaml.cs">
       <DependentUpon>NewTvShow_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TvShows\TvShowInfo_UserControl.xaml.cs">
+      <DependentUpon>TvShowInfo_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TvShows\TvShows_UserControl.xaml.cs">
       <DependentUpon>TvShows_UserControl.xaml</DependentUpon>
     </Compile>
@@ -299,6 +302,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\TvShows\NewTvShow_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TvShows\TvShowInfo_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

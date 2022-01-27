@@ -198,7 +198,7 @@ namespace ControlWatch.Windows.Movies
         {
             if (ListViewMovies.SelectedItem != null)
             {
-                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId);
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId, null);
             }
         }
 
@@ -206,7 +206,7 @@ namespace ControlWatch.Windows.Movies
         {
             if (ListViewMovies.SelectedItem != null)
             {
-                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId);
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId, null);
             }
         }
 

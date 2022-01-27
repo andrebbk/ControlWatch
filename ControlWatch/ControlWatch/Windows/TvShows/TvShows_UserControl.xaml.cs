@@ -199,7 +199,7 @@ namespace ControlWatch.Windows.TvShows
         {
             if (ListViewTvShows.SelectedItem != null)
             {
-                //_mainWindow.SetMainContent(MenuOptionsTypeValues.TvShowInfo, ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId);
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.TvShowInfo, null, ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId);
             }
         }
 
@@ -207,7 +207,7 @@ namespace ControlWatch.Windows.TvShows
         {
             if (ListViewTvShows.SelectedItem != null)
             {
-                //_mainWindow.SetMainContent(MenuOptionsTypeValues.TvShowInfo, ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId);
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.TvShowInfo, null, ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId);
             }
         }
 
