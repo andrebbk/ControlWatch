@@ -46,55 +46,24 @@ namespace ControlWatch
 
         }
 
-        //Open Drawable Menu
-        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
-        {
-            IsDrawableOpen = true;
-            ButtonOpen.Visibility = Visibility.Hidden;
-            Canvas.SetZIndex(this.GridBackground, 0);
-        }
-
-        //Click on background
-        private void GridBackground_MouseDown(object sender, MouseButtonEventArgs e)
-        {            
-            if (IsDrawableOpen)
-            {
-                Storyboard sb = this.FindResource("CloseMenu") as Storyboard;
-                sb.Begin();
-
-                IsDrawableOpen = false;
-
-                ButtonOpen.Visibility = Visibility.Visible;
-
-                Canvas.SetZIndex(this.GridBackground, -2);
-            }
-        }
-
-        //Binding Actions    
-        private void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-
         //Public Acess
         public void SetMainContent(MenuOptionsTypeValues menuOption, int? movieId = null, int? tvShowId = null)
         {
             switch (menuOption)
             {
                 case MenuOptionsTypeValues.Dashboard:
-                    if(activeMenuOption != MenuOptionsTypeValues.Dashboard)
+                    if (activeMenuOption != MenuOptionsTypeValues.Dashboard)
                     {
                         this.MainContainer.Content = new Dashboard_UserControl(this);
                         activeMenuOption = MenuOptionsTypeValues.Dashboard;
-                    }                    
+                    }
                     break;
                 case MenuOptionsTypeValues.Movies:
                     if (activeMenuOption != MenuOptionsTypeValues.Movies)
                     {
                         this.MainContainer.Content = new Movies_UserControl(this);
                         activeMenuOption = MenuOptionsTypeValues.Movies;
-                    }                        
+                    }
                     break;
                 case MenuOptionsTypeValues.NewMovie:
                     if (activeMenuOption != MenuOptionsTypeValues.NewMovie)
@@ -154,6 +123,37 @@ namespace ControlWatch
 
             Canvas.SetZIndex(this.GridBackground, -2);
         }
+
+
+        //Open Drawable Menu
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        {
+            IsDrawableOpen = true;
+            ButtonOpen.Visibility = Visibility.Hidden;
+            Canvas.SetZIndex(this.GridBackground, 0);
+        }
+
+        //Click on background
+        private void GridBackground_MouseDown(object sender, MouseButtonEventArgs e)
+        {            
+            if (IsDrawableOpen)
+            {
+                Storyboard sb = this.FindResource("CloseMenu") as Storyboard;
+                sb.Begin();
+
+                IsDrawableOpen = false;
+
+                ButtonOpen.Visibility = Visibility.Visible;
+
+                Canvas.SetZIndex(this.GridBackground, -2);
+            }
+        }
+
+        //Binding Actions    
+        private void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }        
 
         private void ButtonMinimizeApp_Click(object sender, RoutedEventArgs e)
         {
