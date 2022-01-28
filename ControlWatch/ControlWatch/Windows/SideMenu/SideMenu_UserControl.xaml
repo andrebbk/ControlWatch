@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ControlWatch.Windows.SideMenu"
              mc:Ignorable="d" 
-             Height="450" Width="253">
+             Height="480" Width="253">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,24,0,0" TextWrapping="Wrap" Text="Menu" VerticalAlignment="Top" FontFamily="Yu Gothic" FontWeight="Bold" FontSize="20" Foreground="White" FontStyle="Italic"/>
 
@@ -42,6 +42,13 @@
             <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="New Tv Show" VerticalAlignment="Center" Margin="0,0,76,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
                 <Image  Width="44" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,6,0,5" Source="/ControlWatch;component/Resources/Buttons/Navigation Icon_TV-06.png"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSettings" TextElement.FontSize="22px" Padding="15, 0, 0, 0" Margin="10,394,0,0" VerticalAlignment="Top" Width="233" Height="56" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonSettings_Click">
+            <StackPanel Orientation="Horizontal" Width="209" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Settings" VerticalAlignment="Center" Margin="0,0,110,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+                <Image  Width="44" Stretch="Fill" RenderTransformOrigin="2.75,0.65"  Margin="0,4,0,5" Source="/ControlWatch;component/Resources/Buttons/settings-icon.png"/>
             </StackPanel>
         </Button>
     </Grid>

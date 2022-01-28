@@ -7,7 +7,7 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:ControlWatch"
         mc:Ignorable="d"
-        Title="Control Watch" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF292929">
+        Title="Control Watch" Height="1080" Width="1920" WindowStyle="None"  WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF292929">
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
@@ -48,11 +48,23 @@
         <!-- SLIDE MENU -->
         <Grid x:Name="GridBackground" Background="#55313131" Opacity="0" MouseDown="GridBackground_MouseDown" Panel.ZIndex="-2"/>
 
+        <Button x:Name="ButtonCloseApp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,121,0,0" Height="28" Foreground="{x:Null}" BorderBrush="{x:Null}" Click="ButtonCloseApp_Click" Width="30">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/Buttons/close-white-icon.png"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="ButtonMinimizeApp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,163,0,0" Height="32" Foreground="{x:Null}" BorderBrush="{x:Null}" Click="ButtonMinimizeApp_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/Buttons/minimize-icon.png"/>
+            </Button.Background>
+        </Button>
+
         <Button x:Name="ButtonOpen" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Width="41" Height="41" Padding="0" Margin="0,200,0,0" Click="ButtonOpen_Click">
             <materialDesign:PackIcon Kind="Menu" Foreground="#FFFDFDFD" Height="31" Width="31"/>
         </Button>
 
-        <Grid x:Name="GridMenu" Width="278" HorizontalAlignment="Left" Margin="-283,200,0,408" RenderTransformOrigin="0.5,0.5" Opacity="1" Background="#FF131313">
+        <Grid x:Name="GridMenu" Width="278" HorizontalAlignment="Left" Margin="-283,200,0,366" RenderTransformOrigin="0.5,0.5" Opacity="1" Background="#FF131313">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -67,7 +79,7 @@
                     <SolidColorBrush  Opacity="0"/>
                 </materialDesign:Card.Background>
 
-                <Controls:TransitioningContentControl x:Name="DrawableMenuContainer" Height="450" Width="253" Transition="Left" Margin="-30,-31,-29,-29" Padding="0, 0, 0, 0"/>
+                <Controls:TransitioningContentControl x:Name="DrawableMenuContainer"  Width="253" Transition="Left" Margin="-30,-31,-29,-29" Padding="0, 0, 0, 0"/>
 
             </materialDesign:Card>
         </Grid>

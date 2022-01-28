@@ -14,6 +14,7 @@ namespace ControlWatch.Commons.Enums
         TvShows,
         NewTvShow,
         MovieInfo,
-        TvShowInfo
+        TvShowInfo,
+        Settings
     }
 }

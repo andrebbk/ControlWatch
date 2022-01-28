@@ -1,8 +1,7 @@
 ﻿using ControlWatch.Commons.Enums;
-using ControlWatch.Commons.Helpers;
-using ControlWatch.Popup;
 using ControlWatch.Windows.Dashboard;
 using ControlWatch.Windows.Movies;
+using ControlWatch.Windows.Settings;
 using ControlWatch.Windows.SideMenu;
 using ControlWatch.Windows.TvShows;
 using System.Windows;
@@ -42,8 +41,8 @@ namespace ControlWatch
             activeMenuOption = MenuOptionsTypeValues.Dashboard;
 
             //Only for testing - REMOVE THIS NEXT LINES
-            this.MainContainer.Content = new NewTvShow_UserControl(this);
-            activeMenuOption = MenuOptionsTypeValues.NewTvShow;
+            this.MainContainer.Content = new Settings_UserControl(this);
+            activeMenuOption = MenuOptionsTypeValues.Settings;
 
         }
 
@@ -74,7 +73,7 @@ namespace ControlWatch
         //Binding Actions    
         private void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown();
         }
 
 
@@ -132,6 +131,13 @@ namespace ControlWatch
                         activeMenuOption = MenuOptionsTypeValues.TvShowInfo;
                     }
                     break;
+                case MenuOptionsTypeValues.Settings:
+                    if (activeMenuOption != MenuOptionsTypeValues.Settings)
+                    {
+                        this.MainContainer.Content = new Settings_UserControl(this);
+                        activeMenuOption = MenuOptionsTypeValues.Settings;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -147,6 +153,16 @@ namespace ControlWatch
             ButtonOpen.Visibility = Visibility.Visible;
 
             Canvas.SetZIndex(this.GridBackground, -2);
+        }
+
+        private void ButtonMinimizeApp_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void ButtonCloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

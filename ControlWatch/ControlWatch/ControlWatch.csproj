@@ -236,6 +236,9 @@
     <Compile Include="Windows\Movies\NewMovie_UserControl.xaml.cs">
       <DependentUpon>NewMovie_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Settings\Settings_UserControl.xaml.cs">
+      <DependentUpon>Settings_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SideMenu\SideMenu_UserControl.xaml.cs">
       <DependentUpon>SideMenu_UserControl.xaml</DependentUpon>
     </Compile>
@@ -294,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Movies\NewMovie_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Settings\Settings_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -438,6 +445,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Buttons\search-silver-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\settings-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\minimize-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\close-white-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
