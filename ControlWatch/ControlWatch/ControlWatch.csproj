@@ -190,6 +190,7 @@
     <Compile Include="Commons\Enums\MenuOptionsTypeValues.cs" />
     <Compile Include="Commons\Enums\OperationTypeValues.cs" />
     <Compile Include="Commons\Enums\OutputTypeValues.cs" />
+    <Compile Include="Commons\Enums\SettingsTabTypeValues.cs" />
     <Compile Include="Commons\Helpers\NotificationHelper.cs" />
     <Compile Include="Commons\Helpers\Utils.cs" />
     <Compile Include="Commons\Helpers\UtilsOperations.cs" />

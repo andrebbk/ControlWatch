@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlWatch.Commons.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,82 @@ namespace ControlWatch.Windows.Settings
     public partial class Settings_UserControl : UserControl
     {
         private MainWindow _mainWindow;
+        private SettingsTabTypeValues currentTab;
 
         public Settings_UserControl(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+
+            LoadSettings();
         }
+
+        private void LoadSettings()
+        {
+            currentTab = SettingsTabTypeValues.MainSettings;
+            ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+        }
+
+        private void ResetBackgroundTabButtons()
+        {
+            ButtonTabMainSettings.Background
+                = ButtonTabMovies.Background
+                = ButtonTabMoviesCovers.Background
+                = ButtonTabTvShowsCovers.Background
+                = ButtonTabTvShows.Background
+                = new SolidColorBrush(Color.FromArgb(255, 55,54, 56));
+        }
+
+
+        //Buttons
+        private void ButtonTabMainSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if(currentTab != SettingsTabTypeValues.MainSettings)
+            {
+                ResetBackgroundTabButtons();
+                ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+                currentTab = SettingsTabTypeValues.MainSettings;
+            }
+        }
+
+        private void ButtonTabMovies_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTab != SettingsTabTypeValues.Movies)
+            {
+                ResetBackgroundTabButtons();
+                ButtonTabMovies.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+                currentTab = SettingsTabTypeValues.Movies;
+            }
+        }
+
+        private void ButtonTabMoviesCovers_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTab != SettingsTabTypeValues.MoviesCovers)
+            {
+                ResetBackgroundTabButtons();
+                ButtonTabMoviesCovers.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+                currentTab = SettingsTabTypeValues.MoviesCovers;
+            }
+        }
+
+        private void ButtonTabTvShows_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTab != SettingsTabTypeValues.TvShows)
+            {
+                ResetBackgroundTabButtons();
+                ButtonTabTvShows.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+                currentTab = SettingsTabTypeValues.TvShows;
+            }
+        }
+
+        private void ButtonTabTvShowsCovers_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTab != SettingsTabTypeValues.TvShowsCovers)
+            {
+                ResetBackgroundTabButtons();
+                ButtonTabTvShowsCovers.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+                currentTab = SettingsTabTypeValues.TvShowsCovers;
+            }
+        }        
     }
 }
