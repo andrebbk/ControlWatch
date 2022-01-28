@@ -101,6 +101,7 @@ namespace ControlWatch.Services
                                      t.NrViews,
                                      t.IsFavorite,
                                      t.TvShowRating,
+                                     t.Observations,
                                      t.CreateDate,
                                      c.CoverName,
                                      c.CoverPath
@@ -118,6 +119,7 @@ namespace ControlWatch.Services
                             NrViews = t.NrViews,
                             IsFavorite = t.IsFavorite,
                             TvShowRating = t.TvShowRating,
+                            Observations = t.Observations,
                             CreateDate = t.CreateDate,
                             CoverName = t.CoverName,
                             CoverPath = t.CoverPath
@@ -160,7 +162,7 @@ namespace ControlWatch.Services
             }
         }
 
-        public OutputTypeValues CreateTvShow(string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue)
+        public OutputTypeValues CreateTvShow(string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, string observations)
         {
             Console.WriteLine("TvShowService.CreateTvShow: ENTER");
             if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < 1980 || String.IsNullOrWhiteSpace(tvShowCover))
@@ -187,6 +189,7 @@ namespace ControlWatch.Services
                         TvShowEpisodes = tvShowEpisodes,
                         IsFavorite = isFavorite,
                         TvShowRating = ratingValue,
+                        Observations = observations,
                         CreateDate = DateTime.UtcNow,
                         Deleted = false,
                     };
@@ -312,7 +315,7 @@ namespace ControlWatch.Services
             return output;
         }
 
-        public OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews)
+        public OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, string observations)
         {
             Console.WriteLine("TvShowService.EditTvShow: ENTER");
             if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < 1980 || tvShowViews < 1)
@@ -345,6 +348,7 @@ namespace ControlWatch.Services
                         tvShow.NrViews = tvShowViews;
                         tvShow.IsFavorite = isFavorite;
                         tvShow.TvShowRating = ratingValue;
+                        tvShow.Observations = observations;
                         db.SaveChanges();
 
                         //Save new cover

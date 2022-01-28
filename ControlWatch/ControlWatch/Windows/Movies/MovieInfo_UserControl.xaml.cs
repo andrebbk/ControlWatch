@@ -165,7 +165,7 @@ namespace ControlWatch.Windows.Movies
             RatingMovie.Dispatcher.BeginInvoke((Action)(() => RatingMovie.IsEnabled = false));
             CheckBoxIsFavorite.Dispatcher.BeginInvoke((Action)(() => CheckBoxIsFavorite.IsEnabled = false));
             ComboBoxViews.Dispatcher.BeginInvoke((Action)(() => ComboBoxViews.IsEnabled = false));
-            TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.IsEnabled = false));
+            TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.IsReadOnly = true));
         }
 
         private void NotifyError(OutputTypeValues result)
@@ -276,7 +276,7 @@ namespace ControlWatch.Windows.Movies
                 RatingMovie.IsEnabled = true;
                 CheckBoxIsFavorite.IsEnabled = true;
                 ComboBoxViews.IsEnabled = true;
-                TextBox_Observations.IsEnabled = true;
+                TextBox_Observations.IsReadOnly = false;
             }
             else
             {
@@ -293,7 +293,7 @@ namespace ControlWatch.Windows.Movies
                 RatingMovie.IsEnabled = false;
                 CheckBoxIsFavorite.IsEnabled = false;
                 ComboBoxViews.IsEnabled = false;
-                TextBox_Observations.IsEnabled = false;
+                TextBox_Observations.IsReadOnly = true;
             }
         }
 

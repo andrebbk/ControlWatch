@@ -111,6 +111,9 @@ namespace ControlWatch.Windows.TvShows
                     //Rating TvShow
                     double ratingValue = (double)tvShowInfo.TvShowRating / (double)10;
                     RatingTvShow.Dispatcher.BeginInvoke((Action)(() => RatingTvShow.Value = ratingValue));
+
+                    //Observations
+                    TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.Text = tvShowInfo.Observations));
                 }
 
             }).Start();
@@ -179,6 +182,8 @@ namespace ControlWatch.Windows.TvShows
 
             UpDownSeasons.Dispatcher.BeginInvoke((Action)(() => UpDownSeasons.IsEnabled = false));
             UpDownEpisodes.Dispatcher.BeginInvoke((Action)(() => UpDownEpisodes.IsEnabled = false));
+
+            TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.IsReadOnly = true));
         }
 
         private void NotifyError(OutputTypeValues result)
@@ -258,7 +263,8 @@ namespace ControlWatch.Windows.TvShows
                     CheckBoxIsFavorite.IsChecked.Value,
                     LoadedTvShowCoverPath,
                     ratingValue,
-                    NewTvShowViews);
+                    NewTvShowViews,
+                    TextBox_Observations.Text.Trim());
 
                 if (editTvShowResult == OutputTypeValues.Ok)
                 {
@@ -295,6 +301,8 @@ namespace ControlWatch.Windows.TvShows
 
                 UpDownSeasons.IsEnabled = true;
                 UpDownEpisodes.IsEnabled = true;
+
+                TextBox_Observations.IsReadOnly = false;
             }
             else
             {
@@ -314,8 +322,10 @@ namespace ControlWatch.Windows.TvShows
 
                 UpDownSeasons.IsEnabled = false;
                 UpDownEpisodes.IsEnabled = false;
+
+                TextBox_Observations.IsReadOnly = true;
             }
-        }
+        }        
 
         private void ButtonDeleteTvShow_Click(object sender, RoutedEventArgs e)
         {

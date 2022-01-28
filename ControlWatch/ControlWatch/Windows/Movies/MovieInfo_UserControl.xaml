@@ -102,7 +102,7 @@
             SelectionBrush="Red" CaretBrush="#FF2A292C" FontSize="20" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="#FF3E3E3E"
             TextWrapping="Wrap"
             AcceptsReturn="True"
-            VerticalScrollBarVisibility="Visible" IsEnabled="false">
+            VerticalScrollBarVisibility="Visible" IsReadOnly="True">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

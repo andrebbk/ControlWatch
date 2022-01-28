@@ -68,8 +68,8 @@
         <TextBlock VerticalAlignment="Top" Text="TvShow Views:" TextWrapping="Wrap" Margin="205,571,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <ComboBox x:Name="ComboBoxViews" Margin="205,605,1574,389" HorizontalContentAlignment="Center"  Foreground="WhiteSmoke" Background="{x:Null}" FontSize="36" ItemContainerStyle="{StaticResource ItemStyle}" IsEnabled="false"/>
 
-        <TextBlock VerticalAlignment="Top" Text="TvShow Added:" TextWrapping="Wrap" Margin="211,830,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
-        <Label Name="LabelTvShowAdded" Content="" HorizontalAlignment="Left" Margin="216,864,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
+        <TextBlock VerticalAlignment="Top" Text="TvShow Added:" TextWrapping="Wrap" Margin="452,571,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <Label Name="LabelTvShowAdded" Content="" HorizontalAlignment="Left" Margin="457,605,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
 
         <TextBlock VerticalAlignment="Top" Text="TvShow Rating:" TextWrapping="Wrap" Margin="491,352,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <System_Windows_Controls:Rating x:Name="RatingTvShow"  VerticalAlignment="Top" Height="24" Margin="0,398,1169,0" Width="202" HorizontalAlignment="Right" Background="{x:Null}" Foreground="#FFE6C809" IsEnabled="false">
@@ -85,7 +85,7 @@
             <System_Windows_Controls:RatingItem Content=""/>
         </System_Windows_Controls:Rating>
 
-        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveTvShow" Content="Edit Tv Show"  TextElement.FontSize="20px" Padding="130, 0, 0, 5" Margin="646,830,0,0" VerticalAlignment="Top" Width="366" Height="70" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Visibility="Hidden" Click="ButtonSaveTvShow_Click" />
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveTvShow" Content="Edit Tv Show"  TextElement.FontSize="20px" Padding="30, 0, 0, 0" Margin="846,864,0,0" VerticalAlignment="Top" Width="174" Height="70" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Visibility="Hidden" Click="ButtonSaveTvShow_Click" />
 
         <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonEditMode" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1483,894,0,0" VerticalAlignment="Top" Width="105" Height="94" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonEditMode_Click">
             <StackPanel Orientation="Vertical" Width="104" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -99,12 +99,31 @@
                 <TextBlock Text="Delete Tv Show" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Margin="9,0,0,0" />
             </StackPanel>
         </Button>
+
         <TextBlock VerticalAlignment="Top" Text="Seasons:" TextWrapping="Wrap" Margin="457,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <xctk:UIntegerUpDown x:Name="UpDownSeasons" Minimum="0" Maximum="200" VerticalAlignment="Center" FontSize="20" Text="" HorizontalAlignment="Stretch" Margin="452,509,1334,505" Background="{x:Null}" BorderBrush="{x:Null}" 
             Height="35" Foreground="White" AllowTextInput="False" IsEnabled="false"/>
+
         <TextBlock VerticalAlignment="Top" Text="Episodes:" TextWrapping="Wrap" Margin="646,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <xctk:UIntegerUpDown x:Name="UpDownEpisodes" Minimum="0" Maximum="500" VerticalAlignment="Center" FontSize="20" Text="" HorizontalAlignment="Stretch" Margin="648,509,1138,505" Background="{x:Null}" BorderBrush="{x:Null}" 
             Height="35" Foreground="White" AllowTextInput="False" IsEnabled="false"/>
 
+        <!--Observations-->
+        <TextBox Margin="210,857,1093,96" x:Name="TextBox_Observations" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFFCFC" 
+            SelectionBrush="Red" CaretBrush="#FF2A292C" FontSize="20" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="#FF3E3E3E"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible" IsReadOnly="True">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.058"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.332"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Margin="205,819,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" 
+                   Foreground="WhiteSmoke" Width="152" Text="Observations:"/>
     </Grid>
 </UserControl>

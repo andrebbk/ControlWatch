@@ -90,6 +90,9 @@ namespace ControlWatch.Windows.TvShows
             //Episodes
             UpDownEpisodes.Text = "0";
             UpDownEpisodes.Value = 0;
+
+            //Observations
+            TextBox_Observations.Clear();
         }
 
         private bool ValidateModel()
@@ -192,7 +195,8 @@ namespace ControlWatch.Windows.TvShows
                     nEpisodes,
                     CheckBoxIsFavorite.IsChecked.Value,
                     LoadedTvShowCoverPath,
-                    ratingValue);
+                    ratingValue,
+                    TextBox_Observations.Text.Trim());
 
                 if (createMovieResult == OutputTypeValues.Ok)
                 {
