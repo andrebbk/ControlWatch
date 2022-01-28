@@ -107,6 +107,9 @@ namespace ControlWatch.Windows.Movies
                     //Rating movie
                     double ratingValue = (double)movieInfo.MovieRating / (double)10;
                     RatingMovie.Dispatcher.BeginInvoke((Action)(() => RatingMovie.Value = ratingValue));
+
+                    //Observations
+                    TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.Text = movieInfo.Observations));
                 }
 
             }).Start();
@@ -121,11 +124,6 @@ namespace ControlWatch.Windows.Movies
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie title is required!");
                 isValid = false;
             }
-            //else if (String.IsNullOrWhiteSpace(TextBox_MovieCoverFileName.Text))
-            //{
-            //    NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie cover is required!");
-            //    isValid = false;
-            //}
             else if (!int.TryParse(ComboBoxYears.SelectedValue.ToString(), out NewMovieYear))
             {
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
@@ -167,6 +165,7 @@ namespace ControlWatch.Windows.Movies
             RatingMovie.Dispatcher.BeginInvoke((Action)(() => RatingMovie.IsEnabled = false));
             CheckBoxIsFavorite.Dispatcher.BeginInvoke((Action)(() => CheckBoxIsFavorite.IsEnabled = false));
             ComboBoxViews.Dispatcher.BeginInvoke((Action)(() => ComboBoxViews.IsEnabled = false));
+            TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.IsEnabled = false));
         }
 
         private void NotifyError(OutputTypeValues result)
@@ -242,7 +241,8 @@ namespace ControlWatch.Windows.Movies
                     CheckBoxIsFavorite.IsChecked.Value,
                     LoadedMovieCoverPath,
                     ratingValue,
-                    NewMovieViews);
+                    NewMovieViews,
+                    TextBox_Observations.Text.Trim());
 
                 if (editMovieResult == OutputTypeValues.Ok)
                 {
@@ -276,6 +276,7 @@ namespace ControlWatch.Windows.Movies
                 RatingMovie.IsEnabled = true;
                 CheckBoxIsFavorite.IsEnabled = true;
                 ComboBoxViews.IsEnabled = true;
+                TextBox_Observations.IsEnabled = true;
             }
             else
             {
@@ -292,6 +293,7 @@ namespace ControlWatch.Windows.Movies
                 RatingMovie.IsEnabled = false;
                 CheckBoxIsFavorite.IsEnabled = false;
                 ComboBoxViews.IsEnabled = false;
+                TextBox_Observations.IsEnabled = false;
             }
         }
 

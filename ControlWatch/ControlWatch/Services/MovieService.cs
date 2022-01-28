@@ -99,6 +99,7 @@ namespace ControlWatch.Services
                                      m.NrViews,
                                      m.IsFavorite,
                                      m.MovieRating,
+                                     m.Observations,
                                      m.CreateDate,
                                      c.CoverName,
                                      c.CoverPath
@@ -114,6 +115,7 @@ namespace ControlWatch.Services
                             NrViews = m.NrViews,
                             IsFavorite = m.IsFavorite,
                             MovieRating = m.MovieRating,
+                            Observations = m.Observations,
                             CreateDate = m.CreateDate,
                             CoverName = m.CoverName,
                             CoverPath = m.CoverPath
@@ -156,7 +158,7 @@ namespace ControlWatch.Services
             }
         }
 
-        public OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue)
+        public OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, string observations)
         {
             Console.WriteLine("MovieService.CreateMovie: ENTER");
             if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || String.IsNullOrWhiteSpace(movieCover))
@@ -181,6 +183,7 @@ namespace ControlWatch.Services
                         NrViews = 1,
                         IsFavorite = isFavorite,
                         MovieRating = ratingValue,
+                        Observations = observations,
                         CreateDate = DateTime.UtcNow,
                         Deleted = false,
                     };
@@ -305,7 +308,7 @@ namespace ControlWatch.Services
             return output;
         }
 
-        public OutputTypeValues EditMovie(int movieId, string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, int movieViews)
+        public OutputTypeValues EditMovie(int movieId, string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, int movieViews, string observations)
         {
             Console.WriteLine("MovieService.EditMovie: ENTER");
             if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || movieViews < 1)
@@ -336,6 +339,7 @@ namespace ControlWatch.Services
                         movie.NrViews = movieViews;
                         movie.IsFavorite = isFavorite;
                         movie.MovieRating = ratingValue;
+                        movie.Observations = observations;
                         db.SaveChanges();
 
                         //Save new cover

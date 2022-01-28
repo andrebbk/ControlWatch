@@ -90,7 +90,8 @@ namespace ControlWatch.Windows.Movies
                     NewMovieYear,
                     CheckBoxIsFavorite.IsChecked.Value,
                     LoadedMovieCoverPath,
-                    ratingValue);
+                    ratingValue,
+                    TextBox_Observations.Text.Trim());
 
                 if (createMovieResult == OutputTypeValues.Ok)
                 {
@@ -154,6 +155,9 @@ namespace ControlWatch.Windows.Movies
 
             //Rating 
             RatingMovie.Value = 0;
+
+            //Observations
+            TextBox_Observations.Clear();
         }
 
         private void NotifyError(OutputTypeValues result)

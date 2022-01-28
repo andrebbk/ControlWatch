@@ -23,6 +23,8 @@ namespace ControlWatch.Models.ViewModels
 
         public DateTime CreateDate { get; set; }
 
+        public string Observations { get; set; }
+
 
         //Cover
         public string CoverName { get; set; }

@@ -22,6 +22,8 @@ namespace ControlWatch.Models
 
         public int MovieRating { get; set; }
 
+        public string Observations { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public bool Deleted { get; set; }

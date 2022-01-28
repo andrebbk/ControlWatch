@@ -24,7 +24,7 @@ namespace ControlWatch
                         string movieTitle = "Movie " + nMovie.ToString();
                         int movieYear = 2000 + movieRating;
 
-                        movieService.CreateMovie(movieTitle, movieYear, false, file.FullName, movieRating);
+                        movieService.CreateMovie(movieTitle, movieYear, false, file.FullName, movieRating, "");
 
                         if (movieRating == 10)
                             movieRating = 1;

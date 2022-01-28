@@ -52,8 +52,8 @@
         <TextBlock VerticalAlignment="Top" Text="Favorites:" TextWrapping="Wrap" Margin="201,471,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
 
         <Image x:Name="ButtonLoadPic" HorizontalAlignment="Left" Height="40" Margin="357,694,0,0" VerticalAlignment="Top" Width="44" Source="/ControlWatch;component/Resources/Buttons/AluminumGreyImages.png" Visibility="Hidden" MouseDown="ButtonLoadPic_MouseDown"/>
-        <TextBlock VerticalAlignment="Top" Text="Movie Cover:" TextWrapping="Wrap" Margin="207,704,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="WhiteSmoke"/>
-        <TextBox Margin="213,742,855,257" x:Name="TextBox_MovieCoverFileName" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFF7F7" SelectionBrush="Red" CaretBrush="White" FontSize="30" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="{x:Null}" IsEnabled="false">
+        <TextBlock VerticalAlignment="Top" Text="Movie Cover:" TextWrapping="Wrap" Margin="205,694,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="WhiteSmoke"/>
+        <TextBox Margin="209,730,858,269" x:Name="TextBox_MovieCoverFileName" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFF7F7" SelectionBrush="Red" CaretBrush="White" FontSize="30" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="{x:Null}" IsEnabled="false">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -67,8 +67,8 @@
         <TextBlock VerticalAlignment="Top" Text="Movie Views:" TextWrapping="Wrap" Margin="205,571,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <ComboBox x:Name="ComboBoxViews" Margin="205,605,1574,389" HorizontalContentAlignment="Center"  Foreground="WhiteSmoke" Background="{x:Null}" FontSize="36" ItemContainerStyle="{StaticResource ItemStyle}" IsEnabled="false"/>
 
-        <TextBlock VerticalAlignment="Top" Text="Movie Added:" TextWrapping="Wrap" Margin="211,830,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
-        <Label Name="LabelMovieAdded" Content="" HorizontalAlignment="Left" Margin="216,864,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
+        <TextBlock VerticalAlignment="Top" Text="Movie Added:" TextWrapping="Wrap" Margin="486,469,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <Label Name="LabelMovieAdded" Content="" HorizontalAlignment="Left" Margin="491,503,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
 
         <TextBlock VerticalAlignment="Top" Text="Movie Rating:" TextWrapping="Wrap" Margin="491,352,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <System_Windows_Controls:Rating x:Name="RatingMovie"  VerticalAlignment="Top" Height="24" Margin="0,398,1169,0" Width="202" HorizontalAlignment="Right" Background="{x:Null}" Foreground="#FFE6C809" IsEnabled="false">
@@ -84,7 +84,7 @@
             <System_Windows_Controls:RatingItem Content=""/>
         </System_Windows_Controls:Rating>
 
-        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveMovie" Content="Edit Movie"  TextElement.FontSize="20px" Padding="130, 0, 0, 5" Margin="646,830,0,0" VerticalAlignment="Top" Width="366" Height="70" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Visibility="Hidden" Click="ButtonSaveMovie_Click"/>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSaveMovie" Content="Edit Movie" TextElement.FontSize="20px" Padding="30, 0, 0, 0" Margin="881,864,0,113" VerticalAlignment="Center" Width="151" Height="72" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Visibility="Hidden" Click="ButtonSaveMovie_Click"/>
 
         <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonEditMode" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1483,894,0,0" VerticalAlignment="Top" Width="105" Height="94" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonEditMode_Click">
             <StackPanel Orientation="Vertical" Width="104" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -98,6 +98,21 @@
                 <TextBlock Text="Delete Movie" VerticalAlignment="Center" Margin="4,0,10,0" FontWeight="Normal" FontSize="14" />
             </StackPanel>
         </Button>
+        <TextBox Margin="210,857,1093,96" x:Name="TextBox_Observations" Text="" TextAlignment="Left" mah:TextBoxHelper.ClearTextButton="True" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFFCFC" 
+            SelectionBrush="Red" CaretBrush="#FF2A292C" FontSize="20" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" Background="#FF3E3E3E"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible" IsEnabled="false">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.058"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.332"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Margin="205,819,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="WhiteSmoke" Width="152" Text="Observations:"/>
 
     </Grid>
 </UserControl>
