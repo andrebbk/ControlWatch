@@ -513,6 +513,86 @@ namespace ControlWatch.Services
             return null;
         }
 
+        //Covers public services
+        public IEnumerable<MovieCoverInfoViewModel> GetAllMovieCovers(int skp, int tk)
+        {
+            Console.WriteLine("MovieService.GetAllMovieCovers: ENTER");
+            List<MovieCoverInfoViewModel> output = new List<MovieCoverInfoViewModel>();
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var query = (from c in db.MovieCovers
+                                 join m in db.Movies on c.MovieId equals m.MovieId
+                                 select new
+                                 {
+                                     m.MovieId,
+                                     m.MovieTitle,
+                                     c.MovieCoverId,
+                                     c.CoverName,
+                                     c.CoverPath,
+                                     c.CreateDate,
+                                     c.Deleted
+                                 })
+                                 .OrderBy(c => c.MovieCoverId)
+                                 .Skip(skp)
+                                 .Take(tk);
+
+                    if (query != null && query.Any())
+                    {
+                        output = query.Select(m => new MovieCoverInfoViewModel
+                        {
+                            MovieId = m.MovieId,
+                            MovieTitle = m.MovieTitle,
+                            MovieCoverId = m.MovieCoverId,
+                            CoverName = m.CoverName,
+                            CoverPath = m.CoverPath,
+                            CreateDate = m.CreateDate,
+                            Deleted = m.Deleted
+                        }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all movie covers -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("MovieService.GetAllMovieCovers: EXIT");
+            return output;
+        }
+
+        public Tuple<int, int> GetAllMovieCoversCount()
+        {
+            Console.WriteLine("MovieService.GetAllMovieCoversCount: ENTER");
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    int nMoviesCovers = (from m in db.MovieCovers
+                                   select m.MovieCoverId).Count();
+
+                    int nDeletedMovieCovers = (from m in db.MovieCovers
+                                          where m.Deleted
+                                          select m.MovieCoverId).Count();
+
+                    Console.WriteLine("MovieService.GetAllMovieCoversCount: EXIT");
+                    return new Tuple<int, int>(nMoviesCovers, nDeletedMovieCovers);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all movie covers count -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("MovieService.GetAllMovieCoversCount: EXIT");
+            return null;
+        }
+    
 
         //Hidden methods
         private Tuple<string, string> SaveNewMovieCover(string newName, string filePath)

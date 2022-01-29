@@ -79,7 +79,7 @@ namespace ControlWatch.Windows.Settings.TabControls
                     DataGridMovies.Dispatcher.BeginInvoke((Action)(() => DataGridMovies.ItemsSource = moviesToGrid));
 
                     //NUMBER
-                    LabelTotalMovies.Dispatcher.BeginInvoke((Action)(() => ShowPaginationText()));
+                    LabelTotals.Dispatcher.BeginInvoke((Action)(() => ShowPaginationText()));
                 }
 
                 UtilsOperations.StopLoadingAnimation();
@@ -101,13 +101,13 @@ namespace ControlWatch.Windows.Settings.TabControls
 
         private void ShowPaginationText()
         {
-            LabelTotalMovies.Content = pagLastNumber == 0 ? "0" : pagNumber.ToString();
-            LabelTotalMovies.Content += " of " + pagLastNumber + ((pagLastNumber > 1 || pagLastNumber == 0) ? " pages" : " page");
+            LabelTotals.Content = pagLastNumber == 0 ? "0" : pagNumber.ToString();
+            LabelTotals.Content += " of " + pagLastNumber + ((pagLastNumber > 1 || pagLastNumber == 0) ? " pages" : " page");
 
             var nrMovies = movieService.GetAllMoviesCount();
             if(nrMovies != null)
             {
-                LabelTotalMovies.Content += "   Total: " + nrMovies.Item1.ToString() + (nrMovies.Item1 == 1 ? " movie (" : " movies (")
+                LabelTotals.Content += "   Total: " + nrMovies.Item1.ToString() + (nrMovies.Item1 == 1 ? " movie (" : " movies (")
                     + nrMovies.Item2.ToString() + " deleted)";
             }
         }

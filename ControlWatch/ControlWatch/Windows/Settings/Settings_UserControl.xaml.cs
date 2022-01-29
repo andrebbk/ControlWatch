@@ -78,9 +78,12 @@ namespace ControlWatch.Windows.Settings
         {
             if (currentTab != SettingsTabTypeValues.MoviesCovers)
             {
+                currentTab = SettingsTabTypeValues.MoviesCovers;
+
                 ResetBackgroundTabButtons();
                 ButtonTabMoviesCovers.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
-                currentTab = SettingsTabTypeValues.MoviesCovers;
+
+                SettingsContainer.Content = new TabMovieCovers_UserControl();
             }
         }
 

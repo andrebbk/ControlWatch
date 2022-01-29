@@ -201,6 +201,7 @@
     <Compile Include="Models\TvShow.cs" />
     <Compile Include="Models\TvShowCover.cs" />
     <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
+    <Compile Include="Models\ViewModels\MovieCoverInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\MovieInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
     <Compile Include="Models\ViewModels\TvShowInfoViewModel.cs" />
@@ -239,6 +240,9 @@
     </Compile>
     <Compile Include="Windows\Settings\Settings_UserControl.xaml.cs">
       <DependentUpon>Settings_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Settings\TabControls\TabMovieCovers_UserControl.xaml.cs">
+      <DependentUpon>TabMovieCovers_UserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Settings\TabControls\TabMovies_UserControl.xaml.cs">
       <DependentUpon>TabMovies_UserControl.xaml</DependentUpon>
@@ -305,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Settings\Settings_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Settings\TabControls\TabMovieCovers_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

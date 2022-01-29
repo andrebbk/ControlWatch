@@ -32,5 +32,8 @@ namespace ControlWatch.Commons.Services
         int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool allMoviesFlag = false);
 
         Tuple<int, int> GetAllMoviesCount();
+
+        //Covers services
+        Tuple<int, int> GetAllMovieCoversCount();
     }
 }
