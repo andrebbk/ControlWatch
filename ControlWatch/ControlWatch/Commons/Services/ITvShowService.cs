@@ -14,6 +14,8 @@ namespace ControlWatch.Commons.Services
 
         TvShowInfoViewModel GetTvShowById(int tvShowId);
 
+        IEnumerable<TvShowInfoViewModel> GetAllTvShows(int skp, int tk);
+
         bool TvShowAlreadyExists(string tvShowTitle, int tvShowYear, int? tvShowId = null);
 
         OutputTypeValues CreateTvShow(string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, string observations);
@@ -26,6 +28,8 @@ namespace ControlWatch.Commons.Services
 
         OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, bool isFinished, string observations);
 
-        int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished);
+        int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished, bool allMoviesFlag = false);
+
+        Tuple<int, int> GetAllTvShowsCount();
     }
 }

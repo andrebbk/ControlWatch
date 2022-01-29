@@ -31,6 +31,8 @@ namespace ControlWatch.Models.ViewModels
 
         public DateTime CreateDate { get; set; }
 
+        public bool Deleted { get; set; }
+
 
         //Cover
         public string CoverName { get; set; }

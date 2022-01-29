@@ -144,6 +144,66 @@ namespace ControlWatch.Services
             return output;
         }
 
+        public IEnumerable<TvShowInfoViewModel> GetAllTvShows(int skp, int tk)
+        {
+            Console.WriteLine("TvShowService.GetAllTvShows: ENTER");
+            List<TvShowInfoViewModel> output = new List<TvShowInfoViewModel>();
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var query = (from t in db.TvShows
+                                 where !t.Deleted
+                                 orderby t.TvShowYear descending, t.TvShowTitle ascending
+                                 select new
+                                 {
+                                     t.TvShowId,
+                                     t.TvShowTitle,
+                                     t.TvShowYear,
+                                     t.TvShowSeasons,
+                                     t.TvShowEpisodes,
+                                     t.NrViews,
+                                     t.IsFavorite,
+                                     t.TvShowRating,
+                                     t.IsFinished,
+                                     t.Observations,
+                                     t.CreateDate,
+                                     t.Deleted
+                                 })
+                                 .Skip(skp)
+                                 .Take(tk);
+
+                    if (query.Any())
+                    {
+                        output = query.Select(t => new TvShowInfoViewModel
+                        {
+                            TvShowId = t.TvShowId,
+                            TvShowTitle = t.TvShowTitle,
+                            TvShowYear = t.TvShowYear,
+                            TvShowSeasons = t.TvShowSeasons,
+                            TvShowEpisodes = t.TvShowEpisodes,
+                            NrViews = t.NrViews,
+                            IsFavorite = t.IsFavorite,
+                            TvShowRating = t.TvShowRating,
+                            IsFinished = t.IsFinished,
+                            Observations = t.Observations,
+                            CreateDate = t.CreateDate,
+                            Deleted = t.Deleted
+                        }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all tvShows -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("TvShowService.GetAllTvShows: EXIT");
+            return output;
+        }
+
         public bool TvShowAlreadyExists(string tvShowTitle, int tvShowYear, int? tvShowId = null)
         {
             Console.WriteLine("TvShowService.TvShowAlreadyExists: ENTER");
@@ -387,7 +447,7 @@ namespace ControlWatch.Services
             }
         }
 
-        public int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished)
+        public int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished, bool allMoviesFlag = false)
         {
             Console.WriteLine("TvShowService.GetTvShowsCount: ENTER");
 
@@ -396,7 +456,7 @@ namespace ControlWatch.Services
                 using (var db = new NorthwindContext())
                 {
                     var query = (from t in db.TvShows
-                                 where !t.Deleted
+                                 where ((!allMoviesFlag && !t.Deleted) || (allMoviesFlag))
                                  select new
                                  {
                                      t.TvShowTitle,
@@ -439,6 +499,116 @@ namespace ControlWatch.Services
             }
 
             Console.WriteLine("TvShowService.GetTvShowsCount: EXIT");
+            return null;
+        }
+
+        public Tuple<int, int> GetAllTvShowsCount()
+        {
+            Console.WriteLine("TvShowService.GetAllTvShowsCount: ENTER");
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    int nTvShows = (from t in db.TvShows
+                                   select t.TvShowId).Count();
+
+                    int nDeletedTvShows = (from t in db.TvShows
+                                           where t.Deleted
+                                          select t.TvShowId).Count();
+
+                    Console.WriteLine("TvShowService.GetAllTvShowsCount: EXIT");
+                    return new Tuple<int, int>(nTvShows, nDeletedTvShows);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all tv shows count -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("TvShowService.GetAllTvShowsCount: EXIT");
+            return null;
+        }
+
+
+        //Covers public services
+        public IEnumerable<TvShowCoverInfoViewModel> GetAllTvShowsCovers(int skp, int tk)
+        {
+            Console.WriteLine("TvShowService.GetAllTvShowsCovers: ENTER");
+            List<TvShowCoverInfoViewModel> output = new List<TvShowCoverInfoViewModel>();
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var query = (from c in db.TvShowCovers
+                                 join t in db.TvShows on c.TvShowId equals t.TvShowId
+                                 select new
+                                 {
+                                     t.TvShowId,
+                                     t.TvShowTitle,
+                                     c.TvShowCoverId,
+                                     c.CoverName,
+                                     c.CoverPath,
+                                     c.CreateDate,
+                                     c.Deleted
+                                 })
+                                 .OrderBy(c => c.TvShowCoverId)
+                                 .Skip(skp)
+                                 .Take(tk);
+
+                    if (query != null && query.Any())
+                    {
+                        output = query.Select(t => new TvShowCoverInfoViewModel
+                        {
+                            TvShowId = t.TvShowId,
+                            TvShowTitle = t.TvShowTitle,
+                            TvShowCoverId = t.TvShowCoverId,
+                            CoverName = t.CoverName,
+                            CoverPath = t.CoverPath,
+                            CreateDate = t.CreateDate,
+                            Deleted = t.Deleted
+                        }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all tv shows covers -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("TvShowService.GetAllTvShowsCovers: EXIT");
+            return output;
+        }
+
+        public Tuple<int, int> GetAllTvShowsCoversCount()
+        {
+            Console.WriteLine("TvShowService.GetAllTvShowsCoversCount: ENTER");
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    int nTvShowsCovers = (from t in db.TvShowCovers
+                                          select t.TvShowCoverId).Count();
+
+                    int nDeletedTvShowsCovers = (from t in db.TvShowCovers
+                                               where t.Deleted
+                                               select t.TvShowCoverId).Count();
+
+                    Console.WriteLine("TvShowService.GetAllTvShowsCoversCount: EXIT");
+                    return new Tuple<int, int>(nTvShowsCovers, nDeletedTvShowsCovers);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all tv shows covers count -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("TvShowService.GetAllTvShowsCoversCount: EXIT");
             return null;
         }
 

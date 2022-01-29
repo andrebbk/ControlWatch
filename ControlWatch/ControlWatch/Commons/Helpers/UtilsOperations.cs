@@ -48,8 +48,11 @@ namespace ControlWatch.Commons.Helpers
 
                 loadingWindow.Dispatcher.BeginInvoke(
                     (Action)(() => {
-                        loadingWindow.LottieAnimationView.CancelAnimation(); // don't start anim if it's already playing
-                        loadingWindow.Close();
+                        if(loadingWindow != null)
+                        {
+                            loadingWindow.LottieAnimationView.CancelAnimation(); // don't start anim if it's already playing
+                            loadingWindow.Close();
+                        }
                      }
                 ));
 

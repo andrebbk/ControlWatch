@@ -91,9 +91,12 @@ namespace ControlWatch.Windows.Settings
         {
             if (currentTab != SettingsTabTypeValues.TvShows)
             {
+                currentTab = SettingsTabTypeValues.TvShows;
+
                 ResetBackgroundTabButtons();
                 ButtonTabTvShows.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
-                currentTab = SettingsTabTypeValues.TvShows;
+
+                SettingsContainer.Content = new TabTvShows_UserControl();
             }
         }
 

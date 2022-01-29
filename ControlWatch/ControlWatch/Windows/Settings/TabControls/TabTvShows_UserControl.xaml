@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ControlWatch.Windows.Settings.TabControls.TabMovies_UserControl"
+﻿<UserControl x:Class="ControlWatch.Windows.Settings.TabControls.TabTvShows_UserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="802" Width="1718">
     <Grid>
-        <DataGrid x:Name="DataGridMovies" HorizontalAlignment="Left" Height="703" Margin="92,44,0,0" VerticalAlignment="Top" Width="1558" AutoGenerateColumns="False" FontSize="16"
+        <DataGrid x:Name="DataGridTvShows" HorizontalAlignment="Left" Height="703" Margin="92,44,0,0" VerticalAlignment="Top" Width="1558" AutoGenerateColumns="False" FontSize="16"
                  IsReadOnly="True" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" SelectionUnit="FullRow" SelectionMode="Single" 
                   Background="{x:Null}" Foreground="#DDFDFDFD" >
             <DataGrid.Resources>
@@ -16,18 +16,27 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Width="70" Binding="{Binding MovieId}"/>
-                <DataGridTextColumn Header="Title" Width="300" Binding="{Binding MovieTitle}" />
-                <DataGridTextColumn Header="Year" Width="80" Binding="{Binding MovieYear}" />
+                <DataGridTextColumn Header="ID" Width="70" Binding="{Binding TvShowId}"/>
+                <DataGridTextColumn Header="Title" Width="300" Binding="{Binding TvShowTitle}" />
+                <DataGridTextColumn Header="Year" Width="80" Binding="{Binding TvShowYear}" />
+                <DataGridTextColumn Header="Seasons" Width="100" Binding="{Binding TvShowSeasons}" />
+                <DataGridTextColumn Header="Episodes" Width="100" Binding="{Binding TvShowEpisodes}" />
                 <DataGridTextColumn Header="Nr Views" Width="100" Binding="{Binding NrViews}" />
-                <DataGridTemplateColumn Header="Favorite" Width="100">
+                <DataGridTemplateColumn Header="Favorite" Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image HorizontalAlignment="Left" Source="{Binding IsFavorite}" Width="25" Height="25" Stretch="Fill"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Rating" Width="100" Binding="{Binding MovieRating}" Foreground="White" />
+                <DataGridTextColumn Header="Rating" Width="100" Binding="{Binding TvShowRating}" Foreground="White" />
+                <DataGridTemplateColumn Header="Finished" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image HorizontalAlignment="Left" Source="{Binding IsFinished}" Width="25" Height="25" Stretch="Fill"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Create Date" Width="180" Binding="{Binding CreateDate}" />
                 <DataGridTextColumn Header="Deleted" Width="100" Binding="{Binding Deleted}" />
                 <DataGridTextColumn Header="Observations" Binding="{Binding Observations}"  Width="Auto" MaxWidth="400">
@@ -62,6 +71,6 @@
             </StackPanel>
         </Button>
         <Label Name="LabelTotals" Content="" HorizontalAlignment="Left" Margin="260,768,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <!--End Pagination Controls-->        
+        <!--End Pagination Controls-->
     </Grid>
 </UserControl>
