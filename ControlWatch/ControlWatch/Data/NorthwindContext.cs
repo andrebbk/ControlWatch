@@ -10,6 +10,8 @@ namespace ControlWatch.Data
 {
     class NorthwindContext : DbContext
     {
+        public DbSet<Configuration> Configurations { get; set; }
+
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<MovieCover> MovieCovers { get; set; }

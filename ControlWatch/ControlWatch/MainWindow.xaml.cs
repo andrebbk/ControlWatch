@@ -24,6 +24,7 @@ namespace ControlWatch
 
             InitializeComponent();
 
+            //Disable anti-aliasing in WPF
             this.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 
             //Mostrar a barra de tarefas do windows

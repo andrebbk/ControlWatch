@@ -36,7 +36,9 @@ namespace ControlWatch.Windows.Settings
         private void LoadSettings()
         {
             currentTab = SettingsTabTypeValues.MainSettings;
-            ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));            
+            ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+
+            this.SettingsContainer.Content = new TabMain_UserControl();
         }
 
         private void ResetBackgroundTabButtons()
@@ -55,9 +57,12 @@ namespace ControlWatch.Windows.Settings
         {
             if(currentTab != SettingsTabTypeValues.MainSettings)
             {
+                currentTab = SettingsTabTypeValues.MainSettings;
+
                 ResetBackgroundTabButtons();
                 ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
-                currentTab = SettingsTabTypeValues.MainSettings;
+
+                this.SettingsContainer.Content = new TabMain_UserControl();                
             }
         }
 

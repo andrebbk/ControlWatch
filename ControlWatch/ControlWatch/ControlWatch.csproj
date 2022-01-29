@@ -101,6 +101,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=5.0.0.0, Culture=neutral, PublicKeyToken=66aa232afad40158, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ookii.Dialogs.Wpf.5.0.1\lib\net462\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -135,7 +138,9 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.115.5\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -187,17 +192,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commons\Enums\EntityTypeValues.cs" />
     <Compile Include="Commons\Enums\MenuOptionsTypeValues.cs" />
     <Compile Include="Commons\Enums\OperationTypeValues.cs" />
     <Compile Include="Commons\Enums\OutputTypeValues.cs" />
     <Compile Include="Commons\Enums\SettingsTabTypeValues.cs" />
     <Compile Include="Commons\Helpers\NotificationHelper.cs" />
     <Compile Include="Commons\Helpers\Utils.cs" />
+    <Compile Include="Commons\Helpers\UtilsConstants.cs" />
     <Compile Include="Commons\Helpers\UtilsOperations.cs" />
+    <Compile Include="Commons\Services\IConfigurationService.cs" />
     <Compile Include="Commons\Services\IMovieService.cs" />
     <Compile Include="Commons\Services\IStatsService.cs" />
     <Compile Include="Commons\Services\ITvShowService.cs" />
+    <Compile Include="Data\DTO\ConfigurationItem.cs" />
     <Compile Include="InitSamplesTesting.cs" />
+    <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\TvShow.cs" />
     <Compile Include="Models\TvShowCover.cs" />
     <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
@@ -224,6 +234,7 @@
     <Compile Include="Popup\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\MovieService.cs" />
     <Compile Include="Services\StatsService.cs" />
     <Compile Include="Services\TvShowService.cs" />
@@ -241,6 +252,9 @@
     </Compile>
     <Compile Include="Windows\Settings\Settings_UserControl.xaml.cs">
       <DependentUpon>Settings_UserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Settings\TabControls\TabMain_UserControl.xaml.cs">
+      <DependentUpon>TabMain_UserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Settings\TabControls\TabMovieCovers_UserControl.xaml.cs">
       <DependentUpon>TabMovieCovers_UserControl.xaml</DependentUpon>
@@ -316,6 +330,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Settings\Settings_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Settings\TabControls\TabMain_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
