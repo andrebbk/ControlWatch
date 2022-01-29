@@ -35,18 +35,18 @@ namespace ControlWatch
 
         private void LoadMainWindow()
         {
-            (new InitSamplesTesting()).InsertSamplesToDB();
+            //(new InitSamplesTesting()).InsertSamplesToDB();
 
             IsDrawableOpen = false;
             this.DrawableMenuContainer.Content = new SideMenu_UserControl(this);
 
             //Init content
-            //this.MainContainer.Content = new Dashboard_UserControl(this);
-            //activeMenuOption = MenuOptionsTypeValues.Dashboard;
+            this.MainContainer.Content = new Dashboard_UserControl(this);
+            activeMenuOption = MenuOptionsTypeValues.Dashboard;
 
             //Only for testing - REMOVE THIS NEXT LINES
-            this.MainContainer.Content = new Settings_UserControl(this);
-            activeMenuOption = MenuOptionsTypeValues.Settings;
+            //this.MainContainer.Content = new Settings_UserControl(this);
+            //activeMenuOption = MenuOptionsTypeValues.Settings;
 
         }
 
