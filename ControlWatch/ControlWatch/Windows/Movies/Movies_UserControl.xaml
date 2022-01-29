@@ -101,8 +101,6 @@
                 <Image  Width="23" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/flecha_deerecha_R.png" Margin="2,14,0,13"/>
             </StackPanel>
         </Button>
-
-        <TextBlock x:Name="TextBlock_PaginationText" HorizontalAlignment="Left" Foreground="#DD171717" Margin="258,1002,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127"/>
         <!--End Pagination Controls-->
     </Grid>
 </UserControl>

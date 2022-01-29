@@ -15,6 +15,8 @@ namespace ControlWatch.Commons.Services
 
         MovieInfoViewModel GetMovieById(int movieId);
 
+        IEnumerable<MovieInfoViewModel> GetAllMovies(int skp, int tk);
+
         bool MovieAlreadyExists(string movieTitle, int movieYear, int? movieId = null);
 
         OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, string observations);
@@ -27,6 +29,8 @@ namespace ControlWatch.Commons.Services
 
         OutputTypeValues EditMovie(int movieId, string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, int movieViews, string observations);
 
-        int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating);
+        int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool allMoviesFlag = false);
+
+        Tuple<int, int> GetAllMoviesCount();
     }
 }

@@ -23,11 +23,19 @@ namespace ControlWatch.Commons.Helpers
             new Thread(() =>
             {        
                 Application.Current.Dispatcher.Invoke(
-                                      new Action(() => {
-                       loadingWindow = new LoadingWindow();
-                       loadingWindow.LottieAnimationView.PlayAnimation();
-                       loadingWindow.ShowDialog();
-                   }));
+                    new Action(() => {
+                        // don't start anim if it's already playing
+                        if (loadingWindow != null && loadingWindow.LottieAnimationView.IsAnimating)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            loadingWindow = new LoadingWindow();
+                            loadingWindow.LottieAnimationView.PlayAnimation();
+                            loadingWindow.ShowDialog();
+                        }
+                    }));
 
             }).Start();
         }
@@ -38,7 +46,12 @@ namespace ControlWatch.Commons.Helpers
             {
                 Thread.Sleep(1000);                
 
-                loadingWindow.Dispatcher.BeginInvoke((Action)(() => loadingWindow.Close()));
+                loadingWindow.Dispatcher.BeginInvoke(
+                    (Action)(() => {
+                        loadingWindow.LottieAnimationView.CancelAnimation(); // don't start anim if it's already playing
+                        loadingWindow.Close();
+                     }
+                ));
 
                 //Check for other windows opened
                 Application.Current.Dispatcher.Invoke(

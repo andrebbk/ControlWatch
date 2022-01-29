@@ -240,6 +240,9 @@
     <Compile Include="Windows\Settings\Settings_UserControl.xaml.cs">
       <DependentUpon>Settings_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Settings\TabControls\TabMovies_UserControl.xaml.cs">
+      <DependentUpon>TabMovies_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SideMenu\SideMenu_UserControl.xaml.cs">
       <DependentUpon>SideMenu_UserControl.xaml</DependentUpon>
     </Compile>
@@ -302,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Settings\Settings_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Settings\TabControls\TabMovies_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -461,6 +468,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Buttons\close-white-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\favorites-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

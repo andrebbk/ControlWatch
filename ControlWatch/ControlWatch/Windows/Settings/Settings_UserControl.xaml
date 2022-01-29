@@ -21,7 +21,7 @@
         </Border>
 
         <!--Main Container-->
-        <Controls:TransitioningContentControl x:Name="SettingsContainer" Height="802" Transition="Right"  HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="74,237,79,10"/>
+        <Controls:TransitioningContentControl x:Name="SettingsContainer" Height="802" Transition="Right" Width="1718" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="74,237,79,10"/>
 
         <!--Buttons-->
         <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTabMainSettings" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="864,164,0,0" VerticalAlignment="Top" Width="160" Height="58" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTabMainSettings_Click">

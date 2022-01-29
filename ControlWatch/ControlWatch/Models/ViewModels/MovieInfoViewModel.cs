@@ -25,6 +25,8 @@ namespace ControlWatch.Models.ViewModels
 
         public string Observations { get; set; }
 
+        public bool Deleted { get; set; }
+
 
         //Cover
         public string CoverName { get; set; }

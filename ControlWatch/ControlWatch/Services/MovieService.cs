@@ -133,6 +133,59 @@ namespace ControlWatch.Services
             return output;
         }
 
+        public IEnumerable<MovieInfoViewModel> GetAllMovies(int skp, int tk)
+        {
+            Console.WriteLine("MovieService.GetAllMovies: ENTER");
+            List<MovieInfoViewModel> output = new List<MovieInfoViewModel>();
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    var query = (from m in db.Movies
+                                 select new
+                                 {
+                                     m.MovieId,
+                                     m.MovieTitle,
+                                     m.MovieYear,
+                                     m.NrViews,
+                                     m.IsFavorite,
+                                     m.MovieRating,
+                                     m.Observations,
+                                     m.CreateDate,
+                                     m.Deleted
+                                 })
+                                 .OrderBy(m => m.MovieId)
+                                 .Skip(skp)
+                                 .Take(tk);
+
+                    if (query != null && query.Any())
+                    {
+                        output = query.Select(m => new MovieInfoViewModel
+                        {
+                            MovieId = m.MovieId,
+                            MovieTitle = m.MovieTitle,
+                            MovieYear = m.MovieYear,
+                            NrViews = m.NrViews,
+                            IsFavorite = m.IsFavorite,
+                            MovieRating = m.MovieRating,
+                            Observations = m.Observations,
+                            CreateDate = m.CreateDate,
+                            Deleted = m.Deleted
+                        }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all movies -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("MovieService.GetAllMovies: EXIT");
+            return output;
+        }
+
         public bool MovieAlreadyExists(string movieTitle, int movieYear, int? movieId = null)
         {
             Console.WriteLine("MovieService.MovieAlreadyExists: ENTER");
@@ -369,7 +422,7 @@ namespace ControlWatch.Services
             }
         }
 
-        public int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
+        public int? GetMoviesCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool allMoviesFlag = false)
         {
             Console.WriteLine("MovieService.GetMoviesCount: ENTER");
 
@@ -378,7 +431,7 @@ namespace ControlWatch.Services
                 using (var db = new NorthwindContext())
                 {
                     var query = (from m in db.Movies
-                                 where !m.Deleted
+                                 where ((!allMoviesFlag && !m.Deleted) || (allMoviesFlag))
                                  select new
                                  {
                                      m.MovieTitle,
@@ -416,6 +469,47 @@ namespace ControlWatch.Services
             }
 
             Console.WriteLine("MovieService.GetMoviesCount: EXIT");
+            return null;
+        }
+
+        public Tuple<int, int> GetAllMoviesCount()
+        {
+            Console.WriteLine("MovieService.GetAllMoviesCount: ENTER");
+
+            try
+            {
+                using (var db = new NorthwindContext())
+                {
+                    int nMovies = (from m in db.Movies
+                                 select new
+                                 {
+                                     m.MovieTitle,
+                                     m.MovieYear,
+                                     m.IsFavorite,
+                                     m.MovieRating
+                                 }).Count();
+
+                    int nDeletedMovies = (from m in db.Movies
+                                          where m.Deleted
+                                          select new
+                                          {
+                                            m.MovieTitle,
+                                            m.MovieYear,
+                                            m.IsFavorite,
+                                            m.MovieRating
+                                          }).Count();
+
+                    Console.WriteLine("MovieService.GetAllMoviesCount: EXIT");
+                    return new Tuple<int, int>(nMovies, nDeletedMovies);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting all movies count -> " + ex.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine("MovieService.GetAllMoviesCount: EXIT");
             return null;
         }
 

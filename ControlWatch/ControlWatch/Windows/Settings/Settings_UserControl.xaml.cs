@@ -1,4 +1,5 @@
 ﻿using ControlWatch.Commons.Enums;
+using ControlWatch.Windows.Settings.TabControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace ControlWatch.Windows.Settings
         private void LoadSettings()
         {
             currentTab = SettingsTabTypeValues.MainSettings;
-            ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
+            ButtonTabMainSettings.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));            
         }
 
         private void ResetBackgroundTabButtons()
@@ -64,9 +65,12 @@ namespace ControlWatch.Windows.Settings
         {
             if (currentTab != SettingsTabTypeValues.Movies)
             {
-                ResetBackgroundTabButtons();
-                ButtonTabMovies.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
                 currentTab = SettingsTabTypeValues.Movies;
+
+                ResetBackgroundTabButtons();
+                ButtonTabMovies.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));                
+
+                SettingsContainer.Content = new TabMovies_UserControl();
             }
         }
 
