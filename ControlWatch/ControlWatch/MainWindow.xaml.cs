@@ -7,6 +7,7 @@ using ControlWatch.Windows.TvShows;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace ControlWatch
@@ -22,6 +23,8 @@ namespace ControlWatch
             WindowState = WindowState.Maximized;
 
             InitializeComponent();
+
+            this.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 
             //Mostrar a barra de tarefas do windows
             this.MaxHeight = SystemParameters.WorkArea.Height + 14;
