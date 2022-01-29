@@ -104,9 +104,12 @@ namespace ControlWatch.Windows.Settings
         {
             if (currentTab != SettingsTabTypeValues.TvShowsCovers)
             {
-                ResetBackgroundTabButtons();
-                ButtonTabTvShowsCovers.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));
                 currentTab = SettingsTabTypeValues.TvShowsCovers;
+
+                ResetBackgroundTabButtons();
+                ButtonTabTvShowsCovers.Background = new SolidColorBrush(Color.FromArgb(255, 131, 131, 131));                
+
+                this.SettingsContainer.Content = new TabTvShowsCoversUserControl();
             }
         }        
     }

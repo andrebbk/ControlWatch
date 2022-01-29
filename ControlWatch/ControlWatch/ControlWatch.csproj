@@ -248,6 +248,9 @@
     <Compile Include="Windows\Settings\TabControls\TabMovies_UserControl.xaml.cs">
       <DependentUpon>TabMovies_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Settings\TabControls\TabTvShowsCoversUserControl.xaml.cs">
+      <DependentUpon>TabTvShowsCoversUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Settings\TabControls\TabTvShows_UserControl.xaml.cs">
       <DependentUpon>TabTvShows_UserControl.xaml</DependentUpon>
     </Compile>
@@ -321,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Settings\TabControls\TabMovies_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Settings\TabControls\TabTvShowsCoversUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

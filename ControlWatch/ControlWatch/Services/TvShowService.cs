@@ -154,8 +154,6 @@ namespace ControlWatch.Services
                 using (var db = new NorthwindContext())
                 {
                     var query = (from t in db.TvShows
-                                 where !t.Deleted
-                                 orderby t.TvShowYear descending, t.TvShowTitle ascending
                                  select new
                                  {
                                      t.TvShowId,
@@ -171,6 +169,7 @@ namespace ControlWatch.Services
                                      t.CreateDate,
                                      t.Deleted
                                  })
+                                 .OrderBy(t => t.TvShowId)
                                  .Skip(skp)
                                  .Take(tk);
 
