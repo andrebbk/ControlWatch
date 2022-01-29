@@ -25,6 +25,8 @@ namespace ControlWatch.Models.ViewModels
 
         public int TvShowRating { get; set; }
 
+        public bool IsFinished { get; set; }
+
         public string Observations { get; set; }
 
         public DateTime CreateDate { get; set; }

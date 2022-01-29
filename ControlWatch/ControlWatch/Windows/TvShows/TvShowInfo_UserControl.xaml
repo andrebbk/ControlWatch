@@ -68,8 +68,8 @@
         <TextBlock VerticalAlignment="Top" Text="TvShow Views:" TextWrapping="Wrap" Margin="205,571,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <ComboBox x:Name="ComboBoxViews" Margin="205,605,1574,389" HorizontalContentAlignment="Center"  Foreground="WhiteSmoke" Background="{x:Null}" FontSize="36" ItemContainerStyle="{StaticResource ItemStyle}" IsEnabled="false"/>
 
-        <TextBlock VerticalAlignment="Top" Text="TvShow Added:" TextWrapping="Wrap" Margin="452,571,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
-        <Label Name="LabelTvShowAdded" Content="" HorizontalAlignment="Left" Margin="457,605,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
+        <TextBlock VerticalAlignment="Top" Text="TvShow Added:" TextWrapping="Wrap" Margin="841,475,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <Label Name="LabelTvShowAdded" Content="" HorizontalAlignment="Left" Margin="846,509,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="28" IsEnabled="False"/>
 
         <TextBlock VerticalAlignment="Top" Text="TvShow Rating:" TextWrapping="Wrap" Margin="491,352,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
         <System_Windows_Controls:Rating x:Name="RatingTvShow"  VerticalAlignment="Top" Height="24" Margin="0,398,1169,0" Width="202" HorizontalAlignment="Right" Background="{x:Null}" Foreground="#FFE6C809" IsEnabled="false">
@@ -125,5 +125,9 @@
         </TextBox>
         <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Margin="205,819,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" 
                    Foreground="WhiteSmoke" Width="152" Text="Observations:"/>
+        
+        <!--Finished-->
+        <CheckBox x:Name="CheckBoxIsFinished" Content="Is Finished" HorizontalAlignment="Left" Margin="850,381,0,0" VerticalAlignment="Top" Height="48" Width="114" FontSize="18" Foreground="White" IsEnabled="false"/>
+        <TextBlock VerticalAlignment="Top" Text="Session:" TextWrapping="Wrap" Margin="846,352,0,0" HorizontalAlignment="Left" FontFamily="Segoe UI Symbol" FontSize="22" FontWeight="Bold" Foreground="White"/>
     </Grid>
 </UserControl>

@@ -15,7 +15,7 @@ namespace ControlWatch.Services
 {
     public class TvShowService : ITvShowService
     {
-        public IEnumerable<TvShowsViewModel> GetTvShows(int skp, int tk, string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
+        public IEnumerable<TvShowsViewModel> GetTvShows(int skp, int tk, string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished)
         {
             Console.WriteLine("TvShowService.GetTvShows: ENTER");
             List<TvShowsViewModel> output = new List<TvShowsViewModel>();
@@ -35,6 +35,7 @@ namespace ControlWatch.Services
                                      t.TvShowYear,
                                      t.IsFavorite,
                                      t.TvShowRating,
+                                     t.IsFinished,
                                      c.CoverPath
                                  })
                                  .Skip(skp)
@@ -56,6 +57,10 @@ namespace ControlWatch.Services
                     if (searchRating.HasValue)
                     {
                         query = query.Where(t => t.TvShowRating == searchRating.Value);
+                    }
+                    if (searchFinished)
+                    {
+                        query = query.Where(t => t.IsFinished);
                     }
 
                     if (query.Any())
@@ -101,6 +106,7 @@ namespace ControlWatch.Services
                                      t.NrViews,
                                      t.IsFavorite,
                                      t.TvShowRating,
+                                     t.IsFinished,
                                      t.Observations,
                                      t.CreateDate,
                                      c.CoverName,
@@ -119,6 +125,7 @@ namespace ControlWatch.Services
                             NrViews = t.NrViews,
                             IsFavorite = t.IsFavorite,
                             TvShowRating = t.TvShowRating,
+                            IsFinished = t.IsFinished,
                             Observations = t.Observations,
                             CreateDate = t.CreateDate,
                             CoverName = t.CoverName,
@@ -189,6 +196,7 @@ namespace ControlWatch.Services
                         TvShowEpisodes = tvShowEpisodes,
                         IsFavorite = isFavorite,
                         TvShowRating = ratingValue,
+                        IsFinished = false,
                         Observations = observations,
                         CreateDate = DateTime.UtcNow,
                         Deleted = false,
@@ -315,7 +323,7 @@ namespace ControlWatch.Services
             return output;
         }
 
-        public OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, string observations)
+        public OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, bool isFinished, string observations)
         {
             Console.WriteLine("TvShowService.EditTvShow: ENTER");
             if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < 1980 || tvShowViews < 1)
@@ -348,6 +356,7 @@ namespace ControlWatch.Services
                         tvShow.NrViews = tvShowViews;
                         tvShow.IsFavorite = isFavorite;
                         tvShow.TvShowRating = ratingValue;
+                        tvShow.IsFinished = isFinished;
                         tvShow.Observations = observations;
                         db.SaveChanges();
 
@@ -378,7 +387,7 @@ namespace ControlWatch.Services
             }
         }
 
-        public int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating)
+        public int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished)
         {
             Console.WriteLine("TvShowService.GetTvShowsCount: ENTER");
 
@@ -393,7 +402,8 @@ namespace ControlWatch.Services
                                      t.TvShowTitle,
                                      t.TvShowYear,
                                      t.IsFavorite,
-                                     t.TvShowRating
+                                     t.TvShowRating,
+                                     t.IsFinished
                                  });
 
                     //Apply filters
@@ -412,6 +422,10 @@ namespace ControlWatch.Services
                     if (searchRating.HasValue)
                     {
                         query = query.Where(t => t.TvShowRating == searchRating.Value);
+                    }
+                    if (searchFinished)
+                    {
+                        query = query.Where(t => t.IsFinished);
                     }
 
                     Console.WriteLine("TvShowService.GetTvShowsCount: EXIT");

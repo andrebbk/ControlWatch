@@ -34,6 +34,7 @@ namespace ControlWatch.Windows.TvShows
         private string searchTitle = null;
         private int? searchYear = null;
         private bool searchFavorite = false;
+        private bool searchFinished = false;
         private int? searchRating = null;
 
         //Pagination
@@ -57,11 +58,11 @@ namespace ControlWatch.Windows.TvShows
             {
                 UtilsOperations.StartLoadingAnimation();
 
-                var tvShowsList = tvShowService.GetTvShows(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);
+                var tvShowsList = tvShowService.GetTvShows(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
 
                 if (tvShowsList != null && tvShowsList.Any())
                 {
-                    int? nTvShow = tvShowService.GetTvShowsCount(searchTitle, searchYear, searchFavorite, searchRating);
+                    int? nTvShow = tvShowService.GetTvShowsCount(searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
                     LoadPaginationForPage(nTvShow.HasValue ? nTvShow.Value : tvShowsList.Count());
 
                     ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ItemsSource = null));
@@ -129,11 +130,11 @@ namespace ControlWatch.Windows.TvShows
             {
                 UtilsOperations.StartLoadingAnimation();
 
-                var tvShowsList = tvShowService.GetTvShows(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);
+                var tvShowsList = tvShowService.GetTvShows(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
 
                 if (tvShowsList != null)
                 {
-                    int? nTvShows = tvShowService.GetTvShowsCount(searchTitle, searchYear, searchFavorite, searchRating);
+                    int? nTvShows = tvShowService.GetTvShowsCount(searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
                     LoadPaginationForPage(nTvShows.HasValue ? nTvShows.Value : tvShowsList.Count());
 
                     ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ItemsSource = null));
@@ -168,6 +169,7 @@ namespace ControlWatch.Windows.TvShows
             searchYear = null;
             searchFavorite = CheckBoxIsFavorite.IsChecked.Value;
             searchRating = null;
+            searchFinished = CheckBoxIsFinished.IsChecked.Value;
 
             if (ComboBoxYears.SelectedValue != null)
             {
@@ -187,7 +189,7 @@ namespace ControlWatch.Windows.TvShows
                 }
             }
 
-            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null)
+            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null || searchFinished)
             {
                 ReloadTvShowsList();
             }
@@ -266,11 +268,13 @@ namespace ControlWatch.Windows.TvShows
             ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
             CheckBoxIsFavorite.IsChecked = false;
             ComboBoxRatings.SelectedItem = ComboBoxRatings.Items.GetItemAt(0);
+            CheckBoxIsFinished.IsChecked = false;
 
             searchTitle = null;
             searchYear = null;
             searchFavorite = false;
             searchRating = null;
+            searchFinished = false;
 
             ReloadTvShowsList();
         }

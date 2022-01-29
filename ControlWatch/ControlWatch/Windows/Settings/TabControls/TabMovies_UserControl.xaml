@@ -56,6 +56,6 @@
             </StackPanel>
         </Button>
         <Label Name="LabelTotals" Content="" HorizontalAlignment="Left" Margin="260,768,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <!--End Pagination Controls-->
+        <!--End Pagination Controls-->        
     </Grid>
 </UserControl>

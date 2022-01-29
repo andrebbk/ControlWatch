@@ -10,7 +10,7 @@ namespace ControlWatch.Commons.Services
 {
     public interface ITvShowService
     {
-        IEnumerable<TvShowsViewModel> GetTvShows(int skp, int tk, string searchTitle, int? searchYear, bool searchFavorite, int? searchRating);
+        IEnumerable<TvShowsViewModel> GetTvShows(int skp, int tk, string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished);
 
         TvShowInfoViewModel GetTvShowById(int tvShowId);
 
@@ -24,8 +24,8 @@ namespace ControlWatch.Commons.Services
 
         string GetTvShowTitleById(int tvShowId);
 
-        OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, string observations);
+        OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, bool isFinished, string observations);
 
-        int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating);
+        int? GetTvShowsCount(string searchTitle, int? searchYear, bool searchFavorite, int? searchRating, bool searchFinished);
     }
 }

@@ -112,6 +112,10 @@ namespace ControlWatch.Windows.TvShows
                     double ratingValue = (double)tvShowInfo.TvShowRating / (double)10;
                     RatingTvShow.Dispatcher.BeginInvoke((Action)(() => RatingTvShow.Value = ratingValue));
 
+                    //IsFinished
+                    if (tvShowInfo.IsFinished)
+                        CheckBoxIsFinished.Dispatcher.BeginInvoke((Action)(() => CheckBoxIsFinished.IsChecked = tvShowInfo.IsFinished));
+
                     //Observations
                     TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.Text = tvShowInfo.Observations));
                 }
@@ -182,6 +186,8 @@ namespace ControlWatch.Windows.TvShows
 
             UpDownSeasons.Dispatcher.BeginInvoke((Action)(() => UpDownSeasons.IsEnabled = false));
             UpDownEpisodes.Dispatcher.BeginInvoke((Action)(() => UpDownEpisodes.IsEnabled = false));
+
+            CheckBoxIsFinished.Dispatcher.BeginInvoke((Action)(() => CheckBoxIsFinished.IsEnabled = false));
 
             TextBox_Observations.Dispatcher.BeginInvoke((Action)(() => TextBox_Observations.IsReadOnly = true));
         }
@@ -264,6 +270,7 @@ namespace ControlWatch.Windows.TvShows
                     LoadedTvShowCoverPath,
                     ratingValue,
                     NewTvShowViews,
+                    CheckBoxIsFinished.IsChecked.Value,
                     TextBox_Observations.Text.Trim());
 
                 if (editTvShowResult == OutputTypeValues.Ok)
@@ -302,6 +309,8 @@ namespace ControlWatch.Windows.TvShows
                 UpDownSeasons.IsEnabled = true;
                 UpDownEpisodes.IsEnabled = true;
 
+                CheckBoxIsFinished.IsEnabled = true;
+
                 TextBox_Observations.IsReadOnly = false;
             }
             else
@@ -322,6 +331,8 @@ namespace ControlWatch.Windows.TvShows
 
                 UpDownSeasons.IsEnabled = false;
                 UpDownEpisodes.IsEnabled = false;
+
+                CheckBoxIsFinished.IsEnabled = false;
 
                 TextBox_Observations.IsReadOnly = true;
             }
