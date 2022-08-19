@@ -19,7 +19,7 @@ namespace ControlWatch.Services
         {
             Console.WriteLine("MovieService.GetMovies: ENTER");
             List<MoviesViewModel> output = new List<MoviesViewModel>();
-
+            int allowedYear = Utils.GetAllowerYear();
             try
             {
                 using (var db = new NorthwindContext())
@@ -38,7 +38,7 @@ namespace ControlWatch.Services
                                      c.CoverPath
                                  })
                                  .Where(m => 
-                                    (!searchYear.HasValue || (searchYear.HasValue && ((searchYear.Value > 1979 && m.MovieYear == searchYear.Value) || searchYear.Value <= 1979))) &&
+                                    (!searchYear.HasValue || (searchYear.HasValue && ((searchYear.Value >= allowedYear && m.MovieYear == searchYear.Value) || searchYear.Value < allowedYear))) &&
                                     (String.IsNullOrEmpty(searchTitle) || (!String.IsNullOrEmpty(searchTitle) && m.MovieTitle.ToLower().Contains(searchTitle.ToLower().Trim()))) &&
                                     (!searchFavorite || (searchFavorite && m.IsFavorite)) &&
                                     (!searchRating.HasValue || (searchRating.HasValue && m.MovieRating == searchRating.Value))
@@ -177,7 +177,7 @@ namespace ControlWatch.Services
         public bool MovieAlreadyExists(string movieTitle, int movieYear, int? movieId = null)
         {
             Console.WriteLine("MovieService.MovieAlreadyExists: ENTER");
-            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980)
+            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < Utils.GetAllowerYear())
                 return true;
 
             try
@@ -202,7 +202,7 @@ namespace ControlWatch.Services
         public OutputTypeValues CreateMovie(string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, string observations)
         {
             Console.WriteLine("MovieService.CreateMovie: ENTER");
-            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || String.IsNullOrWhiteSpace(movieCover))
+            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < Utils.GetAllowerYear() || String.IsNullOrWhiteSpace(movieCover))
                 return OutputTypeValues.DataError;
 
             if(MovieAlreadyExists(movieTitle, movieYear))
@@ -352,7 +352,7 @@ namespace ControlWatch.Services
         public OutputTypeValues EditMovie(int movieId, string movieTitle, int movieYear, bool isFavorite, string movieCover, int ratingValue, int movieViews, string observations)
         {
             Console.WriteLine("MovieService.EditMovie: ENTER");
-            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < 1980 || movieViews < 1)
+            if (String.IsNullOrWhiteSpace(movieTitle) || movieYear < Utils.GetAllowerYear() || movieViews < 1)
                 return OutputTypeValues.DataError;
 
             if (MovieAlreadyExists(movieTitle, movieYear, movieId))
@@ -433,7 +433,7 @@ namespace ControlWatch.Services
                     {
                         query = query.Where(m => m.MovieTitle.ToLower().Contains(searchTitle.ToLower().Trim()));
                     }
-                    if (searchYear.HasValue && searchYear.Value > 1979)
+                    if (searchYear.HasValue && searchYear.Value >= Utils.GetAllowerYear())
                     {
                         query = query.Where(m => m.MovieYear == searchYear.Value);
                     }

@@ -51,7 +51,7 @@ namespace ControlWatch.Windows.TvShows
 
                 List<string> yearsList = new List<string>();
 
-                for (int y = currentYear; y > 1979; y--)
+                for (int y = currentYear; y > Utils.GetAllowerYear(); y--)
                     yearsList.Add(y.ToString());
 
                 if (yearsList != null && yearsList.Any())
@@ -114,7 +114,7 @@ namespace ControlWatch.Windows.TvShows
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow year is invalid!");
                 isValid = false;
             }
-            else if (NewTvShowYear < 1980)
+            else if (NewTvShowYear < Utils.GetAllowerYear())
             {
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "TvShow year is invalid!");
                 isValid = false;

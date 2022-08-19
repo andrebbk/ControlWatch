@@ -98,7 +98,7 @@ namespace ControlWatch.Windows.Movies
             yearsList.Add("");
 
             var currentYear = DateTime.Now.Year;
-            for (int y = currentYear; y > 1979; y--)
+            for (int y = currentYear; y > Utils.GetAllowerYear(); y--)
                 yearsList.Add(y.ToString());
 
             if (yearsList != null && yearsList.Any())

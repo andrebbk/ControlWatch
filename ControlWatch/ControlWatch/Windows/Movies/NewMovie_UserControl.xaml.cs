@@ -42,7 +42,7 @@ namespace ControlWatch.Windows.Movies
 
                 List<string> yearsList = new List<string>();
 
-                for (int y = currentYear; y > 1979; y--)
+                for (int y = currentYear; y > Utils.GetAllowerYear(); y--)
                     yearsList.Add(y.ToString());
 
                 if(yearsList != null && yearsList.Any())
@@ -128,7 +128,7 @@ namespace ControlWatch.Windows.Movies
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
                 isValid = false;
             }
-            else if(NewMovieYear < 1980)
+            else if(NewMovieYear < Utils.GetAllowerYear())
             {
                 NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Movie year is invalid!");
                 isValid = false;

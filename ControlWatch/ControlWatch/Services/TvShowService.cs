@@ -19,6 +19,7 @@ namespace ControlWatch.Services
         {
             Console.WriteLine("TvShowService.GetTvShows: ENTER");
             List<TvShowsViewModel> output = new List<TvShowsViewModel>();
+            int allowedYear = Utils.GetAllowerYear();
 
             try
             {
@@ -39,7 +40,7 @@ namespace ControlWatch.Services
                                      c.CoverPath
                                  })
                                  .Where(t =>
-                                    (!searchYear.HasValue || (searchYear.HasValue && ((searchYear.Value > 1979 && t.TvShowYear == searchYear.Value) || searchYear.Value <= 1979))) &&
+                                    (!searchYear.HasValue || (searchYear.HasValue && ((searchYear.Value >= allowedYear && t.TvShowYear == searchYear.Value) || searchYear.Value < allowedYear))) &&
                                     (String.IsNullOrEmpty(searchTitle) || (!String.IsNullOrEmpty(searchTitle) && t.TvShowTitle.ToLower().Contains(searchTitle.ToLower().Trim()))) &&
                                     (!searchFavorite || (searchFavorite && t.IsFavorite)) &&
                                     (!searchRating.HasValue || (searchRating.HasValue && t.TvShowRating == searchRating.Value)) &&
@@ -191,7 +192,7 @@ namespace ControlWatch.Services
         public bool TvShowAlreadyExists(string tvShowTitle, int tvShowYear, int? tvShowId = null)
         {
             Console.WriteLine("TvShowService.TvShowAlreadyExists: ENTER");
-            if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < 1980)
+            if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < Utils.GetAllowerYear())
                 return true;
 
             try
@@ -216,7 +217,7 @@ namespace ControlWatch.Services
         public OutputTypeValues CreateTvShow(string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, string observations)
         {
             Console.WriteLine("TvShowService.CreateTvShow: ENTER");
-            if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < 1980 || String.IsNullOrWhiteSpace(tvShowCover))
+            if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < Utils.GetAllowerYear() || String.IsNullOrWhiteSpace(tvShowCover))
                 return OutputTypeValues.DataError;
 
             if (TvShowAlreadyExists(tvShowTitle, tvShowYear))
@@ -370,7 +371,7 @@ namespace ControlWatch.Services
         public OutputTypeValues EditTvShow(int tvShowId, string tvShowTitle, int tvShowYear, int tvShowSeasons, int tvShowEpisodes, bool isFavorite, string tvShowCover, int ratingValue, int tvShowViews, bool isFinished, string observations)
         {
             Console.WriteLine("TvShowService.EditTvShow: ENTER");
-            if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < 1980 || tvShowViews < 1)
+            if (String.IsNullOrWhiteSpace(tvShowTitle) || tvShowYear < Utils.GetAllowerYear() || tvShowViews < 1)
                 return OutputTypeValues.DataError;
 
             if (TvShowAlreadyExists(tvShowTitle, tvShowYear, tvShowId))
@@ -455,7 +456,7 @@ namespace ControlWatch.Services
                     {
                         query = query.Where(t => t.TvShowTitle.ToLower().Contains(searchTitle.ToLower().Trim()));
                     }
-                    if (searchYear.HasValue && searchYear.Value > 1979)
+                    if (searchYear.HasValue && searchYear.Value >= Utils.GetAllowerYear())
                     {
                         query = query.Where(t => t.TvShowYear == searchYear.Value);
                     }

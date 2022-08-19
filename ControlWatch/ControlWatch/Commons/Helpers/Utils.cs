@@ -140,5 +140,11 @@ namespace ControlWatch.Commons.Helpers
                 return Regex.Replace(Convert.ToBase64String(bytes), @"\W+", "");
             }
         }
+
+        //Set max allowed year
+        public static int GetAllowerYear()
+        {
+            return 1900;
+        }
     }
 }
