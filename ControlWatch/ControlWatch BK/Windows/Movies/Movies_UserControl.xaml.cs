@@ -21,80 +21,79 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ControlWatch.Windows.TvShows
+namespace ControlWatch.Windows.Movies
 {
     /// <summary>
-    /// Interaction logic for TvShows_UserControl.xaml
+    /// Interaction logic for Movies_UserControl.xaml
     /// </summary>
-    public partial class TvShows_UserControl : UserControl
+    public partial class Movies_UserControl : UserControl
     {
         private MainWindow _mainWindow;
-        private TvShowService tvShowService;
+        private MovieService moviesService;
 
         private string searchTitle = null;
         private int? searchYear = null;
         private bool searchFavorite = false;
-        private bool searchFinished = false;
         private int? searchRating = null;
 
         //Pagination
         private int pagNumber = 1;
         private int pagLastNumber = 1;
-        private int IPP = 126;
+        private int IPP = 200;
 
-        public TvShows_UserControl(MainWindow mainWindow)
+        public Movies_UserControl(MainWindow mainWindow)
         {
             InitializeComponent();
-            _mainWindow = mainWindow;
+            this._mainWindow = mainWindow;
 
-            this.tvShowService = new TvShowService();
+            this.moviesService = new MovieService();
 
-            LoadTvShowList();
+            LoadMovieList();
         }
 
-        private void LoadTvShowList()
+        private void LoadMovieList()
         {
             new Thread(() =>
             {
                 UtilsOperations.StartLoadingAnimation();
 
-                var tvShowsList = tvShowService.GetTvShows(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
+                var moviesList = moviesService.GetMovies(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);              
 
-                if (tvShowsList != null && tvShowsList.Any())
+                if (moviesList != null && moviesList.Any())
                 {
-                    int? nTvShow = tvShowService.GetTvShowsCount(searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
-                    LoadPaginationForPage(nTvShow.HasValue ? nTvShow.Value : tvShowsList.Count());
+                    int? nMovies = moviesService.GetMoviesCount(searchTitle, searchYear, searchFavorite, searchRating);
+                    LoadPaginationForPage(nMovies.HasValue ? nMovies.Value : moviesList.Count());
 
-                    ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ItemsSource = null));
-                    ObservableCollection<TvShowsViewModel> tvShowsToShow = new ObservableCollection<TvShowsViewModel>();
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
+                    ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();
 
-                    foreach (var item in tvShowsList)
+                    foreach (var item in moviesList)
                     {
                         //load imagem
-                        if (!String.IsNullOrEmpty(item.TvShowCoverPath))
-                            item.TvShowCover = Utils.LoadImageToBitmapStreamImage(item.TvShowCoverPath);
+                        if(!String.IsNullOrEmpty(item.MovieCoverPath))
+                            item.MovieCover = Utils.LoadImageToBitmapStreamImage(item.MovieCoverPath);
 
-                        tvShowsToShow.Add(item);
-                    }
+                        moviesToShow.Add(item);
+                    }                    
 
                     //BINDING
-                    ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ItemsSource = tvShowsToShow));
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = moviesToShow));
 
                     //RESTART SCROLLBAR
-                    ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ScrollIntoView(ListViewTvShows.Items[0])));
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));                    
                 }
 
                 //load filter
-                LoadTvShowsFilter();
+                LoadMoviesFilter();
 
                 UtilsOperations.StopLoadingAnimation();
 
             }).Start();
         }
 
-        private void LoadTvShowsFilter()
-        {
-            //TvShow year filter
+        private void LoadMoviesFilter()
+        {            
+            //Movie year filter
             List<string> yearsList = new List<string>();
             yearsList.Add("");
 
@@ -109,7 +108,7 @@ namespace ControlWatch.Windows.TvShows
                 ComboBoxYears.Dispatcher.BeginInvoke((Action)(() => ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0)));
             }
 
-            //TvShow rating filter
+            //Movie rating filter
             List<string> ratingList = new List<string>();
             ratingList.Add("");
 
@@ -124,37 +123,37 @@ namespace ControlWatch.Windows.TvShows
             }
         }
 
-        private void ReloadTvShowsList()
+        private void ReloadMoviesList()
         {
             new Thread(() =>
             {
                 UtilsOperations.StartLoadingAnimation();
 
-                var tvShowsList = tvShowService.GetTvShows(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
+                var moviesList = moviesService.GetMovies(((pagNumber - 1) * IPP), IPP, searchTitle, searchYear, searchFavorite, searchRating);
 
-                if (tvShowsList != null)
+                if (moviesList != null)
                 {
-                    int? nTvShows = tvShowService.GetTvShowsCount(searchTitle, searchYear, searchFavorite, searchRating, searchFinished);
-                    LoadPaginationForPage(nTvShows.HasValue ? nTvShows.Value : tvShowsList.Count());
+                    int? nMovies = moviesService.GetMoviesCount(searchTitle, searchYear, searchFavorite, searchRating);
+                    LoadPaginationForPage(nMovies.HasValue ? nMovies.Value : moviesList.Count());
 
-                    ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ItemsSource = null));
-                    ObservableCollection<TvShowsViewModel> tvShowsToShow = new ObservableCollection<TvShowsViewModel>();
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = null));
+                    ObservableCollection<MoviesViewModel> moviesToShow = new ObservableCollection<MoviesViewModel>();
 
-                    foreach (var item in tvShowsList)
+                    foreach (var item in moviesList)
                     {
                         //load imagem
-                        if (!String.IsNullOrEmpty(item.TvShowCoverPath))
-                            item.TvShowCover = Utils.LoadImageToBitmapStreamImage(item.TvShowCoverPath);
+                        if (!String.IsNullOrEmpty(item.MovieCoverPath))
+                            item.MovieCover = Utils.LoadImageToBitmapStreamImage(item.MovieCoverPath);
 
-                        tvShowsToShow.Add(item);
+                        moviesToShow.Add(item);
                     }
 
                     //BINDING
-                    ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ItemsSource = tvShowsToShow));
+                    ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ItemsSource = moviesToShow));
 
                     //RESTART SCROLLBAR
-                    if (tvShowsToShow.Any())
-                        ListViewTvShows.Dispatcher.BeginInvoke((Action)(() => ListViewTvShows.ScrollIntoView(ListViewTvShows.Items[0])));
+                    if(moviesToShow.Any())
+                        ListViewMovies.Dispatcher.BeginInvoke((Action)(() => ListViewMovies.ScrollIntoView(ListViewMovies.Items[0])));
                 }
 
                 UtilsOperations.StopLoadingAnimation();
@@ -162,14 +161,13 @@ namespace ControlWatch.Windows.TvShows
             }).Start();
         }
 
-        private void SearchTvShowsList()
+        private void SearchMoviesList()
         {
             //Load filters
             searchTitle = TextBoxSearchTerm.Text;
             searchYear = null;
             searchFavorite = CheckBoxIsFavorite.IsChecked.Value;
             searchRating = null;
-            searchFinished = CheckBoxIsFinished.IsChecked.Value;
 
             if (ComboBoxYears.SelectedValue != null)
             {
@@ -189,76 +187,75 @@ namespace ControlWatch.Windows.TvShows
                 }
             }
 
-            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null || searchFinished)
+            if (!String.IsNullOrEmpty(searchTitle) || searchYear != null || searchFavorite || searchRating != null)
             {
-                ReloadTvShowsList();
+                ReloadMoviesList();
             }
         }
 
-
-        //Button's Action
-        private void ListViewTvShows_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //Event Actions
+        private void ListViewMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ListViewTvShows.SelectedItem != null)
+            if (ListViewMovies.SelectedItem != null)
             {
-                _mainWindow.SetMainContent(MenuOptionsTypeValues.TvShowInfo, null, ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId);
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId, null);
             }
         }
 
-        private void OpenTvShow_Click(object sender, RoutedEventArgs e)
+        private void OpenMovie_Click(object sender, RoutedEventArgs e)
         {
-            if (ListViewTvShows.SelectedItem != null)
+            if (ListViewMovies.SelectedItem != null)
             {
-                _mainWindow.SetMainContent(MenuOptionsTypeValues.TvShowInfo, null, ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId);
+                _mainWindow.SetMainContent(MenuOptionsTypeValues.MovieInfo, ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId, null);
             }
         }
 
         private void AddView_Click(object sender, RoutedEventArgs e)
         {
-            if (ListViewTvShows.SelectedItem != null)
+            if (ListViewMovies.SelectedItem != null)
             {
-                int tvShowId = ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId;
-                string tvShowTitle = tvShowService.GetTvShowTitleById(tvShowId);
+                int movieId = ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId;
+                string movieTitle = moviesService.GetMovieTitleById(movieId);
 
-                ConfirmWindow _popupConfirm = new ConfirmWindow("Are you sure you want to add a view to " + (!String.IsNullOrEmpty(tvShowTitle) ? tvShowTitle : "this tv show") + "?");
+                ConfirmWindow _popupConfirm = new ConfirmWindow("Are you sure you want to add a view to " + (!String.IsNullOrEmpty(movieTitle) ? movieTitle : "this movie") + "?");
 
                 if (_popupConfirm.ShowDialog() == true)
                 {
-                    if (tvShowService.AddTvShowViewById(tvShowId) == OutputTypeValues.Ok)
+                    if (moviesService.AddMovieViewById(movieId) == OutputTypeValues.Ok)
                     {
-                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully added tv show view with id " + tvShowId.ToString() + "!");
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully added movie view with id " + movieId.ToString() + "!");
                     }
                     else
-                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying adding tv show view with id " + tvShowId.ToString() + "!");
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying adding movie view with id " + movieId.ToString() + "!");
                 }
 
             }
         }
 
-        private void DeleteTvShow_Click(object sender, RoutedEventArgs e)
+        private void DeleteMovie_Click(object sender, RoutedEventArgs e)
         {
-            if (ListViewTvShows.SelectedItem != null)
+            if (ListViewMovies.SelectedItem != null)
             {
-                int tvShowId = ((TvShowsViewModel)ListViewTvShows.SelectedItem).TvShowId;
-                ConfirmWindow _popupConfirm = new ConfirmWindow("Are you sure you want to delete this tv show?");
+                int movieId = ((MoviesViewModel)ListViewMovies.SelectedItem).MovieId;
+                ConfirmWindow _popupConfirm = new ConfirmWindow("Are you sure you want to delete this movie?");
 
                 if (_popupConfirm.ShowDialog() == true)
                 {
-                    if (tvShowService.DeleteTvShowById(tvShowId) == OutputTypeValues.Ok)
+                    if (moviesService.DeleteMovieById(movieId) == OutputTypeValues.Ok)
                     {
-                        ReloadTvShowsList();
-                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully deleted tv show with id " + tvShowId.ToString() + "!");
+                        ReloadMoviesList();
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Successfully deleted movie with id " + movieId.ToString() + "!");
                     }
                     else
-                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying delete tv show with id " + tvShowId.ToString() + "!");
+                        NotificationHelper.notifier.ShowCustomMessage("Control Watch", "Error occurred trying delete movie with id " + movieId.ToString() + "!");
                 }
 
             }
-        }
+        }        
 
-        private void ButtonSearchTvShows_Click(object sender, RoutedEventArgs e)
+        private void ButtonSearchMovies_Click(object sender, RoutedEventArgs e)
         {
-            SearchTvShowsList();
+            SearchMoviesList();
         }
 
         private void ButtonClearSearch_Click(object sender, RoutedEventArgs e)
@@ -268,16 +265,13 @@ namespace ControlWatch.Windows.TvShows
             ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
             CheckBoxIsFavorite.IsChecked = false;
             ComboBoxRatings.SelectedItem = ComboBoxRatings.Items.GetItemAt(0);
-            CheckBoxIsFinished.IsChecked = false;
 
             searchTitle = null;
             searchYear = null;
             searchFavorite = false;
             searchRating = null;
-            searchFinished = false;
-            pagNumber = 1;
 
-            ReloadTvShowsList();
+            ReloadMoviesList();
         }
 
         private void ButtonClearSearchYears_Click(object sender, RoutedEventArgs e)
@@ -294,7 +288,7 @@ namespace ControlWatch.Windows.TvShows
 
         private void ComboBoxYears_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ComboBoxYears.SelectedValue != null)
+            if(ComboBoxYears.SelectedValue != null)
             {
                 if (ComboBoxYears.Items.IndexOf(ComboBoxYears.SelectedValue.ToString()) != 0)
                 {
@@ -306,7 +300,7 @@ namespace ControlWatch.Windows.TvShows
                     ComboBoxYears.SelectedItem = ComboBoxYears.Items.GetItemAt(0);
                     ButtonClearSearchYears.Visibility = Visibility.Hidden;
                 }
-            }
+            }            
         }
 
         private void ComboBoxRatings_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -336,20 +330,20 @@ namespace ControlWatch.Windows.TvShows
                     ButtonClearSearchRatings.Visibility = Visibility.Hidden;
                 }
             }
-        }
+        }     
 
         private void TextBoxSearchTerm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                SearchTvShowsList();
+                SearchMoviesList();
             }
-        }        
+        }
 
 
         //Pagination
         private void LoadPaginationForPage(int totalItems)
-        {
+        {       
             //Total de páginas
             pagLastNumber = totalItems / IPP;
             if (totalItems % IPP != 0)
@@ -363,7 +357,7 @@ namespace ControlWatch.Windows.TvShows
             if ((pagNumber - 1) >= 1)
             {
                 pagNumber -= 1;
-                ReloadTvShowsList();
+                ReloadMoviesList();
             }
         }
 
@@ -372,7 +366,7 @@ namespace ControlWatch.Windows.TvShows
             if (pagNumber != 1)
             {
                 pagNumber = 1;
-                ReloadTvShowsList();
+                ReloadMoviesList();
             }
         }
 
@@ -381,7 +375,7 @@ namespace ControlWatch.Windows.TvShows
             if (pagNumber != pagLastNumber)
             {
                 pagNumber = pagLastNumber;
-                ReloadTvShowsList();
+                ReloadMoviesList();
             }
         }
 
@@ -390,7 +384,7 @@ namespace ControlWatch.Windows.TvShows
             if ((pagNumber + 1) <= pagLastNumber)
             {
                 pagNumber += 1;
-                ReloadTvShowsList();
+                ReloadMoviesList();
             }
         }
     }

@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="ControlWatch.Windows.TvShows.TvShows_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlWatch.Windows.TvShows"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Height="1049" Width="1871">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ComboBoxItem}" x:Key="ItemStyle">
+            <Setter Property="Background" Value="#FF494949" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!---FILTERS GRID-->
+        <materialDesign:Card Padding="32" Margin="92,56,223,910">
+            <materialDesign:Card.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" Opacity="0.5"/>
+            </materialDesign:Card.Background>
+
+            <Grid Margin="-30,-29,-31,-32">
+                <!--TvShow Title-->
+                <TextBlock VerticalAlignment="Top" Text="TITLE" TextWrapping="Wrap" Margin="30,28,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="82"/>
+                <TextBox Name="TextBoxSearchTerm" HorizontalAlignment="Left" Height="33" Margin="117,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" FontSize="18" KeyDown="TextBoxSearchTerm_KeyDown"/>
+
+                <!--TvShow Year-->
+                <TextBlock VerticalAlignment="Top" Text="YEAR" TextWrapping="Wrap" Margin="523,29,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="77"/>
+                <ComboBox Name="ComboBoxYears" Margin="605,21,828,27" HorizontalContentAlignment="Center"  Foreground="#FF373638" FontSize="20" RenderTransformOrigin="0.5,0.5" SelectionChanged="ComboBoxYears_SelectionChanged"/>
+                <Button Name="ButtonClearSearchYears" Style="{DynamicResource MaterialDesignRaisedButton}" TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="714,20,0,0" VerticalAlignment="Top" Width="11" Height="10" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearchYears_Click" RenderTransformOrigin="2.154,1.958" Visibility="Hidden">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/ControlWatch;component/Resources/Buttons/closeSmall.png" Stretch="UniformToFill" TileMode="Tile"/>
+                    </Button.Background>
+                </Button>
+
+                <!--TvShow Favorite-->
+                <TextBlock VerticalAlignment="Top" Text="FAVORITES" TextWrapping="Wrap" Margin="776,5,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="140"/>
+                <CheckBox x:Name="CheckBoxIsFavorite" Content="" HorizontalAlignment="Left" Margin="924,5,0,0" VerticalAlignment="Top" Height="27" Width="32" FontSize="18" Foreground="White"/>
+
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonSearchTvShows" Content="Search"  TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="1261,20,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonSearchTvShows_Click"/>
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonClearSearch" Content="Clear"  TextElement.FontSize="20px" Padding="42, 0, 0, 5" Margin="1396,20,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearch_Click"/>
+
+                <TextBlock VerticalAlignment="Top" Text="RATING" TextWrapping="Wrap" Margin="988,28,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="94"/>
+                <ComboBox x:Name="ComboBoxRatings" Margin="1094,22,407,26" HorizontalContentAlignment="Center"  Foreground="#FF373638" FontSize="20" RenderTransformOrigin="0.5,0.5" SelectionChanged="ComboBoxRatings_SelectionChanged"/>
+
+                <Button x:Name="ButtonClearSearchRatings" Style="{DynamicResource MaterialDesignRaisedButton}" TextElement.FontSize="20px" Padding="35, 0, 0, 5" Margin="1135,22,0,0" VerticalAlignment="Top" Width="11" Height="10" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonClearSearchRatings_Click" RenderTransformOrigin="2.154,1.958" Visibility="Hidden">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/ControlWatch;component/Resources/Buttons/closeSmall.png" Stretch="UniformToFill" TileMode="Tile"/>
+                    </Button.Background>
+                </Button>
+
+                <!--Finished-->
+                <TextBlock VerticalAlignment="Top" Text="FINISHED" TextWrapping="Wrap" Margin="776,43,0,0" HorizontalAlignment="Left" FontFamily="Arial Black" FontSize="22" Foreground="#FF373638" FontWeight="Bold" TextDecorations="{x:Null}" Width="140"/>
+                <CheckBox x:Name="CheckBoxIsFinished" Content="" HorizontalAlignment="Left" Margin="924,43,0,0" VerticalAlignment="Top" Height="27" Width="32" FontSize="18" Foreground="White"/>
+            </Grid>
+
+        </materialDesign:Card>
+
+
+        <!--LIST VIEW TVSHOWS-->
+        <ListView x:Name="ListViewTvShows" HorizontalAlignment="Left" Height="825" Margin="11,153,0,0" VerticalAlignment="Top" Width="1851" 
+                  Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                  MouseDoubleClick="ListViewTvShows_MouseDoubleClick" SelectionMode="Extended" SelectedIndex="0">
+            <!--context  Menu-->
+            <ListView.ContextMenu>
+                <ContextMenu Name="ZoneIformationList"  Background="#FF373638" TextElement.Foreground="White">
+                    <MenuItem Header="TvShow Info" Name="OpenTvShow" Click="OpenTvShow_Click"/>
+                    <MenuItem Header="Add Visualization" Name="AddView" Click="AddView_Click"/>
+                    <MenuItem Header="Delete" Name="DeleteTvShow" Click="DeleteTvShow_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <!--View-->
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Margin="30" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Margin="15, 0, 15, 0">
+                        <Image Width="230" Height="260" Stretch="Uniform" Source="{Binding TvShowCover}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--Pagination Controls-->
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_Left" TextElement.FontSize="22px" Padding="10, 5, 5, 5" Margin="92,983,0,0" VerticalAlignment="Top" Width="35" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_Left_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="23" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/flecha_deerecha_L.png" Margin="1,14,0,13"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_First" TextElement.FontSize="22px" Padding="0, 5, 5, 5" Margin="130,983,0,0" VerticalAlignment="Top" Width="34" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_First_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="19" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/pngfuel_L.png" Margin="8,16,0,14"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_Last" TextElement.FontSize="22px" Padding="0, 5, 5, 5" Margin="173,983,0,0" VerticalAlignment="Top" Width="34" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_Last_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="19" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/pngfuel_R.png" Margin="11 ,16,0,14"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="Button_Pag_Right" TextElement.FontSize="22px" Padding="10, 5, 5, 5" Margin="212,983,0,0" VerticalAlignment="Top" Width="35" Height="35" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="Button_Pag_Right_Click">
+            <StackPanel Orientation="Horizontal" Width="32" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image  Width="23" Stretch="Fill" RenderTransformOrigin="2.75,0.65"   Source="/ControlWatch;component/Resources/Arrows/flecha_deerecha_R.png" Margin="2,14,0,13"/>
+            </StackPanel>
+        </Button>
+
+        <TextBlock x:Name="TextBlock_PaginationText" HorizontalAlignment="Left" Foreground="#DD171717" Margin="258,1002,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127"/>
+        <!--End Pagination Controls-->
+    </Grid>
+</UserControl>

@@ -38,15 +38,30 @@ namespace ControlWatch.Services
                                      t.IsFinished,
                                      c.CoverPath
                                  })
-                                 .Where(t =>
-                                    (!searchYear.HasValue || (searchYear.HasValue && ((searchYear.Value > 1979 && t.TvShowYear == searchYear.Value) || searchYear.Value <= 1979))) &&
-                                    (String.IsNullOrEmpty(searchTitle) || (!String.IsNullOrEmpty(searchTitle) && t.TvShowTitle.ToLower().Contains(searchTitle.ToLower().Trim()))) &&
-                                    (!searchFavorite || (searchFavorite && t.IsFavorite)) &&
-                                    (!searchRating.HasValue || (searchRating.HasValue && t.TvShowRating == searchRating.Value)) &&
-                                    (!searchFinished || (searchFinished && t.IsFinished))
-                                 )
                                  .Skip(skp)
                                  .Take(tk);
+
+                    //Apply filters
+                    if (!String.IsNullOrEmpty(searchTitle))
+                    {
+                        query = query.Where(t => t.TvShowTitle.ToLower().Contains(searchTitle.ToLower().Trim()));
+                    }
+                    if (searchYear.HasValue && searchYear.Value > 1979)
+                    {
+                        query = query.Where(t => t.TvShowYear == searchYear.Value);
+                    }
+                    if (searchFavorite)
+                    {
+                        query = query.Where(t => t.IsFavorite);
+                    }
+                    if (searchRating.HasValue)
+                    {
+                        query = query.Where(t => t.TvShowRating == searchRating.Value);
+                    }
+                    if (searchFinished)
+                    {
+                        query = query.Where(t => t.IsFinished);
+                    }
 
                     if (query.Any())
                     {

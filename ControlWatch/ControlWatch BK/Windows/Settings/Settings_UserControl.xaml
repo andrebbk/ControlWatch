@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="ControlWatch.Windows.Settings.Settings_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:ControlWatch.Windows.Settings"
+             mc:Ignorable="d" 
+             Height="1049" Width="1871">
+    <Grid>
+        <TextBlock TextElement.FontSize="55px" TextElement.FontWeight="Bold" Margin="142,42,1433,931" Foreground="#DDFFFBFB" Text="Settings"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="4" Margin="112,116,0,0" VerticalAlignment="Top" Width="1631" Background="#FFF5F0F0" RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+        </Border>
+
+        <!--Main Container-->
+        <Controls:TransitioningContentControl x:Name="SettingsContainer" Height="802" Transition="Right" Width="1718" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="74,237,79,10"/>
+
+        <!--Buttons-->
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTabMainSettings" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="864,164,0,0" VerticalAlignment="Top" Width="160" Height="58" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTabMainSettings_Click">
+            <StackPanel Orientation="Horizontal" Width="140" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Main Settings" VerticalAlignment="Center" Margin="26,0,0,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+            </StackPanel>
+        </Button>
+        
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTabMovies" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1042,164,0,0" VerticalAlignment="Top" Width="160" Height="58" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTabMovies_Click">
+            <StackPanel Orientation="Horizontal" Width="140" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Movies" VerticalAlignment="Center" Margin="45,0,0,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTabMoviesCovers" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1221,164,0,0" VerticalAlignment="Top" Width="160" Height="58" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTabMoviesCovers_Click">
+            <StackPanel Orientation="Horizontal" Width="140" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Movies Covers" VerticalAlignment="Center" Margin="25,0,0,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTabTvShows" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1400,164,0,0" VerticalAlignment="Top" Width="160" Height="58" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTabTvShows_Click">
+            <StackPanel Orientation="Horizontal" Width="140" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="TvShows" VerticalAlignment="Center" Margin="40,0,0,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+            </StackPanel>
+        </Button>
+
+        <Button Style="{DynamicResource MaterialDesignRaisedButton}" x:Name="ButtonTabTvShowsCovers" TextElement.FontSize="22px" Padding="10, 0, 0, 0" Margin="1578,164,0,0" VerticalAlignment="Top" Width="160" Height="58" Background="#FF373638" BorderBrush="{x:Null}" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Click="ButtonTabTvShowsCovers_Click">
+            <StackPanel Orientation="Horizontal" Width="140" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="TvShows Covers" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" FontSize="14" FontStyle="Italic" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

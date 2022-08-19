@@ -37,14 +37,26 @@ namespace ControlWatch.Services
                                      m.MovieRating,
                                      c.CoverPath
                                  })
-                                 .Where(m => 
-                                    (!searchYear.HasValue || (searchYear.HasValue && ((searchYear.Value > 1979 && m.MovieYear == searchYear.Value) || searchYear.Value <= 1979))) &&
-                                    (String.IsNullOrEmpty(searchTitle) || (!String.IsNullOrEmpty(searchTitle) && m.MovieTitle.ToLower().Contains(searchTitle.ToLower().Trim()))) &&
-                                    (!searchFavorite || (searchFavorite && m.IsFavorite)) &&
-                                    (!searchRating.HasValue || (searchRating.HasValue && m.MovieRating == searchRating.Value))
-                                 )
                                  .Skip(skp)
                                  .Take(tk);
+
+                    //Apply filters
+                    if (!String.IsNullOrEmpty(searchTitle))
+                    {
+                        query = query.Where(m => m.MovieTitle.ToLower().Contains(searchTitle.ToLower().Trim()));
+                    }
+                    if (searchYear.HasValue && searchYear.Value > 1979)
+                    {
+                        query = query.Where(m => m.MovieYear == searchYear.Value);
+                    }
+                    if (searchFavorite)
+                    {
+                        query = query.Where(m => m.IsFavorite);
+                    }
+                    if (searchRating.HasValue)
+                    {
+                        query = query.Where(m => m.MovieRating == searchRating.Value);
+                    }
 
                     if (query.Any())
                     {

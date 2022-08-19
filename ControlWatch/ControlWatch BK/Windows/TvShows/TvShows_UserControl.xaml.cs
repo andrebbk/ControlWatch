@@ -40,7 +40,7 @@ namespace ControlWatch.Windows.TvShows
         //Pagination
         private int pagNumber = 1;
         private int pagLastNumber = 1;
-        private int IPP = 126;
+        private int IPP = 200;
 
         public TvShows_UserControl(MainWindow mainWindow)
         {
@@ -275,7 +275,6 @@ namespace ControlWatch.Windows.TvShows
             searchFavorite = false;
             searchRating = null;
             searchFinished = false;
-            pagNumber = 1;
 
             ReloadTvShowsList();
         }

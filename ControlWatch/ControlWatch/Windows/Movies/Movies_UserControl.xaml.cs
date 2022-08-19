@@ -39,7 +39,7 @@ namespace ControlWatch.Windows.Movies
         //Pagination
         private int pagNumber = 1;
         private int pagLastNumber = 1;
-        private int IPP = 200;
+        private int IPP = 126;
 
         public Movies_UserControl(MainWindow mainWindow)
         {
@@ -270,6 +270,7 @@ namespace ControlWatch.Windows.Movies
             searchYear = null;
             searchFavorite = false;
             searchRating = null;
+            pagNumber = 1;
 
             ReloadMoviesList();
         }

@@ -43,7 +43,9 @@ namespace ControlWatch.Commons.Helpers
         public static void StopLoadingAnimation()
         {
             new Thread(() =>
-            {      
+            {
+                Thread.Sleep(1000);                
+
                 loadingWindow.Dispatcher.BeginInvoke(
                     (Action)(() => {
                         if(loadingWindow != null)
